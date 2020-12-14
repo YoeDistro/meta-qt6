@@ -1,19 +1,37 @@
-From 2a86d7934907f8abc9f9d90885673532ba7a2d79 Mon Sep 17 00:00:00 2001
+From 9b55827e3adfed1129958819b93c86ede44b4949 Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Fri, 28 Aug 2020 14:49:11 +0300
 Subject: [PATCH] CMake: allow tools build without opengl
 
 Change-Id: I76d750b5bd29103133578152241c11bc35b14552
 ---
+ CMakeLists.txt                 | 6 ------
  tools/balsam/CMakeLists.txt    | 1 -
  tools/meshdebug/CMakeLists.txt | 1 -
- 2 files changed, 2 deletions(-)
+ 3 files changed, 8 deletions(-)
 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f4574c6d..14fbe043 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -33,12 +33,6 @@ if(NOT TARGET Qt::Quick)
+     return()
+ endif()
+ 
+-# special case begin
+-if(NOT TARGET Qt::OpenGL)
+-    message(NOTICE "Skipping the build as the condition \"TARGET Qt::OpenGL\" is not met.")
+-    return()
+-endif()
+-
+ find_package(Qt6 ${PROJECT_VERSION} CONFIG REQUIRED COMPONENTS ShaderTools)
+ # special case end
+ 
 diff --git a/tools/balsam/CMakeLists.txt b/tools/balsam/CMakeLists.txt
-index 55a090de..7b09f0b4 100644
+index 99002525..b308311d 100644
 --- a/tools/balsam/CMakeLists.txt
 +++ b/tools/balsam/CMakeLists.txt
-@@ -10,7 +10,6 @@ qt_add_tool(balsam
+@@ -11,7 +11,6 @@ qt_internal_add_tool(${target_name}
          main.cpp
      PUBLIC_LIBRARIES
          Qt::Qml # special case
@@ -22,10 +40,10 @@ index 55a090de..7b09f0b4 100644
          Qt::Quick3DAssetImportPrivate
  )
 diff --git a/tools/meshdebug/CMakeLists.txt b/tools/meshdebug/CMakeLists.txt
-index 18872bd7..e712b4d2 100644
+index 812155ef..b497e9a4 100644
 --- a/tools/meshdebug/CMakeLists.txt
 +++ b/tools/meshdebug/CMakeLists.txt
-@@ -10,7 +10,6 @@ qt_add_tool(meshdebug
+@@ -11,7 +11,6 @@ qt_internal_add_tool(${target_name}
          main.cpp
      PUBLIC_LIBRARIES
          Qt::Qml # special case
