@@ -102,15 +102,15 @@ instructions:
     directory: "{{.BuildDir}}"
   - type: ChangeDirectory
     directory: "{{.BuildDir}}"
-  - type: ExecuteCommand
-    command: ["sudo", "mkdir", "-p", "/mnt/yocto-cache"]
-    userMessageOnFailure: "Could not create '/mnt/yocto-cache' directory"
-  - type: ExecuteCommand
-    command: ["sudo", "mount", "yocto-cache.intra.qt.io:/srv/yocto-cache", "/mnt/yocto-cache"]
-    userMessageOnFailure: "Could not mount yocto cache."
   - type: WriteFile
     fileContents: |
       #!/bin/bash -xe
+
+      # make hostname unique for NFS
+      sudo hostname $(hostname -s)-$(date +%s%N)
+
+      sudo mkdir -p /mnt/yocto-cache
+      sudo mount yocto-cache.intra.qt.io:/srv/yocto-cache /mnt/yocto-cache
 
       git clone git://git.yoctoproject.org/poky --reference /mnt/yocto-cache/mirror/poky.git
       (cd poky; git checkout ${YOCTO_BRANCH})
@@ -142,7 +142,7 @@ instructions:
     filename: "{{.BuildDir}}/start-build"
     fileMode: 420
   - type: ExecuteCommand
-    command: ["bash", "{{.BuildDir}}/start-build"]
+    command: ["bash", "-xe", "{{.BuildDir}}/start-build"]
     maxTimeInSeconds: 28800
     maxTimeBetweenOutput: 28800
     userMessageOnFailure: "Build failed."
