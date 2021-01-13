@@ -49,6 +49,7 @@ PACKAGECONFIG_DISTRO ?= ""
 PACKAGECONFIG_DEFAULT ?= "accessibility dbus udev gui widgets icu openssl  \
     jpeg png dbus libinput fontconfig harfbuzz \
     ${@bb.utils.contains('SELECTED_OPTIMIZATION', '-Os', 'optimize-size ltcg', '', d)} \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
 "
 # Build type: Debug, Release, MinSizeRel, RelWithDebInfo
 BUILD_TYPE ?= "Release"
