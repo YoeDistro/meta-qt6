@@ -1,4 +1,4 @@
-From 93f04fa9b0895a2e965992c1438c5110fdf269ec Mon Sep 17 00:00:00 2001
+From 9fa27feda95c0cf6a459c916337ab65e8cb220b4 Mon Sep 17 00:00:00 2001
 From: Martin Jansa <Martin.Jansa@gmail.com>
 Date: Mon, 15 Apr 2013 04:29:32 +0200
 Subject: [PATCH] Add linux-oe-g++ platform
@@ -15,16 +15,16 @@ Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
  mkspecs/features/qt.prf              |  6 ++---
  mkspecs/features/qt_functions.prf    |  2 +-
- mkspecs/linux-oe-g++/qmake.conf      | 37 ++++++++++++++++++++++++++++
+ mkspecs/linux-oe-g++/qmake.conf      | 38 ++++++++++++++++++++++++++++
  mkspecs/linux-oe-g++/qplatformdefs.h |  1 +
  mkspecs/oe-device-extra.pri          |  0
- 5 files changed, 42 insertions(+), 4 deletions(-)
+ 5 files changed, 43 insertions(+), 4 deletions(-)
  create mode 100644 mkspecs/linux-oe-g++/qmake.conf
  create mode 100644 mkspecs/linux-oe-g++/qplatformdefs.h
  create mode 100644 mkspecs/oe-device-extra.pri
 
 diff --git a/mkspecs/features/qt.prf b/mkspecs/features/qt.prf
-index 532a241fc0..1d1d7d35e3 100644
+index 55a51293ac..7b7a8758eb 100644
 --- a/mkspecs/features/qt.prf
 +++ b/mkspecs/features/qt.prf
 @@ -150,7 +150,7 @@ import_plugins:qtConfig(static) {
@@ -36,7 +36,7 @@ index 532a241fc0..1d1d7d35e3 100644
              LIBS += $$plug_path/$$plug_type/$$plug_name
          } else {
              LIBS += -l$${plug}$$qtPlatformTargetSuffix()
-@@ -279,8 +279,8 @@ for(ever) {
+@@ -283,8 +283,8 @@ for(ever) {
  # static builds: link qml import plugins into the target.
  contains(all_qt_module_deps, qml): \
          qtConfig(static):import_plugins:!host_build:!no_import_scan {
@@ -62,10 +62,10 @@ index 7777e615bd..8d792fa70a 100644
              cmd = perl -w $$system_path($${cmd}.pl)
 diff --git a/mkspecs/linux-oe-g++/qmake.conf b/mkspecs/linux-oe-g++/qmake.conf
 new file mode 100644
-index 0000000000..8f41c1fa0a
+index 0000000000..c2b7b20fdc
 --- /dev/null
 +++ b/mkspecs/linux-oe-g++/qmake.conf
-@@ -0,0 +1,37 @@
+@@ -0,0 +1,38 @@
 +#
 +# qmake configuration for linux-g++ with modifications for building with OpenEmbedded
 +#
@@ -76,9 +76,10 @@ index 0000000000..8f41c1fa0a
 +
 +include(../common/linux.conf)
 +
-+# QMAKE_<TOOL> (moc, uic, rcc) are gone, overwrite only ar and strip
 +QMAKE_AR              = $$(OE_QMAKE_AR) cqs
 +QMAKE_STRIP           = $$(OE_QMAKE_STRIP)
++QMAKE_OBJCOPY         = $$(OE_QMAKE_OBJCOPY)
++QMAKE_NM              = $${OE_QMAKE_NM} -P
 +
 +include(../common/gcc-base-unix.conf)
 +

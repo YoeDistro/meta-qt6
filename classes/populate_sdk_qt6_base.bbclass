@@ -45,16 +45,20 @@ create_qt6_sdk_files () {
     echo 'export OE_QMAKE_LINK="$CXX"' >> $script
     echo 'export OE_QMAKE_AR="$AR"' >> $script
     echo 'export OE_QMAKE_STRIP="$STRIP"' >> $script
+    echo 'export OE_QMAKE_OBJCOPY="$OBJCOPY"' >> $script
+    echo 'export OE_QMAKE_NM="$NM"' >> $script
 
     mkspec=${SDK_OUTPUT}${SDKTARGETSYSROOT}${QT6_INSTALL_MKSPECSDIR}/linux-oe-g++/qmake.conf
     echo "count(QMAKE_AR, 1): QMAKE_AR = ${AR} cqs" >> $mkspec
+    echo "isEmpty(QMAKE_STRIP): QMAKE_STRIP = ${STRIP}" >> $mkspec
+    echo "isEmpty(QMAKE_OBJCOPY): QMAKE_OBJCOPY = ${OBJCOPY}" >> $mkspec
+    echo "count(QMAKE_NM, 1): QMAKE_NM = ${NM} -P" >> $mkspec
     echo "isEmpty(QMAKE_CC): QMAKE_CC = ${CC}" >> $mkspec
     echo "isEmpty(QMAKE_CFLAGS): QMAKE_CFLAGS =  ${CFLAGS}" >> $mkspec
     echo "isEmpty(QMAKE_CXX): QMAKE_CXX = ${CXX}" >> $mkspec
     echo "isEmpty(QMAKE_CXXFLAGS): QMAKE_CXXFLAGS =  ${CXXFLAGS}" >> $mkspec
     echo "isEmpty(QMAKE_LINK): QMAKE_LINK = ${CXX}" >> $mkspec
     echo "isEmpty(QMAKE_LFLAGS): QMAKE_LFLAGS = ${LDFLAGS}" >> $mkspec
-    echo "isEmpty(QMAKE_STRIP): QMAKE_STRIP = ${STRIP}" >> $mkspec
     sed -i $mkspec \
         -e 's:${RECIPE_SYSROOT}:$$[QT_SYSROOT]:' \
         -e 's:${TARGET_PREFIX}:$$[QT_HOST_BINS]/${TARGET_SYS}/${TARGET_PREFIX}:'
