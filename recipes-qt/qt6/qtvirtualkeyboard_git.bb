@@ -120,4 +120,4 @@ FILES_${PN} += "${QT6_INSTALL_DATADIR}/qtvirtualkeyboard/lipi_toolkit"
 
 DEPENDS += "qtbase qtdeclarative qtsvg qtdeclarative-native"
 
-SRCREV = "7f0be1ead67451adb80949d70d6c2e9d6448fa2c"
+SRCREV = "452573d5ad8f0154c38905a998e594da9b31f889"
