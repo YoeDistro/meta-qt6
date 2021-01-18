@@ -72,7 +72,7 @@ export OE_QMAKE_LDFLAGS = "${LDFLAGS}"
 export OE_QMAKE_AR = "${AR}"
 export OE_QMAKE_STRIP = "echo"
 export OE_QMAKE_OBJCOPY = "${OBJCOPY}"
-export OE_QMAKE_NM = "${NM}"
+export OE_QMAKE_AR_LTCG = "${HOST_PREFIX}gcc-ar"
 
 # qmake reads if from shell environment
 export OE_QMAKE_QTCONF_PATH = "${WORKDIR}/qt.conf"

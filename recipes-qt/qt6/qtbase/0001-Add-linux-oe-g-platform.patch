@@ -1,4 +1,4 @@
-From 9fa27feda95c0cf6a459c916337ab65e8cb220b4 Mon Sep 17 00:00:00 2001
+From ddf6b576c9d5024b8b1a7ceaf9a4b1c26afa3b19 Mon Sep 17 00:00:00 2001
 From: Martin Jansa <Martin.Jansa@gmail.com>
 Date: Mon, 15 Apr 2013 04:29:32 +0200
 Subject: [PATCH] Add linux-oe-g++ platform
@@ -62,7 +62,7 @@ index 7777e615bd..8d792fa70a 100644
              cmd = perl -w $$system_path($${cmd}.pl)
 diff --git a/mkspecs/linux-oe-g++/qmake.conf b/mkspecs/linux-oe-g++/qmake.conf
 new file mode 100644
-index 0000000000..c2b7b20fdc
+index 0000000000..99ff3741d3
 --- /dev/null
 +++ b/mkspecs/linux-oe-g++/qmake.conf
 @@ -0,0 +1,38 @@
@@ -79,7 +79,6 @@ index 0000000000..c2b7b20fdc
 +QMAKE_AR              = $$(OE_QMAKE_AR) cqs
 +QMAKE_STRIP           = $$(OE_QMAKE_STRIP)
 +QMAKE_OBJCOPY         = $$(OE_QMAKE_OBJCOPY)
-+QMAKE_NM              = $${OE_QMAKE_NM} -P
 +
 +include(../common/gcc-base-unix.conf)
 +
@@ -98,7 +97,8 @@ index 0000000000..c2b7b20fdc
 +QMAKE_LINK_SHLIB   = $$(OE_QMAKE_LINK)
 +QMAKE_LINK_C       = $$(OE_QMAKE_LINK)
 +QMAKE_LINK_C_SHLIB = $$(OE_QMAKE_LINK)
-+QMAKE_CFLAGS_ISYSTEM =
++
++QMAKE_AR_LTCG      = $$(OE_QMAKE_AR_LTCG) cqs
 +
 +include(../oe-device-extra.pri)
 +
