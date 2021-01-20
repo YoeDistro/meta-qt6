@@ -18,4 +18,4 @@ FILES_${PN}-tools += "${QT6_INSTALL_DATADIR}/phrasebooks"
 
 BBCLASSEXTEND =+ "native nativesdk"
 
-SRCREV = "207a398d31f1d0414e258f13b1774681bc67f06c"
+SRCREV = "621561eaaa262157936ee9253eb7000f0e19c0eb"
