@@ -14,7 +14,7 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
 SRC_URI += " \
-    git://github.com/assimp/assimp.git;name=assimp;branch=assimp_5.0_release;protocol=https;destsuffix=git/src/3rdparty/assimp/src \
+    ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=assimp;branch=upstream/assimp_5.0_release;protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
 "
 
 DEPENDS = "qtbase qtdeclarative qtshadertools qtshadertools-native"
