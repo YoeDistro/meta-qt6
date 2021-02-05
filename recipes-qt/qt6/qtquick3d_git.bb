@@ -25,5 +25,5 @@ FILES_${PN}-qmlplugins += " \
 "
 
 SRCREV_FORMAT = "qtquick3d_assimp"
-SRCREV_qtquick3d = "a3dfb3ce0f683f9df51af952e4bb063dc8742f71"
+SRCREV_qtquick3d = "6c78a19dfd5f17cc315b3aaefd3fb9478e12263d"
 SRCREV_assimp = "d71020db155e9b2d4dba5562c980c016cde77f4c"
