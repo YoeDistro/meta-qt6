@@ -14,7 +14,7 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
 SRC_URI += " \
-    ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=assimp;branch=upstream/assimp_5.0_release;protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
+    ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=assimp;branch=qt6_assimp;protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
 "
 
 DEPENDS = "qtbase qtdeclarative qtshadertools qtshadertools-native"
@@ -25,5 +25,5 @@ PACKAGECONFIG[system-assimp] = "-DFEATURE_system_assimp=ON,-DQT_FEATURE_system_a
 PACKAGECONFIG[qtgamepad] = ",,qtgamepad"
 
 SRCREV_FORMAT = "qt3d_assimp"
-SRCREV_qt3d = "cf7127a7897b072af16a78139afc6059e9e7c9a5"
-SRCREV_assimp = "8f0c6b04b2257a520aaab38421b2e090204b69df"
+SRCREV_qt3d = "9eab5800f53c50fe332967d811fce4bf8b97e933"
+SRCREV_assimp = "d71020db155e9b2d4dba5562c980c016cde77f4c"

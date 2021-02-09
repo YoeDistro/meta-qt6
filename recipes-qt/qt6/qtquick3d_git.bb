@@ -9,7 +9,7 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
 SRC_URI += " \
-    ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=assimp;branch=upstream/master;protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
+    ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=assimp;branch=qt6.1_assimp;protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
     file://0001-CMake-allow-tools-build-without-opengl.patch \
 "
 
@@ -25,5 +25,5 @@ FILES_${PN}-qmlplugins += " \
 "
 
 SRCREV_FORMAT = "qtquick3d_assimp"
-SRCREV_qtquick3d = "2e9f76543951ca2039f66573697aaf94a8023fd6"
+SRCREV_qtquick3d = "363640c657fbd2559c1995b3d1c08fe65e59f61e"
 SRCREV_assimp = "b3e1ee3ca0d825d384044867fc30cd0bc8417be6"

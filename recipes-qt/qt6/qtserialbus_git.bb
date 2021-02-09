@@ -6,13 +6,15 @@ LIC_FILES_CHKSUM = " \
     file://LICENSE.LGPLv3;md5=e0459b45c5c4840b353141a8bbed91f0 \
 "
 
-inherit qt6-qmake
+inherit qt6-cmake
 
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
+
+QT_MODULE_BRANCH = "dev"
 
 DEPENDS += "qtbase qtserialport qtserialbus-native"
 
 BBCLASSEXTEND =+ "native nativesdk"
 
-SRCREV = "867b4d428f78fffe7fefeffaa2f819c9f345da26"
+SRCREV = "227060f8c17aaf90fe542ad6079a6badaf410a0d"

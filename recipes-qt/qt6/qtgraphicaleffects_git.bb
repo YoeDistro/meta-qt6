@@ -10,6 +10,8 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
+QT_MODULE_BRANCH = "dev"
+
 DEPENDS += "qtbase qtdeclarative"
 
 SRCREV = "2910bb5d11da4261a88bd57c7251d86c51bb57d3"
