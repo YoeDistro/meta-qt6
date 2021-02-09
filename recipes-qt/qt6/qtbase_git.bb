@@ -22,6 +22,7 @@ DEPENDS += "\
     freetype \
     pcre2 \
 "
+DEPENDS_remove_class-native = "qtbase-native"
 
 PACKAGECONFIG_class-native ?= "gui widgets png dbus no-opengl"
 PACKAGECONFIG_class-nativesdk ?= "gui widgets png dbus no-opengl"
