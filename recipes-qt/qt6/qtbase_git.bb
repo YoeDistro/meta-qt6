@@ -124,14 +124,18 @@ EXTRA_OECMAKE_append_class-target = "\
     -DQT_AVOID_CMAKE_ARCHIVING_API=ON \
 "
 
-# mkspecs have mac specific scripts that depend on perl and bash
-SKIP_FILEDEPS_${PN}-dev = "1"
-
 SYSROOT_DIRS += "${QT6_INSTALL_MKSPECSDIR}"
 
 do_install_append() {
     sed -i ${D}${libdir}/cmake/Qt6BuildInternals/QtBuildInternalsExtra.cmake \
         -e '/QT_SOURCE_TREE/,+2d'
+
+    # remove mac and android specific scripts that depend on perl and bash
+    # to avoid file-rdeps QA Issue.
+    rm -f ${D}${QT6_INSTALL_LIBEXECDIR}/android_emulator_launcher.sh
+    rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/uikit/devices.py
+    rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/uikit/device_destinations.sh
+    rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/data/mac/objc_namespace.sh
 }
 
 do_install_append_class-nativesdk() {
