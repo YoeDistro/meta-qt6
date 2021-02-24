@@ -12,4 +12,4 @@ DEPENDS += "qtbase"
 
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtdeclarative"
 
-SRCREV = "b29fa915b16fd3602bdf89cf52a2aa7c336ac19d"
+SRCREV = "7bebac26a6793b0e5eb35066aeb60f60c8e3b2fe"
