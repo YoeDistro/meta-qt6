@@ -1,4 +1,4 @@
-From 4ac03bc85f99154dfcb4eda5c6b983e7d4dca6cd Mon Sep 17 00:00:00 2001
+From 78ebc71bf5768d816a27dd8344debf50d2bc9e2d Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Fri, 28 Aug 2020 14:49:11 +0300
 Subject: [PATCH] CMake: allow tools build without opengl
@@ -27,7 +27,7 @@ index f4574c6d..ccae7f0a 100644
  # special case end
  
 diff --git a/tools/balsam/CMakeLists.txt b/tools/balsam/CMakeLists.txt
-index 99002525..b308311d 100644
+index e387eb92..47c513fb 100644
 --- a/tools/balsam/CMakeLists.txt
 +++ b/tools/balsam/CMakeLists.txt
 @@ -11,7 +11,6 @@ qt_internal_add_tool(${target_name}
@@ -37,7 +37,7 @@ index 99002525..b308311d 100644
 -        Qt::OpenGL # special case
          Qt::Gui
          Qt::Quick3DAssetImportPrivate
- )
+         Qt::Quick3DIblBakerPrivate
 diff --git a/tools/meshdebug/CMakeLists.txt b/tools/meshdebug/CMakeLists.txt
 index 812155ef..b497e9a4 100644
 --- a/tools/meshdebug/CMakeLists.txt
