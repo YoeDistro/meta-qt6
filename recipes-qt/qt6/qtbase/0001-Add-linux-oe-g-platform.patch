@@ -1,4 +1,4 @@
-From caa84d6daf7d1d1400d96b4c342927056dfe06a0 Mon Sep 17 00:00:00 2001
+From 8922a1847147a2902077be7237d67eb79917fd9c Mon Sep 17 00:00:00 2001
 From: Martin Jansa <Martin.Jansa@gmail.com>
 Date: Mon, 15 Apr 2013 04:29:32 +0200
 Subject: [PATCH] Add linux-oe-g++ platform
@@ -14,11 +14,11 @@ Change-Id: I0591ed5da0d61d7cf1509d420e6b293582f1863c
 Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
  mkspecs/features/qt.prf              |  6 ++---
- mkspecs/features/qt_functions.prf    |  2 +-
+ mkspecs/features/qt_functions.prf    |  4 +--
  mkspecs/linux-oe-g++/qmake.conf      | 38 ++++++++++++++++++++++++++++
  mkspecs/linux-oe-g++/qplatformdefs.h |  1 +
  mkspecs/oe-device-extra.pri          |  0
- 5 files changed, 43 insertions(+), 4 deletions(-)
+ 5 files changed, 44 insertions(+), 5 deletions(-)
  create mode 100644 mkspecs/linux-oe-g++/qmake.conf
  create mode 100644 mkspecs/linux-oe-g++/qplatformdefs.h
  create mode 100644 mkspecs/oe-device-extra.pri
@@ -48,7 +48,7 @@ index 55a51293ac..7b7a8758eb 100644
      # run qmlimportscanner
      qtPrepareTool(QMLIMPORTSCANNER, qmlimportscanner, , system)
 diff --git a/mkspecs/features/qt_functions.prf b/mkspecs/features/qt_functions.prf
-index dd780ad556..692e1fc621 100644
+index dd780ad556..0664ef789e 100644
 --- a/mkspecs/features/qt_functions.prf
 +++ b/mkspecs/features/qt_functions.prf
 @@ -91,7 +91,7 @@ defineTest(qtPrepareTool) {
@@ -60,6 +60,15 @@ index dd780ad556..692e1fc621 100644
          } else {
              instloc = $$5
          }
+@@ -136,7 +136,7 @@ defineTest(qtPrepareTool) {
+ # Forwards its arguments to qtPrepareTool but defaults the installation location to
+ # $$[QT_HOST_LIBEXECS]
+ defineTest(qtPrepareLibExecTool) {
+-    isEmpty(instloc): instloc = "$$[QT_HOST_LIBEXECS]"
++    isEmpty(instloc): instloc = "$$[QT_HOST_LIBEXECS/get]"
+     qtPrepareTool($$1, $$2, $$3, $$4, $$instloc)
+ }
+ 
 diff --git a/mkspecs/linux-oe-g++/qmake.conf b/mkspecs/linux-oe-g++/qmake.conf
 new file mode 100644
 index 0000000000..99ff3741d3
