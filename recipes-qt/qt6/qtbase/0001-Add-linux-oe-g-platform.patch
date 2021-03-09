@@ -1,4 +1,4 @@
-From ddf6b576c9d5024b8b1a7ceaf9a4b1c26afa3b19 Mon Sep 17 00:00:00 2001
+From caa84d6daf7d1d1400d96b4c342927056dfe06a0 Mon Sep 17 00:00:00 2001
 From: Martin Jansa <Martin.Jansa@gmail.com>
 Date: Mon, 15 Apr 2013 04:29:32 +0200
 Subject: [PATCH] Add linux-oe-g++ platform
@@ -48,18 +48,18 @@ index 55a51293ac..7b7a8758eb 100644
      # run qmlimportscanner
      qtPrepareTool(QMLIMPORTSCANNER, qmlimportscanner, , system)
 diff --git a/mkspecs/features/qt_functions.prf b/mkspecs/features/qt_functions.prf
-index 7777e615bd..8d792fa70a 100644
+index dd780ad556..692e1fc621 100644
 --- a/mkspecs/features/qt_functions.prf
 +++ b/mkspecs/features/qt_functions.prf
-@@ -87,7 +87,7 @@ defineTest(qtHaveModule) {
- defineTest(qtPrepareTool) {
+@@ -91,7 +91,7 @@ defineTest(qtPrepareTool) {
      cmd = $$eval(QT_TOOL.$${2}.binary)
      isEmpty(cmd) {
--        cmd = $$[QT_HOST_BINS]/$$2
-+        cmd = $$[QT_HOST_BINS/get]/$$2
-         exists($${cmd}.pl) {
-             $${1}_EXE = $${cmd}.pl
-             cmd = perl -w $$system_path($${cmd}.pl)
+         isEmpty(5) {
+-            instloc = $$[QT_HOST_BINS]
++            instloc = $$[QT_HOST_BINS/get]
+         } else {
+             instloc = $$5
+         }
 diff --git a/mkspecs/linux-oe-g++/qmake.conf b/mkspecs/linux-oe-g++/qmake.conf
 new file mode 100644
 index 0000000000..99ff3741d3
