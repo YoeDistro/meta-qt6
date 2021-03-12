@@ -29,10 +29,14 @@ create_qt6_sdk_files () {
     echo 'HostData = ${SDKTARGETSYSROOT}${QT6_INSTALL_ARCHDATADIR}' >> $qtconf
     echo 'HostBinaries = ${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}' >> $qtconf
     echo 'HostLibraries = ${SDKPATHNATIVE}${QT6_INSTALL_LIBDIR}' >> $qtconf
+    echo 'HostLibraryExecutables = ${SDKPATHNATIVE}${QT6_INSTALL_LIBEXECDIR}' >> $qtconf
     echo 'Sysroot = ${SDKTARGETSYSROOT}' >> $qtconf
     echo 'HostSpec = linux-oe-g++' >> $qtconf
     echo 'TargetSpec = linux-oe-g++' >> $qtconf
     echo 'SysrootifyPrefix = true' >> $qtconf
+
+    # make copy to libexec dir
+    cp $qtconf ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_LIBEXECDIR}/
 
     install -d ${SDK_OUTPUT}${SDKPATHNATIVE}/environment-setup.d
     script=${SDK_OUTPUT}${SDKPATHNATIVE}/environment-setup.d/qt6.sh
