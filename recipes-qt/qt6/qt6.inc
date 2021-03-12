@@ -3,6 +3,10 @@ inherit srcrev-update
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,"
 PACKAGECONFIG[tests] = "-DQT_BUILD_TESTS=ON,-DQT_BUILD_TESTS=OFF,"
 
+# For qmake projects
+EXTRA_QMAKEVARS_PRE += "${@bb.utils.contains('PACKAGECONFIG', 'examples', 'QT_BUILD_PARTS+=examples', 'QT_BUILD_PARTS-=examples', d)}"
+EXTRA_QMAKEVARS_PRE += "${@bb.utils.contains('PACKAGECONFIG', 'tests', 'QT_BUILD_PARTS+=tests', 'QT_BUILD_PARTS-=tests', d)}"
+
 # If Qt6 (qtbase) is machine specific, then everything will be,
 # because the (initial) qtbase configuration becomes part of Qt5/qmake
 python __anonymous() {
@@ -24,7 +28,7 @@ python __anonymous() {
 # Many examples come with libraries installed outside of standard libdir,
 # suppress QA check complaining
 INSANE_SKIP_${PN}-dbg += "libdir"
-INSANE_SKIP_${PN}-examples += "libdir"
+INSANE_SKIP_${PN}-examples += "libdir dev-so"
 
 SYSROOT_DIRS_append_mingw32 = " ${QT6_INSTALL_BINDIR}"
 
