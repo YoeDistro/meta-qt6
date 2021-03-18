@@ -6,9 +6,12 @@ SDK_POSTPROCESS_COMMAND_prepend = "create_qt6_sdk_files;"
 PATH_DELIM = ":"
 PATH_DELIM_sdkmingw32 = ";"
 
+QT6_INSTALL_HOST_LIBEXECDIR = "${QT6_INSTALL_LIBEXECDIR}"
+QT6_INSTALL_HOST_LIBEXECDIR_sdkmingw32 = "${QT6_INSTALL_LIBEXECDIR_mingw32}"
+
 create_qt6_sdk_files () {
     # Generate a qt.conf file to be deployed with the SDK
-    qtconf=${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}/qt.conf
+    qtconf=${WORKDIR}/qt.conf
     touch $qtconf
     echo '[Paths]' >> $qtconf
     echo 'Prefix = ${prefix}' >> $qtconf
@@ -29,14 +32,15 @@ create_qt6_sdk_files () {
     echo 'HostData = ${SDKTARGETSYSROOT}${QT6_INSTALL_ARCHDATADIR}' >> $qtconf
     echo 'HostBinaries = ${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}' >> $qtconf
     echo 'HostLibraries = ${SDKPATHNATIVE}${QT6_INSTALL_LIBDIR}' >> $qtconf
-    echo 'HostLibraryExecutables = ${SDKPATHNATIVE}${QT6_INSTALL_LIBEXECDIR}' >> $qtconf
+    echo 'HostLibraryExecutables = ${SDKPATHNATIVE}${QT6_INSTALL_HOST_LIBEXECDIR}' >> $qtconf
     echo 'Sysroot = ${SDKTARGETSYSROOT}' >> $qtconf
     echo 'HostSpec = linux-oe-g++' >> $qtconf
     echo 'TargetSpec = linux-oe-g++' >> $qtconf
     echo 'SysrootifyPrefix = true' >> $qtconf
 
-    # make copy to libexec dir
-    cp $qtconf ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_LIBEXECDIR}/
+    # add qt.conf to both bin and libexec dirs
+    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}/
+    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_HOST_LIBEXECDIR}/
 
     install -d ${SDK_OUTPUT}${SDKPATHNATIVE}/environment-setup.d
     script=${SDK_OUTPUT}${SDKPATHNATIVE}/environment-setup.d/qt6.sh
