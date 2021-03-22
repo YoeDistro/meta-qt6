@@ -20,7 +20,8 @@ Qt version.
 
 | Yocto \ Qt | dev | 6.1 | 6.0 |
 | ---------- |:---:|:---:|:---:|
-| master     |  x  |  x  |  x  |
+| master     |  x  |     |     |
+| hardknott  |  x  |  x  |  x  |
 | gatesgarth |  x  |  x  |  x  |
 | dunfell    |  x  |  x  |  x  |
 

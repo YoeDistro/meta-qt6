@@ -17,7 +17,7 @@ machine_type:
 #
 #           [target1]       [target2]   [target3]       [target4]
 # [machine] qemuarm64       qemux86     qemuarm         qemux86-64
-# [yocto]   gatesgarth      dunfell     gatesgarth      master
+# [yocto]   hardknott       dunfell     gatesgarth      hardknott
 # [X11]     no              no          yes             yes
 # [mingw]   no              yes         no              no
 #
@@ -30,7 +30,7 @@ target1: &target1
       variableValue: qemuarm64
     - type: EnvironmentVariable
       variableName: YOCTO_BRANCH
-      variableValue: gatesgarth
+      variableValue: hardknott
     - type: EnvironmentVariable
       variableName: DISABLE_X11
       variableValue: true
@@ -78,7 +78,7 @@ target4: &target4
       variableValue: qemux86-64
     - type: EnvironmentVariable
       variableName: YOCTO_BRANCH
-      variableValue: master
+      variableValue: hardknott
   enable_if:
       condition: property
       property: target.arch
