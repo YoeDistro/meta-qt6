@@ -10,12 +10,19 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qttools qttools-native"
 
+PACKAGES = "${PN}"
 PACKAGES_DYNAMIC = "${PN}-*"
+PACKAGESPLITFUNCS_prepend = "split_translation_packages "
 
-python populate_packages_prepend () {
+python split_translation_packages () {
     do_split_packages(d, d.expand('${QT6_INSTALL_TRANSLATIONSDIR}'),
                       r'^(.*?)(?:_..)+\.qm$', d.expand('${PN}-%s'),
                       'Qt translations for %s', extra_depends='')
+
+    # Add dynamic packages to the rrecommends of the main packages
+    pn = d.getVar('PN')
+    pkgs = oe.utils.packages_filter_out_system(d)
+    d.setVar('RRECOMMENDS_' + pn, ' '.join(pkgs))
 }
 
 SRCREV = "3d98c3bb0c676c411ba4221e5f018dee07195e75"
