@@ -8,6 +8,9 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-DEPENDS += "qtbase qtdeclarative"
+DEPENDS += "qtbase"
 
-SRCREV = "f7fcfab8b2f0a5c47f9b32f6b515d123fee7841e"
+PACKAGECONFIG ?= "qml"
+PACKAGECONFIG[qml] = ",,qtdeclarative"
+
+SRCREV = "41d67474cae936b6e42096016af95d6df53fb2f8"
