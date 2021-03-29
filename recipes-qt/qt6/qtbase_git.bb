@@ -152,4 +152,4 @@ FILES_${PN}-tools += "\
 
 BBCLASSEXTEND =+ "native nativesdk"
 
-SRCREV = "e94daf91e00260dec449d80e51cf676586c4cd96"
+SRCREV = "4e624996a777e9a509338ae25e8a30944fa3963e"
