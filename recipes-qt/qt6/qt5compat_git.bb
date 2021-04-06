@@ -17,4 +17,4 @@ DEPENDS += "qtbase"
 
 PACKAGECONFIG[iconv] = "-DFEATURE_iconv=ON,-DFEATURE_iconv=OFF,virtual/libiconv"
 
-SRCREV = "170b62671e306f8c46b81740090c317ba4a675ee"
+SRCREV = "b5b977ace6752fe37d9fb413d39a782ffc8c9b09"

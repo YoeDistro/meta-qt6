@@ -12,4 +12,4 @@ DEPENDS = "qtbase qtshadertools-native"
 
 BBCLASSEXTEND =+ "native nativesdk"
 
-SRCREV = "6908ed224eeadc32916ccb6efc3803a3d5fd02f1"
+SRCREV = "59fb19adf831490c87e6f7162a00873c3f248256"
