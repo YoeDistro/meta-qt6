@@ -10,6 +10,8 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
+QT_MODULE_BRANCH = "6.1"
+
 PACKAGECONFIG ?= "qtdeclarative"
 PACKAGECONFIG[qtdeclarative] = ",,qtdeclarative"
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,,qtquickcontrols2"
@@ -21,4 +23,4 @@ SECURITY_STRINGFORMAT = ""
 
 DEPENDS += "qtbase"
 
-SRCREV = "b4ad648691b8198d0d3a22688fde77160317b66f"
+SRCREV = "b3e27fc73cf5faf22a9679f03046e09037a738c9"

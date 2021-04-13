@@ -18,4 +18,4 @@ PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
 BBCLASSEXTEND =+ "native nativesdk"
 
-SRCREV = "a63c96e5329681186e32640ab3e05231c8d38a05"
+SRCREV = "c342b6cb69dc343189a419c3c48264ed23180b35"
