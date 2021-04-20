@@ -17,4 +17,6 @@ DEPENDS += "qtbase"
 
 PACKAGECONFIG[iconv] = "-DFEATURE_iconv=ON,-DFEATURE_iconv=OFF,virtual/libiconv"
 
+BBCLASSEXTEND = "native nativesdk"
+
 SRCREV = "c159acd0ce1ac30429236e04ff5b85fe0dc775b1"
