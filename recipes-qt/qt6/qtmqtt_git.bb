@@ -9,10 +9,8 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-QT_MODULE_BRANCH = "6.1"
-
 DEPENDS += "qtbase"
 
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtdeclarative qtwebsockets"
 
-SRCREV = "7efcbffc0f67d8a739f734868c808072c1c82ce1"
+SRCREV = "1eb2a440389c10ed0b7a26b8f9721b6b14870572"
