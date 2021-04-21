@@ -10,4 +10,4 @@ QT_MODULE_BRANCH = "dev"
 DEPENDS = "qtbase qtdeclarative qtdeclarative-native qtvirtualkeyboard"
 RDEPENDS_${PN} = "connman"
 
-SRCREV = "77987a087507ecccb616a1af158190ffd3082a02"
+SRCREV = "57c420b461b35b89cd9866c7ade42c1f6c51e583"
