@@ -5,7 +5,7 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6.inc
 include recipes-qt/qt6/qt6-git.inc
 
-QT_MODULE_BRANCH = "dev"
+QT_MODULE_BRANCH = "6.1"
 
 DEPENDS = "qtbase qtdeclarative qtdeclarative-native qtvirtualkeyboard"
 RDEPENDS_${PN} = "connman"
