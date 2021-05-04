@@ -25,4 +25,4 @@ python split_translation_packages () {
     d.setVar('RRECOMMENDS_' + pn, ' '.join(pkgs))
 }
 
-SRCREV = "4e6905a8abe33989dd4788202bb501fa97161538"
+SRCREV = "090d9a85ea2b3afc7da8fb4c4e6840995147d35c"

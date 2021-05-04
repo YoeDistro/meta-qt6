@@ -16,4 +16,4 @@ DEPENDS += "qtbase qtdeclarative-native"
 
 BBCLASSEXTEND =+ "native nativesdk"
 
-SRCREV = "07c37d7edb36a785029dd0845a7c5d3f3cb8d8e2"
+SRCREV = "2423608d6c0fa55595db3fe0138b0be94307596b"
