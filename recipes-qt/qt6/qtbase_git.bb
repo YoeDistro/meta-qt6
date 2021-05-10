@@ -147,7 +147,7 @@ EOF
 }
 
 FILES_${PN}-tools += "\
-    ${QT6_INSTALL_LIBEXECDIR}/syncqt.pl \
+    ${QT6_INSTALL_LIBEXECDIR} \
 "
 
 BBCLASSEXTEND =+ "native nativesdk"
