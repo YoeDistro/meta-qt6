@@ -25,5 +25,5 @@ PACKAGECONFIG[system-assimp] = "-DFEATURE_system_assimp=ON,-DQT_FEATURE_system_a
 PACKAGECONFIG[qtgamepad] = ",,qtgamepad"
 
 SRCREV_FORMAT = "qt3d_assimp"
-SRCREV_qt3d = "461fa36db6e5d281ba36bad29d00fe81417866a4"
+SRCREV_qt3d = "bfa28b54a63f482252e754f66aaa4de3e6b4385b"
 SRCREV_assimp = "1620a72e5820d7c680f6f5da10a3481ceb4e53c2"

@@ -19,4 +19,4 @@ PACKAGECONFIG[iconv] = "-DFEATURE_iconv=ON,-DFEATURE_iconv=OFF,virtual/libiconv"
 
 BBCLASSEXTEND = "native nativesdk"
 
-SRCREV = "1df1e69e3ee07ef0fe00610bf9e86bf9c0b8e49b"
+SRCREV = "c2b97dd9b8d3c040be35845937784c34b0b4713d"
