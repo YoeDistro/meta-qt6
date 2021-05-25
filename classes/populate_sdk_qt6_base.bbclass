@@ -28,7 +28,7 @@ create_qt6_sdk_files () {
     echo 'Settings = ${QT6_INSTALL_SYSCONFDIR}' >> $qtconf
     echo 'Examples = ${QT6_INSTALL_EXAMPLESDIR}' >> $qtconf
     echo 'Tests = ${QT6_INSTALL_TESTSDIR}' >> $qtconf
-    echo 'HostPrefix = ${SDKPATHNATIVE}${prefix}' >> $qtconf
+    echo 'HostPrefix = ${SDKPATHNATIVE}' >> $qtconf
     echo 'HostData = ${SDKTARGETSYSROOT}${QT6_INSTALL_ARCHDATADIR}' >> $qtconf
     echo 'HostBinaries = ${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}' >> $qtconf
     echo 'HostLibraries = ${SDKPATHNATIVE}${QT6_INSTALL_LIBDIR}' >> $qtconf
