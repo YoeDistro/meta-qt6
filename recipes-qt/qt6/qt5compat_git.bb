@@ -15,7 +15,9 @@ include recipes-qt/qt6/qt6-git.inc
 
 DEPENDS += "qtbase"
 
+PACKAGECONFIG ?= "qml"
 PACKAGECONFIG[iconv] = "-DFEATURE_iconv=ON,-DFEATURE_iconv=OFF,virtual/libiconv"
+PACKAGECONFIG[qml] = ",,qtdeclarative"
 
 BBCLASSEXTEND = "native nativesdk"
 
