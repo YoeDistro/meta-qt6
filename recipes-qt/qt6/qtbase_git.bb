@@ -148,4 +148,4 @@ EOF
 
 BBCLASSEXTEND =+ "native nativesdk"
 
-SRCREV = "0c8dcb4b1171ec1ff228f6d9d4b2861a73294e5d"
+SRCREV = "b496064efab47743fff4eb22f68e3acb3315fd9d"
