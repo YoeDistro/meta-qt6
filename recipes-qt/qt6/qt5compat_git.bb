@@ -17,7 +17,7 @@ DEPENDS += "qtbase"
 
 PACKAGECONFIG ?= "qml"
 PACKAGECONFIG[iconv] = "-DFEATURE_iconv=ON,-DFEATURE_iconv=OFF,virtual/libiconv"
-PACKAGECONFIG[qml] = ",,qtdeclarative"
+PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
 BBCLASSEXTEND = "native nativesdk"
 

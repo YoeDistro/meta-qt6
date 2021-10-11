@@ -11,5 +11,5 @@ include recipes-qt/qt6/qt6.inc
 DEPENDS += "qtbase"
 
 PACKAGECONFIG ?= "qml"
-PACKAGECONFIG[qml] = ",,qtdeclarative"
+PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 

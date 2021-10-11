@@ -20,7 +20,7 @@ SRC_URI += " \
     ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=qt3d-assimp;branch=${ASSIMP_BRANCH};protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
 "
 
-DEPENDS = "qtbase qtdeclarative qtshadertools qtshadertools-native"
+DEPENDS = "qtbase qtdeclarative qtdeclarative-native qtshadertools qtshadertools-native"
 
 PACKAGECONFIG[system-assimp] = "-DFEATURE_qt3d_system_assimp=ON,-DQT_FEATURE_qt3d_system_assimp=OFF,assimp"
 PACKAGECONFIG[qtgamepad] = ",,qtgamepad"

@@ -21,12 +21,6 @@ python __anonymous() {
             d.setVar("PACKAGE_ARCH", tarch)
 }
 
-# Automotically add qtdeclarative-native when recipe depends on qtdeclarative
-python __anonymous() {
-    if bb.utils.contains('DEPENDS', "qtdeclarative", True, False, d):
-        d.appendVar("DEPENDS", " qtdeclarative-native")
-}
-
 # Many examples come with libraries installed outside of standard libdir,
 # suppress QA check complaining
 INSANE_SKIP:${PN}-dbg += "libdir"

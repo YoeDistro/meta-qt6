@@ -20,5 +20,5 @@ PACKAGECONFIG ?= "nmea qml"
 PACKAGECONFIG[geoclue] = ",,,geoclue"
 PACKAGECONFIG[gypsy] = "-DFEATURE_gypsy=ON,-DFEATURE_gypsy=OFF,gconf gypsy"
 PACKAGECONFIG[nmea] = ",,qtserialport"
-PACKAGECONFIG[qml] = ",,qtdeclarative"
+PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 

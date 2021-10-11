@@ -11,7 +11,7 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
 PACKAGECONFIG ?= "qml"
-PACKAGECONFIG[qml] = ",,qtdeclarative"
+PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
 # src/3rdparty/open62541.pri adds -Wno-format, causing following error
 # because -Wformat-security cannot be used together with -Wno-format

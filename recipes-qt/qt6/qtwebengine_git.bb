@@ -8,7 +8,7 @@ DEPENDS += " \
     qemu-native \
     nss nss-native \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'libxcomposite libxcursor libxi libxrandr libxtst libxkbfile', '', d)} \
-    qtbase qtdeclarative \
+    qtbase qtdeclarative qtdeclarative-native \
     gn-native \
 "
 
