@@ -35,7 +35,6 @@ RDEPENDS:${PN} += " \
     qtserialbus \
     qtserialport \
     qtshadertools \
-    qtspeech \
     qtsvg \
     qttranslations \
     qtvirtualkeyboard \
