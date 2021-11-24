@@ -13,7 +13,7 @@ RDEPENDS:${PN} += " \
     nativesdk-cmake \
     nativesdk-ninja \
     nativesdk-perl-modules \
-    ${@bb.utils.contains('ENABLE_QMLCOMPILER', '1', 'nativesdk-qmlcompilerplus', '', d)} \
+    ${@bb.utils.contains('ENABLE_QMLCOMPILER', '1', 'nativesdk-qmlcompilerplus-dev nativesdk-qmlcompilerplus-tools', '', d)} \
     nativesdk-qtbase-dev \
     nativesdk-qtbase-tools \
     nativesdk-qtdeclarative-dev \
