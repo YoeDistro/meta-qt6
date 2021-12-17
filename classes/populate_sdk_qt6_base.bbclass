@@ -96,15 +96,9 @@ set(CMAKE_TOOLCHAIN_FILE "${SDKPATHNATIVE}/usr/share/cmake/OEToolchainConfig.cma
 include("\${CMAKE_TOOLCHAIN_FILE}")
 EOF
 
-    # override qt-cmake
-    cat > ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}/qt-cmake <<EOF
-#!/bin/sh
-
-cmake_path="${SDKPATHNATIVE}${bindir}/cmake"
-toolchain_path="${SDKPATHNATIVE}/usr/share/cmake/Qt6Toolchain.cmake"
-exec "\$cmake_path" -DCMAKE_TOOLCHAIN_FILE="\$toolchain_path" "\$@"
-EOF
-
+    # and use that from the default toolchain file qt.toolchain.cmake
+    sed -i ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_LIBDIR}/cmake/Qt6/qt.toolchain.cmake \
+        -e 's|/.*/toolchain.cmake|${SDKPATHNATIVE}/usr/share/cmake/Qt6Toolchain.cmake|'
 }
 
 create_qt6_sdk_files:append:sdkmingw32() {
