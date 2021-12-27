@@ -10,6 +10,7 @@ DEPENDS += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'libxcomposite libxcursor libxi libxrandr libxtst libxkbfile', '', d)} \
     qtbase qtdeclarative qtdeclarative-native \
     gn-native \
+    python3-html5lib-native \
 "
 
 EXTRA_OECMAKE += "\
@@ -25,10 +26,7 @@ SECURITY_STRINGFORMAT = ""
 
 PACKAGECONFIG ??= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'alsa pulseaudio', d)} \
-    freetype \
     glib \
-    harfbuzz \
-    icu \
     libevent \
     libjpeg \
     libpci \

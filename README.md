@@ -8,7 +8,6 @@ URI: https://git.openembedded.org/openembedded-core/
 and optionally:
 
 URI: https://git.openembedded.org/meta-openembedded/
-URI: https://git.openembedded.org/meta-python2
 
 Yocto version support
 ---------------------

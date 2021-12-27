@@ -1,8 +1,8 @@
-LICENSE = "BSD-3-Clause & ( GPL-3.0-only & The-Qt-Company-GPL-Exception-1.0 | The-Qt-Company-Commercial ) & ( LGPL-3.0-only | The-Qt-Company-Commercial )"
+LICENSE = "GFDL-1.3 & BSD-3-Clause & ( GPL-3.0 & The-Qt-Company-GPL-Exception-1.0 | The-Qt-Company-Commercial ) & ( LGPL-3.0 | The-Qt-Company-Commercial )"
 LIC_FILES_CHKSUM = " \
     file://src/3rdparty/chromium/LICENSE;md5=0fca02217a5d49a14dfe2d11837bb34d \
+    file://LICENSE.FDL;md5=f70ee9a6c44ae8917586fea34dff0ab5 \
     file://LICENSE.LGPL3;md5=e6a600fd5e1d9cbde2d983680233ad02 \
-    file://LICENSE.GPLv3;md5=88e2b9117e6be406b5ed6ee4ca99a705 \
     file://LICENSE.GPL3;md5=d32239bcb673463ab874e80d47fae504 \
     file://LICENSE.GPL3-EXCEPT;md5=763d8c535a234d9a3fb682c7ecb6c073 \
     file://LICENSE.GPL2;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
@@ -16,20 +16,14 @@ include recipes-qt/qt6/qt6.inc
 
 inherit gettext
 inherit perlnative
-
-inherit ${@bb.utils.contains("BBFILE_COLLECTIONS", "meta-python2", "pythonnative", "", d)}
-
-python() {
-    if 'meta-python2' not in d.getVar('BBFILE_COLLECTIONS').split():
-        raise bb.parse.SkipRecipe('Requires meta-python2 to be present.')
-}
+inherit python3native
 
 # we don't want gettext.bbclass to append --enable-nls
 def gettext_oeconf(d):
     return ""
 
 QT_MODULE = "qtwebengine"
-QT_MODULE_BRANCH_CHROMIUM = "90-based"
+QT_MODULE_BRANCH_CHROMIUM = "94-based"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/qtwebengine:"
 

@@ -130,7 +130,6 @@ instructions:
       bitbake-layers add-layer ../meta-openembedded/meta-python
       bitbake-layers add-layer ../meta-openembedded/meta-multimedia
       bitbake-layers add-layer ../meta-mingw
-      bitbake-layers add-layer ../meta-python2
       bitbake-layers add-layer ${SOURCE_DIR}
 
       for conf in ${TEST_CONFIGS}; do
