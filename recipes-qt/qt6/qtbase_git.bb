@@ -12,6 +12,7 @@ inherit qt6-cmake
 
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
+include recipes-qt/qt6/conan.inc
 
 SRC_URI += "\
     file://0001-Add-linux-oe-g-platform.patch \

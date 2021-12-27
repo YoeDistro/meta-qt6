@@ -129,6 +129,14 @@ EOF
     # resolve absolute paths at runtime
     sed -i -e 's|${SDKPATH}/sysroots|\${SYSROOTS}|g' \
         ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/cmake/Qt6Toolchain.cmake
+
+    # Conan profile
+    mkdir -p ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/conan
+    cat > ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/conan/profile <<EOF
+include(${SDKTARGETSYSROOT}${datadir}/conan/profile)
+[env]
+QT_CONFIGURE_MODULE=${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}/qt-configure-module
+EOF
 }
 
 # default debug prefix map isn't valid in the SDK
