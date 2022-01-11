@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSE.FDL;md5=a22d0be1ce2284b67950a4d1673dd1b0 \
 "
 
-inherit qt6-cmake
+inherit qt6-cmake pkgconfig
 
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
