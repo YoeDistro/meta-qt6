@@ -33,7 +33,8 @@ RDEPENDS:${PN} += " \
     nativesdk-qtshadertools-tools \
     nativesdk-qttools-dev \
     nativesdk-qttools-tools \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'nativesdk-qtwayland-dev nativesdk-qtwayland-tools', '', d)} \
+    nativesdk-qtwayland-dev \
+    nativesdk-qtwayland-tools \
 "
 
 RDEPENDS:${PN}:remove:mingw32 = " \
