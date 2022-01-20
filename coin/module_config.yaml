@@ -7,7 +7,7 @@ accept_configuration:
       equals_value: Yocto
     - condition: property
       property: target.arch
-      in_values: [TARGET1, TARGET2, TARGET3, TARGET4]
+      in_values: [TARGET2, TARGET3, TARGET4]
 
 machine_type:
   Build:
