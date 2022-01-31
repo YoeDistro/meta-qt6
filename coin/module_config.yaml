@@ -32,8 +32,8 @@ target1: &target1
       variableName: MANIFEST
       variableValue: master.xml
     - type: EnvironmentVariable
-      variableName: DISABLE_X11
-      variableValue: true
+      variableName: TEST_CONFIGS
+      variableValue: ci configs wayland
   enable_if:
       condition: property
       property: target.arch
@@ -48,11 +48,8 @@ target2: &target2
       variableName: MANIFEST
       variableValue: honister.xml
     - type: EnvironmentVariable
-      variableName: DISABLE_X11
-      variableValue: true
-    - type: EnvironmentVariable
-      variableName: MINGW
-      variableValue: true
+      variableName: TEST_CONFIGS
+      variableValue: ci configs wayland mingw
   enable_if:
       condition: property
       property: target.arch
@@ -66,6 +63,9 @@ target3: &target3
     - type: EnvironmentVariable
       variableName: MANIFEST
       variableValue: hardknott.xml
+    - type: EnvironmentVariable
+      variableName: TEST_CONFIGS
+      variableValue: ci configs
   enable_if:
       condition: property
       property: target.arch
@@ -79,6 +79,9 @@ target4: &target4
     - type: EnvironmentVariable
       variableName: MANIFEST
       variableValue: dunfell.xml
+    - type: EnvironmentVariable
+      variableName: TEST_CONFIGS
+      variableValue: ci configs no-webengine
   enable_if:
       condition: property
       property: target.arch
@@ -123,12 +126,6 @@ instructions:
       ./repo sync
 
       source ./poky/oe-init-build-env
-      export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE SSTATE_DIR DL_DIR"
-      export DL_DIR=/mnt/yocto-cache/downloads
-      export BB_GENERATE_MIRROR_TARBALLS=1
-      export BB_NUMBER_THREADS=8
-      DISTRO_CODENAME=$(sed -n -e "s/DISTRO_CODENAME.*\"\(.*\)\"/\1/p" ../poky/meta-*/conf/distro/poky.conf)
-      export SSTATE_DIR=/mnt/yocto-cache/sstate-caches/${DISTRO_CODENAME}-meta-qt6
       bitbake-layers add-layer ../meta-openembedded/meta-oe
       bitbake-layers add-layer ../meta-openembedded/meta-python
       bitbake-layers add-layer ../meta-openembedded/meta-multimedia
@@ -136,15 +133,9 @@ instructions:
       bitbake-layers add-layer ../meta-python2
       bitbake-layers add-layer ${SOURCE_DIR}
 
-      if [ -n "${DISABLE_X11}" ] ; then
-        echo "DISTRO_FEATURES:remove = \"x11\"" >> conf/local.conf
-      fi
-      if [ -n "${MINGW}" ]; then
-        export SDKMACHINE=x86_64-mingw32
-      fi
-
-      echo "require ${SOURCE_DIR}/coin/test-configs.inc" >> conf/local.conf
-      echo "include ${SOURCE_DIR}/coin/test-${DISTRO_CODENAME}.inc" >> conf/local.conf
+      for conf in ${TEST_CONFIGS}; do
+        echo "require ${SOURCE_DIR}/coin/test-${conf}.inc" >> conf/local.conf
+      done
 
       # build toolchain which should include all supported recipes
       bitbake meta-toolchain-qt6 nativesdk-packagegroup-qt6-toolchain-host packagegroup-qt6-modules
