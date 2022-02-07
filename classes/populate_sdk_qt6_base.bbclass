@@ -2,9 +2,8 @@ inherit qt6-paths
 
 SDK_POSTPROCESS_COMMAND:prepend = "create_qt6_sdk_files;"
 
-
-PATH_DELIM = ":"
-PATH_DELIM:sdkmingw32 = ";"
+EXE_EXT = ""
+EXE_EXT:sdkmingw32 = ".exe"
 
 QT6_INSTALL_HOST_LIBEXECDIR = "${QT6_INSTALL_LIBEXECDIR}"
 QT6_INSTALL_HOST_LIBEXECDIR:sdkmingw32 = "${QT6_INSTALL_LIBEXECDIR:mingw32}"
@@ -73,33 +72,57 @@ create_qt6_sdk_files () {
 
     # Generate a toolchain file for using Qt without running setup-environment script
     cat > ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/cmake/Qt6Toolchain.cmake <<EOF
-set(ENV{PATH} "${SDKPATHNATIVE}${bindir}${PATH_DELIM}${SDKPATHNATIVE}${bindir}/${TARGET_SYS}${PATH_DELIM}\$ENV{PATH}")
-set(ENV{CC} "${TARGET_PREFIX}gcc ${TARGET_CC_ARCH} --sysroot=${SDKTARGETSYSROOT}")
-set(ENV{CXX} "${TARGET_PREFIX}g++ ${TARGET_CC_ARCH} --sysroot=${SDKTARGETSYSROOT}")
-
-set(ENV{CFLAGS} "${TARGET_CFLAGS}")
-set(ENV{CXXFLAGS} "${TARGET_CXXFLAGS}")
-
-set(ENV{OECORE_NATIVE_SYSROOT} "${SDKPATHNATIVE}")
-set(ENV{OECORE_TARGET_SYSROOT} "${SDKTARGETSYSROOT}")
-set(ENV{SDKTARGETSYSROOT} "${SDKTARGETSYSROOT}")
+cmake_minimum_required(VERSION 3.11)
+include_guard(GLOBAL)
 
 set(ENV{PKG_CONFIG_SYSROOT_DIR} "${SDKTARGETSYSROOT}")
 set(ENV{PKG_CONFIG_PATH} "${SDKTARGETSYSROOT}${libdir}/pkgconfig")
+
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSROOT ${SDKTARGETSYSROOT})
+
+set(CMAKE_FIND_ROOT_PATH ${SDKTARGETSYSROOT})
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+
+set(CMAKE_SYSTEM_PROCESSOR ${TUNE_PKGARCH})
+
+set(CMAKE_C_COMPILER "${SDKPATHNATIVE}${bindir}/${TARGET_SYS}/${TARGET_PREFIX}gcc${EXE_EXT}")
+set(CMAKE_CXX_COMPILER "${SDKPATHNATIVE}${bindir}/${TARGET_SYS}/${TARGET_PREFIX}g++${EXE_EXT}")
+
+set(TARGET_COMPILER_FLAGS "${TARGET_CC_ARCH} --sysroot=${SDKTARGETSYSROOT}")
+set(TARGET_COMPILER_FLAGS_RELEASE "${TARGET_CFLAGS}")
+set(TARGET_LINKER_FLAGS "${TARGET_LDFLAGS}")
+
+include(CMakeInitializeConfigs)
+
+function(cmake_initialize_per_config_variable _PREFIX _DOCSTRING)
+  if (_PREFIX MATCHES "CMAKE_(C|CXX|ASM)_FLAGS")
+    set(CMAKE_\${CMAKE_MATCH_1}_FLAGS_INIT "\${TARGET_COMPILER_FLAGS}")
+
+    foreach (config DEBUG RELEASE MINSIZEREL RELWITHDEBINFO)
+      if (DEFINED TARGET_COMPILER_FLAGS_\${config})
+        set(CMAKE_\${CMAKE_MATCH_1}_FLAGS_\${config}_INIT "\${TARGET_COMPILER_FLAGS_\${config}}")
+      endif()
+    endforeach()
+  endif()
+
+  if (_PREFIX MATCHES "CMAKE_(SHARED|MODULE|EXE)_LINKER_FLAGS")
+    foreach (config SHARED MODULE EXE)
+      set(CMAKE_\${config}_LINKER_FLAGS_INIT "\${TARGET_LINKER_FLAGS}")
+    endforeach()
+  endif()
+
+  _cmake_initialize_per_config_variable(\${ARGV})
+endfunction()
 
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT 1)
 endif()
 set(CMAKE_INSTALL_PREFIX "${prefix}" CACHE PATH "Install path prefix")
-
-set(CMAKE_TOOLCHAIN_FILE "${SDKPATHNATIVE}/usr/share/cmake/OEToolchainConfig.cmake")
-include("\${CMAKE_TOOLCHAIN_FILE}")
 EOF
-
-    # and use that from the default toolchain file qt.toolchain.cmake
-    RELPATH=${@os.path.relpath('/usr/share/cmake/Qt6Toolchain.cmake', d.getVar('QT6_INSTALL_LIBDIR') + '/cmake/Qt6')}
-    sed -i ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_LIBDIR}/cmake/Qt6/qt.toolchain.cmake \
-        -e "s|/.*/toolchain.cmake|\${CMAKE_CURRENT_LIST_DIR}/$RELPATH|"
 }
 
 create_qt6_sdk_files:append:sdkmingw32() {
