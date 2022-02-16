@@ -154,11 +154,13 @@ set(QT_HOST_PATH "\$ENV{OECORE_NATIVE_SYSROOT}/usr" CACHE PATH "")
 set(QT_BUILD_TOOLS_WHEN_CROSSCOMPILING "TRUE" CACHE BOOL "")
 EOF
 
-    sed -i ${D}${QT6_INSTALL_BINDIR}/* ${D}${QT6_INSTALL_LIBDIR}/cmake/Qt6/qt.toolchain.cmake \
-        -e 's|${RECIPE_SYSROOT_NATIVE}|${SDKPATHNATIVE}|'
+    RELPATH="${@os.path.relpath(d.getVar('bindir'), d.getVar('QT6_INSTALL_BINDIR'))}"
+    sed -i ${D}${QT6_INSTALL_BINDIR}/* \
+        -e "s|${RECIPE_SYSROOT_NATIVE}.*cmake|\$script_dir_path/$RELPATH/cmake|"
 
     RELPATH=${@os.path.relpath(d.getVar('prefix') + '/share/cmake/Qt6Toolchain.cmake', d.getVar('QT6_INSTALL_LIBDIR') + '/cmake/Qt6')}
     sed -i ${D}${QT6_INSTALL_LIBDIR}/cmake/Qt6/qt.toolchain.cmake \
+        -e 's|${RECIPE_SYSROOT_NATIVE}|\${CMAKE_CURRENT_LIST_DIR}/../../../..|' \
         -e "s|/.*/toolchain.cmake|\${CMAKE_CURRENT_LIST_DIR}/$RELPATH|"
 }
 

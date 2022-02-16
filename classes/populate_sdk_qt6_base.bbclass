@@ -75,6 +75,8 @@ create_qt6_sdk_files () {
 cmake_minimum_required(VERSION 3.11)
 include_guard(GLOBAL)
 
+get_filename_component(SYSROOTS \${CMAKE_CURRENT_LIST_DIR}/../../../.. ABSOLUTE)
+
 set(ENV{PKG_CONFIG_SYSROOT_DIR} "${SDKTARGETSYSROOT}")
 set(ENV{PKG_CONFIG_PATH} "${SDKTARGETSYSROOT}${libdir}/pkgconfig")
 
@@ -123,10 +125,9 @@ if(NOT DEFINED CMAKE_INSTALL_PREFIX)
 endif()
 set(CMAKE_INSTALL_PREFIX "${prefix}" CACHE PATH "Install path prefix")
 EOF
-}
 
-create_qt6_sdk_files:append:sdkmingw32() {
-    sed -i -e 's|${SDKPATH}|$ENV{SDKPATH}|g' \
+    # resolve absolute paths at runtime
+    sed -i -e 's|${SDKPATH}/sysroots|\${SYSROOTS}|g' \
         ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/cmake/Qt6Toolchain.cmake
 }
 
