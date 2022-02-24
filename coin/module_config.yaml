@@ -33,7 +33,7 @@ target1: &target1
       variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland
+      variableValue: ci configs post-inclusive wayland
   enable_if:
       condition: property
       property: target.arch
@@ -49,7 +49,7 @@ target2: &target2
       variableValue: honister.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland mingw
+      variableValue: ci configs pre-inclusive wayland mingw
   enable_if:
       condition: property
       property: target.arch
@@ -65,7 +65,7 @@ target3: &target3
       variableValue: hardknott.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs
+      variableValue: ci configs pre-inclusive
   enable_if:
       condition: property
       property: target.arch
@@ -81,7 +81,7 @@ target4: &target4
       variableValue: dunfell.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs no-webengine
+      variableValue: ci configs pre-inclusive no-webengine
   enable_if:
       condition: property
       property: target.arch

@@ -39,7 +39,6 @@ ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
 
 # enable webengine with commercial/proprietary features
 DISTRO_FEATURES:append = " webengine"
-LICENSE_FLAGS_WHITELIST = "commercial"
 PACKAGECONFIG:append:pn-qtwebengine = " proprietary-codecs"
 
 PACKAGECONFIG:append:pn-qtbase = "\
