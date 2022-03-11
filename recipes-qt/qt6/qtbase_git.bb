@@ -134,6 +134,10 @@ EXTRA_OECMAKE:append:class-target = "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', '-DFEATURE_use_gold_linker=ON', '-DFEATURE_use_bfd_linker=ON', d)} \
 "
 
+EXTRA_OECMAKE:append:mingw32 = "\
+    -DQT_GENERATE_WRAPPER_SCRIPTS_FOR_ALL_HOSTS=ON \
+"
+
 SYSROOT_DIRS += "${QT6_INSTALL_MKSPECSDIR}"
 
 do_install:append() {
@@ -157,6 +161,7 @@ EOF
 
     RELPATH="${@os.path.relpath(d.getVar('bindir'), d.getVar('QT6_INSTALL_BINDIR'))}"
     sed -i ${D}${QT6_INSTALL_BINDIR}/* \
+        -e "s|cmake_path=${RECIPE_SYSROOT_NATIVE}.*cmake|cmake_path=%script_dir_path%/$RELPATH/cmake.exe|" \
         -e "s|${RECIPE_SYSROOT_NATIVE}.*cmake|\$script_dir_path/$RELPATH/cmake|"
 
     RELPATH=${@os.path.relpath(d.getVar('prefix') + '/share/cmake/Qt6Toolchain.cmake', d.getVar('QT6_INSTALL_LIBDIR') + '/cmake/Qt6')}
