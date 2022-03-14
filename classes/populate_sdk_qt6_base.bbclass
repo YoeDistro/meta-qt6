@@ -120,6 +120,10 @@ function(cmake_initialize_per_config_variable _PREFIX _DOCSTRING)
   _cmake_initialize_per_config_variable(\${ARGV})
 endfunction()
 
+if(CMAKE_HOST_WIN32)
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+endif()
+
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
   set(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT 1)
 endif()
