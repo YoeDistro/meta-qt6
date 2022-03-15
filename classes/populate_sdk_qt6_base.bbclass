@@ -4,6 +4,8 @@ SDK_POSTPROCESS_COMMAND:prepend = "create_qt6_sdk_files;"
 
 EXE_EXT = ""
 EXE_EXT:sdkmingw32 = ".exe"
+PATH_DELIM = ":"
+PATH_DELIM:sdkmingw32 = ";"
 
 QT6_INSTALL_HOST_LIBEXECDIR = "${QT6_INSTALL_LIBEXECDIR}"
 QT6_INSTALL_HOST_LIBEXECDIR:sdkmingw32 = "${QT6_INSTALL_LIBEXECDIR:mingw32}"
@@ -77,6 +79,7 @@ include_guard(GLOBAL)
 
 get_filename_component(SYSROOTS \${CMAKE_CURRENT_LIST_DIR}/../../../.. ABSOLUTE)
 
+set(ENV{PATH} "${SDKPATHNATIVE}${bindir}${PATH_DELIM}ENV{PATH}")
 set(ENV{PKG_CONFIG_SYSROOT_DIR} "${SDKTARGETSYSROOT}")
 set(ENV{PKG_CONFIG_PATH} "${SDKTARGETSYSROOT}${libdir}/pkgconfig")
 
