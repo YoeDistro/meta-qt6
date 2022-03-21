@@ -43,10 +43,3 @@ RDEPENDS:${PN}:remove:mingw32 = " \
     nativesdk-perl-modules \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-python', 'nativesdk-qtinterfaceframework-dev nativesdk-qtinterfaceframework-tools', '', d)} \
 "
-
-python () {
-  # qtinterfaceframework has dependencies that fail to build for nativesdk with meta-openembedded/master
-  if d.getVar('DISTRO_CODENAME', True) in ['master', 'kirkstone']:
-    PN = d.getVar('PN', True)
-    d.setVar('RDEPENDS:' + PN, d.getVar('RDEPENDS:' + PN).replace('nativesdk-qtinterfaceframework-dev', '').replace('nativesdk-qtinterfaceframework-tools', ''))
-}
