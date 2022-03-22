@@ -10,6 +10,7 @@ PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 RDEPENDS:${PN} += " \
     qtbase \
     qtdeclarative \
+    qtdeclarative-tools \
     qttools \
     qttranslations-qtbase \
     qttranslations-qtdeclarative \
