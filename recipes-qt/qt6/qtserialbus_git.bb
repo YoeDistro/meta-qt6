@@ -11,4 +11,11 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-DEPENDS += "qtbase qtserialport"
+DEPENDS += "qtbase"
+
+PACKAGECONFIG ?= "modbus-serialport socketcan"
+PACKAGECONFIG:class-native = ""
+PACKAGECONFIG:class-nativesdk = ""
+
+PACKAGECONFIG[modbus-serialport] = "-DFEATURE_modbus_serialport=ON,-DFEATURE_modbus_serialport=OFF,qtserialport"
+PACKAGECONFIG[socketcan] = "-DFEATURE_socketcan=ON,-DFEATURE_socketcan=OFF,,libsocketcan"
