@@ -27,8 +27,6 @@ RDEPENDS:${PN} += " \
     nativesdk-qtremoteobjects-tools \
     nativesdk-qtscxml-dev \
     nativesdk-qtscxml-tools \
-    nativesdk-qtserialbus-dev \
-    nativesdk-qtserialbus-tools \
     nativesdk-qtshadertools-dev \
     nativesdk-qtshadertools-tools \
     nativesdk-qttools-dev \
