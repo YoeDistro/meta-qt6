@@ -2,9 +2,11 @@ inherit cmake python3native perlnative pkgconfig qt6-paths
 
 DEPENDS:prepend = "qtbase-native "
 
+QT_MESSAGE_LOG_LEVEL ?= "STATUS"
 EXTRA_OECMAKE += "\
     -DQT_CMAKE_DEBUG_EXTEND_TARGET=ON \
     -DQT_BUILD_INTERNALS_NO_FORCE_SET_INSTALL_PREFIX=ON \
+    -DCMAKE_MESSAGE_LOG_LEVEL=${QT_MESSAGE_LOG_LEVEL} \
 "
 EXTRA_OECMAKE:append:class-target = "\
     -DQT_HOST_PATH:PATH=${RECIPE_SYSROOT_NATIVE}${prefix_native}/ \
