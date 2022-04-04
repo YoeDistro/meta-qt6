@@ -11,5 +11,9 @@ include recipes-qt/qt6/qt6.inc
 QT_GIT_PROJECT = "qt-labs"
 QT_MODULE_BRANCH = "dev"
 
+do_configure:prepend() {
+    sed -i -e '/cmake_minimum_required/s/3.20/3.16/' ${S}/CMakeLists.txt
+}
+
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
