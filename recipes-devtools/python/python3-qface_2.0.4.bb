@@ -6,7 +6,7 @@ DEPS += " python3-jinja2 \
           python3-pytest \
           python3-six \
           python3-path \
-          python3-antrl4-runtime \
+          python3-antlr4-runtime \
           python3-watchdog \
           python3-markupsafe \
           python3-setuptools \
