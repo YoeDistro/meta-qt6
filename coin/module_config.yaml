@@ -17,7 +17,7 @@ machine_type:
 #
 #           [target1]       [target2]   [target3]       [target4]
 # [machine] qemuarm64       qemux86     qemuarm         qemux86-64
-# [yocto]   master          honister    hardknott       dunfell
+# [yocto]   kirkstone       honister    kirkstone       dunfell
 # [X11]     no              no          yes             yes
 # [mingw]   no              yes         no              no
 #
@@ -30,7 +30,7 @@ target1: &target1
       variableValue: qemuarm64
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: master.xml
+      variableValue: kirkstone.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
       variableValue: ci configs post-inclusive wayland
@@ -62,10 +62,10 @@ target3: &target3
       variableValue: qemuarm
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: hardknott.xml
+      variableValue: kirkstone.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs pre-inclusive
+      variableValue: ci configs post-inclusive
   enable_if:
       condition: property
       property: target.arch
