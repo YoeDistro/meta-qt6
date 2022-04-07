@@ -36,7 +36,6 @@ PACKAGECONFIG ??= "\
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', '${PACKAGECONFIG_OPENEMBEDDED}', '', d)} \
     geolocation \
     webchannel \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'multimedia-layer', 'webrtc-pipewire', '', d)} \
     printing-and-pdf \
     pepper-plugins \
     spellchecker \
@@ -73,7 +72,7 @@ PACKAGECONFIG[snappy] = "-DFEATURE_webengine_system_snappy=ON,-DFEATURE_webengin
 PACKAGECONFIG[spellchecker] = "-DFEATURE_webengine_spellchecker=ON,-DFEATURE_webengine_spellchecker=OFF"
 PACKAGECONFIG[webchannel] = "-DFEATURE_webengine_webchannel=ON,-DFEATURE_webengine_webchannel=OFF,qtwebchannel"
 PACKAGECONFIG[webrtc] = "-DFEATURE_webengine_webrtc=ON,-DFEATURE_webengine_webrtc=OFF,libvpx"
-PACKAGECONFIG[webrtc-pipewire] = "-DFEATURE_webengine_webrtc_pipewire=ON,-DFEATURE_webengine_webrtc_pipewire=OFF,pipewire glib-2.0 libepoxy"
+PACKAGECONFIG[webrtc-pipewire] = "-DFEATURE_webengine_webrtc_pipewire=ON,-DFEATURE_webengine_webrtc_pipewire=OFF,pipewire glib-2.0 libepoxy virtual/libgbm"
 PACKAGECONFIG[zlib] = "-DFEATURE_webengine_system_zlib=ON -DFEATURE_webengine_system_minizip=ON,-DFEATURE_webengine_system_zlib=OFF -DFEATURE_webengine_system_minizip,zlib minizip"
 
 FILES:${PN} += "\
