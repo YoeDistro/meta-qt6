@@ -37,7 +37,7 @@ python __anonymous() {
 INSANE_SKIP:${PN}-dbg += "libdir"
 INSANE_SKIP:${PN}-examples += "libdir dev-so"
 
-SYSROOT_DIRS:append:mingw32 = " ${QT6_INSTALL_BINDIR}"
+SYSROOT_DIRS += "${QT6_INSTALL_BINDIR} ${QT6_INSTALL_LIBEXECDIR}"
 
 PACKAGE_BEFORE_PN = "${PN}-qmlplugins ${PN}-tools ${PN}-plugins ${PN}-examples"
 
