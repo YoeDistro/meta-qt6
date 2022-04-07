@@ -1,23 +1,25 @@
-From 7c16e38b85e514991d57802136de498ac1201bca Mon Sep 17 00:00:00 2001
+From 271b265784767476101f64f51e87abdeeae18108 Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Wed, 18 Aug 2021 15:09:41 +0300
 Subject: [PATCH] CMake: use generated yocto toolchains
 
 Bitbake knows how to generate working toolchains, use those instead of
 ones done by webengine. No need to use separate host pkg-wrapper with
-these toolchain.
+these toolchain. No need to do separate host build, we'll use the
+target binaries where needed.
 
-Upstream-Status: Inappropriate [embedder specific]
+Upstream-Status: Inappropriate [embedded specific]
 Change-Id: I217c9122144f25bb2d28717e7248c2a51b149127
 ---
  cmake/Functions.cmake | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ src/CMakeLists.txt    | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/cmake/Functions.cmake b/cmake/Functions.cmake
-index 37fd593a..2654cdc3 100644
+index 08967d6db..cebeae8eb 100644
 --- a/cmake/Functions.cmake
 +++ b/cmake/Functions.cmake
-@@ -642,7 +642,7 @@ endfunction()
+@@ -750,7 +750,7 @@ endfunction()
  
  macro(create_pkg_config_host_wrapper buildDir)
      find_package(PkgConfigHost)
@@ -26,7 +28,7 @@ index 37fd593a..2654cdc3 100644
              create_pkg_config_wrapper("${buildDir}/pkg-config-host_wrapper.sh" "${PKG_CONFIG_HOST_EXECUTABLE}")
              set(PKG_CONFIG_HOST_EXECUTABLE "${buildDir}/pkg-config-host_wrapper.sh")
          endif()
-@@ -855,9 +855,9 @@ endmacro()
+@@ -972,9 +972,9 @@ endmacro()
  macro(append_toolchain_setup)
      if(LINUX)
          list(APPEND gnArgArg
@@ -39,3 +41,16 @@ index 37fd593a..2654cdc3 100644
          )
          get_gn_arch(cpu ${TEST_architecture_arch})
          if(CMAKE_CROSSCOMPILING)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 31123d06c..c6141988b 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -151,7 +151,7 @@ endif()
+ #  HOST PROJECT
+ ##
+ 
+-if(CMAKE_CROSSCOMPILING AND NOT IOS)
++if(FALSE)
+ 
+     if(NOT Gn_FOUND)
+         message(FATAL_ERROR "\nHost gn not found - cross compilation not possible")
