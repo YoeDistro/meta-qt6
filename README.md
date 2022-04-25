@@ -14,7 +14,8 @@ Yocto version support
 ---------------------
 
 The branching of meta-qt6 layer follows Qt branching scheme, that is
-`dev` for the development branch, and `6.x` for each minor release.
+`dev` for the development branch, `6.x` for each minor release and
+`lts-6.x` for commercial LTS releases.
 
 Following table shows the Yocto branches which are used to test each
 Qt version (x) and any additional Yocto releases that are stated in
@@ -27,6 +28,18 @@ the LAYERSERIES_COMPAT (c).
 | hardknott  |  x  |  x  |  x  |
 | gatesgarth |  c  |  x  |  x  |
 | dunfell    |  x  |  x  |  x  |
+
+Commercial Qt
+-------------
+
+Qt is dual-licensed under commercial and open source licenses.
+The license can be selected using the `QT_EDITION` variable. `commercial` and
+`opensource` are valid values. The default value is `opensource`.
+
+For commercial Qt users, the layer provides LTS (Long Term Support) releases
+for selected Qt versions. These are available in branches named `lts-6.x`.
+The LTS versions can only be built and used if you have a commercial Qt license
+and you have set up SSH access to Qt Gerrit (see links below).
 
 QtWebEngine
 -----------
