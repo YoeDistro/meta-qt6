@@ -79,7 +79,7 @@ include_guard(GLOBAL)
 
 get_filename_component(SYSROOTS \${CMAKE_CURRENT_LIST_DIR}/../../../.. ABSOLUTE)
 
-set(ENV{PATH} "${SDKPATHNATIVE}${bindir}${PATH_DELIM}ENV{PATH}")
+set(ENV{PATH} "${SDKPATHNATIVE}${bindir}${PATH_DELIM}\$ENV{PATH}")
 set(ENV{PKG_CONFIG_SYSROOT_DIR} "${SDKTARGETSYSROOT}")
 set(ENV{PKG_CONFIG_PATH} "${SDKTARGETSYSROOT}${libdir}/pkgconfig")
 
