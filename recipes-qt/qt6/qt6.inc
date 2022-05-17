@@ -21,7 +21,7 @@ python __anonymous() {
             d.setVar("PACKAGE_ARCH", tarch)
 }
 
-ENABLE_QMLCOMPILER ?= '0'
+ENABLE_QMLCOMPILER ?= "${QT_COMMERCIAL_MODULES}"
 python __anonymous() {
     if (d.getVar('QT_EDITION', True) != 'commercial' or
         d.getVar('ENABLE_QMLCOMPILER', True) == '0' or

@@ -8,7 +8,6 @@ inherit packagegroup
 PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
 RDEPENDS:${PN} += " \
-    ${@bb.utils.contains('ENABLE_QMLCOMPILER', '1', 'qmlcompilerplus', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qt3d', '', d)} \
     qt5compat \
     qtapplicationmanager \

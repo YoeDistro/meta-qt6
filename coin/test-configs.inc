@@ -13,8 +13,8 @@ INHERIT += "rm_work"
 # default to commercial Qt
 QT_EDITION = "commercial"
 
-# enable Qt QML Compiler
-ENABLE_QMLCOMPILER = "1"
+# include commercial addons and enable Qt QML Compiler
+QT_COMMERCIAL_MODULES = "1"
 
 # fast compression of SDK tar package
 SDK_XZ_COMPRESSION_LEVEL = "-1"
