@@ -53,7 +53,7 @@ PACKAGECONFIG_FONTS ?= ""
 PACKAGECONFIG_SYSTEM ?= ""
 PACKAGECONFIG_DISTRO ?= ""
 PACKAGECONFIG_DEFAULT ?= "accessibility dbus udev gui widgets icu openssl  \
-    jpeg png dbus libinput fontconfig harfbuzz \
+    jpeg png dbus libinput fontconfig harfbuzz zlib \
     ${@bb.utils.contains('SELECTED_OPTIMIZATION', '-Os', 'optimize-size ltcg', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
 "
@@ -77,6 +77,7 @@ PACKAGECONFIG[developer-build] = "-DFEATURE_developer_build=ON,-DFEATURE_develop
 PACKAGECONFIG[cups] = "-DFEATURE_cups=ON,-DFEATURE_cups=OFF,cups"
 PACKAGECONFIG[dbus] = "-DFEATURE_dbus=ON,-DFEATURE_dbus=OFF,dbus"
 PACKAGECONFIG[udev] = "-DFEATURE_libudev=ON,-DFEATURE_libudev=OFF,udev"
+PACKAGECONFIG[zlib] = "-DFEATURE_system_zlib=ON,-DFEATURE_system_zlib=OFF,zlib"
 PACKAGECONFIG[zstd] = "-DFEATURE_zstd=ON,-DFEATURE_zstd=OFF,zstd"
 
 # corelib
