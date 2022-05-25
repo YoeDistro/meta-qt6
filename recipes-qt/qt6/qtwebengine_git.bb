@@ -61,7 +61,6 @@ PACKAGECONFIG[libpng] = "-DFEATURE_webengine_system_libpng=ON,-DFEATURE_webengin
 PACKAGECONFIG[libvpx] = "-DFEATURE_webengine_system_libvpx=ON,-DFEATURE_webengine_system_libvpx=OFF,libvpx"
 PACKAGECONFIG[libwebp] = "-DFEATURE_webengine_system_libwebp=ON,-DFEATURE_webengine_system_libwebp=OFF,libwebp"
 PACKAGECONFIG[libxml] = "-DFEATURE_webengine_system_libxml=ON,-DFEATURE_webengine_system_libxml=OFF,libxml2 libxslt"
-PACKAGECONFIG[minizip] = "-DFEATURE_webengine_system_minizip=ON,-DFEATURE_webengine_system_minizip=OFF,minizip"
 PACKAGECONFIG[opus] = "-DFEATURE_webengine_system_opus=ON,-DFEATURE_webengine_system_opus=OFF,libopus"
 PACKAGECONFIG[libpci] = "-DFEATURE_webengine_system_libpci=ON,-DFEATURE_webengine_system_libpci=OFF,pciutils"
 PACKAGECONFIG[pepper-plugins] = "-DFEATURE_webengine_pepper_plugins=ON,-DFEATURE_webengine_pepper_plugins=OFF"
@@ -74,7 +73,7 @@ PACKAGECONFIG[spellchecker] = "-DFEATURE_webengine_spellchecker=ON,-DFEATURE_web
 PACKAGECONFIG[webchannel] = "-DFEATURE_webengine_webchannel=ON,-DFEATURE_webengine_webchannel=OFF,qtwebchannel"
 PACKAGECONFIG[webrtc] = "-DFEATURE_webengine_webrtc=ON,-DFEATURE_webengine_webrtc=OFF,libvpx"
 PACKAGECONFIG[webrtc-pipewire] = "-DFEATURE_webengine_webrtc_pipewire=ON,-DFEATURE_webengine_webrtc_pipewire=OFF,pipewire glib-2.0"
-PACKAGECONFIG[zlib] = "-DFEATURE_webengine_system_zlib=ON,-DFEATURE_webengine_system_zlib=OFF,zlib"
+PACKAGECONFIG[zlib] = "-DFEATURE_webengine_system_zlib=ON -DFEATURE_webengine_system_minizip=ON,-DFEATURE_webengine_system_zlib=OFF -DFEATURE_webengine_system_minizip,zlib minizip"
 
 FILES:${PN} += "\
     ${QT6_INSTALL_TRANSLATIONSDIR} \
