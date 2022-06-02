@@ -19,7 +19,7 @@ SRC_URI += "\
     file://0001-Add-linux-oe-g-platform.patch \
     file://0002-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
     file://0003-tests-disable-failing-tests.patch \
-    file://0004-Do-not-use-QT_TOOLCHAIN_RELOCATABLE-paths-in-qt.tool.patch \
+    file://0004-Fix-qt.toolchain.cmake-for-SDK-use.patch \
 "
 
 DEPENDS += "\
@@ -168,7 +168,6 @@ EOF
 
     RELPATH=${@os.path.relpath(d.getVar('prefix') + '/share/cmake/Qt6Toolchain.cmake', d.getVar('QT6_INSTALL_LIBDIR') + '/cmake/Qt6')}
     sed -i ${D}${QT6_INSTALL_LIBDIR}/cmake/Qt6/qt.toolchain.cmake \
-        -e 's|${RECIPE_SYSROOT_NATIVE}|\${CMAKE_CURRENT_LIST_DIR}/../../../..|' \
         -e "s|/.*/toolchain.cmake|\${CMAKE_CURRENT_LIST_DIR}/$RELPATH|"
 }
 
