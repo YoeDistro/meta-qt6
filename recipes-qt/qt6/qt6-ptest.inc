@@ -11,6 +11,11 @@ DEBUG_PREFIX_MAP += "\
 "
 
 fakeroot do_install_ptest() {
+    cat >${WORKDIR}/toolchain-ptest.cmake <<EOF
+include(${WORKDIR}/toolchain.cmake)
+list(PREPEND CMAKE_FIND_ROOT_PATH ${D})
+EOF
+
     if [ -n "${OE_QMAKE_QMAKE}" ]; then
         # qmake project
         B_PTEST=${B}
@@ -25,13 +30,13 @@ fakeroot do_install_ptest() {
         cd ${B_PTEST}
         cmake \
             ${OECMAKE_GENERATOR_ARGS} \
-            -DCMAKE_TOOLCHAIN_FILE=${WORKDIR}/toolchain.cmake \
+            -DCMAKE_TOOLCHAIN_FILE=${WORKDIR}/toolchain-ptest.cmake \
             -DPython3_EXECUTABLE=${PYTHON} \
             ${EXTRA_OECMAKE} \
             -DQT_BUILD_STANDALONE_TESTS=ON \
-            -DQT_ADDITIONAL_PACKAGES_PREFIX_PATH="${D}${QT6_INSTALL_LIBDIR}/cmake;${RECIPE_SYSROOT}/${QT6_INSTALL_LIBDIR}/cmake" \
             -DCMAKE_STAGING_PREFIX=${D}${prefix} \
             -DCMAKE_SKIP_RPATH=ON \
+            -DQT_DISABLE_NO_DEFAULT_PATH_IN_QT_PACKAGES=ON \
             ${S} \
             -Wno-dev
         ${CMAKE_VERBOSE} cmake --build ${B_PTEST} --target all
