@@ -6,3 +6,4 @@ python() {
 QT_GIT = "git://codereview.qt-project.org"
 QT_GIT_PROTOCOL = "ssh"
 QT_MODULE = "tqtc-${BPN}"
+QT_MODULE_BRANCH := "tqtc/lts-${QT_MODULE_BRANCH}"
