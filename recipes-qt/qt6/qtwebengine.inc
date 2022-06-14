@@ -1,4 +1,4 @@
-LICENSE = "GFDL-1.3 & BSD-3-Clause & ( GPL-3.0 & The-Qt-Company-GPL-Exception-1.0 | The-Qt-Company-Commercial ) & ( LGPL-3.0 | The-Qt-Company-Commercial )"
+LICENSE = "GFDL-1.3 & BSD-3-Clause & ( GPL-3.0-only & The-Qt-Company-GPL-Exception-1.0 | The-Qt-Company-Commercial ) & ( LGPL-3.0-only | The-Qt-Company-Commercial )"
 LIC_FILES_CHKSUM = " \
     file://src/3rdparty/chromium/LICENSE;md5=0fca02217a5d49a14dfe2d11837bb34d \
     file://LICENSE.FDL;md5=f70ee9a6c44ae8917586fea34dff0ab5 \
