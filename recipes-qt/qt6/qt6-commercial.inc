@@ -3,7 +3,7 @@ python() {
         raise bb.parse.SkipRecipe('Available only with Commercial Qt')
 }
 
-QT_GIT = "git://codereview.qt-project.org"
-QT_GIT_PROTOCOL = "ssh"
+QT_GIT = "${QT_COMMERCIAL_GIT}"
+QT_GIT_PROTOCOL = "${QT_COMMERCIAL_GIT_PROTOCOL}"
 QT_MODULE = "tqtc-${BPN}"
 QT_MODULE_BRANCH := "tqtc/lts-${QT_MODULE_BRANCH}"
