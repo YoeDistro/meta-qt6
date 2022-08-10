@@ -39,6 +39,7 @@ PACKAGECONFIG ??= "\
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'multimedia-layer', 'webrtc-pipewire', '', d)} \
     printing-and-pdf \
     pepper-plugins \
+    spellchecker \
 "
 PACKAGECONFIG_OPENEMBEDDED ?= "\
     lcms2 \

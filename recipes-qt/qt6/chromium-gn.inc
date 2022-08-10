@@ -8,7 +8,6 @@ COMPATIBLE_MACHINE:aarch64 = "(.*)"
 COMPATIBLE_MACHINE:armv6 = "(.*)"
 COMPATIBLE_MACHINE:armv7a = "(.*)"
 COMPATIBLE_MACHINE:armv7ve = "(.*)"
-COMPATIBLE_MACHINE:x86 = "(.*)"
 COMPATIBLE_MACHINE:x86-64 = "(.*)"
 
 # By default, passing is_official_build=true to GN causes its symbol_level
