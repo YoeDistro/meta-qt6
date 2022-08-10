@@ -14,7 +14,6 @@ include recipes-qt/qt6/qt6.inc
 
 SRC_URI += "\
     file://0001-tests-disable-failing-tests.patch \
-    file://0001-Revert-Make-find_package-for-qmlsc-look-only-in-host.patch \
 "
 
 DEPENDS += "qtbase qtshadertools qtshadertools-native qtdeclarative-native qtlanguageserver"
