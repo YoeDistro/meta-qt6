@@ -9,7 +9,7 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 include recipes-qt/qt6/qt6-commercial.inc
 
-DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
+DEPENDS += "qtbase qtdeclarative qtdeclarative-native qmlcompilerplus-native"
 
 PTEST_ENABLED = "0"
 
