@@ -152,9 +152,11 @@ do_install:append() {
     rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/uikit/devices.py
     rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/uikit/device_destinations.sh
     rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/data/mac/objc_namespace.sh
-}
 
-do_install:append:class-nativesdk() {
+    # remove unneeded files that contains reference to TMPDIR [buildpaths]
+    rm -f ${D}${QT6_INSTALL_BINDIR}/host-*
+    rm -f ${D}${QT6_INSTALL_BINDIR}/target_qt.conf
+
     install -d ${D}${datadir}/cmake/OEToolchainConfig.cmake.d
     cat > ${D}${datadir}/cmake/OEToolchainConfig.cmake.d/OEQt6Toolchain.cmake <<EOF
 set(QT_HOST_PATH "\$ENV{OECORE_NATIVE_SYSROOT}/usr" CACHE PATH "")
