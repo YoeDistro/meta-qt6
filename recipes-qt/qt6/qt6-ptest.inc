@@ -6,6 +6,10 @@ inherit ptest
 QT_PTEST_ENABLED ?= "${@bb.utils.contains('DISTRO_FEATURES', 'ptest', '1', '0', d)}"
 PTEST_ENABLED = "${QT_PTEST_ENABLED}"
 
+DEBUG_PREFIX_MAP += "\
+ -fmacro-prefix-map=${D}= \
+"
+
 fakeroot do_install_ptest() {
     if [ -n "${OE_QMAKE_QMAKE}" ]; then
         # qmake project
