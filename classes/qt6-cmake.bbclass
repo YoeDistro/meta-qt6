@@ -39,5 +39,6 @@ do_install:append() {
     # Replace host paths with qmake built-in properties QTBUG-84725
     find ${D} \( -name "*.pri" -or -name "*.prl" \) -exec \
         sed -i -e 's|${STAGING_DIR_NATIVE}|$$[QT_HOST_PREFIX/get]|g' \
-               -e 's|${STAGING_DIR_HOST}|$$[QT_SYSROOT]|g' {} \;
+               -e 's|${STAGING_DIR_HOST}|$$[QT_SYSROOT]|g' \
+               -e '/QMAKE_PRL_BUILD_DIR/d' {} \;
 }
