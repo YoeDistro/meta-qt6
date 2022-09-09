@@ -21,7 +21,7 @@ RDEPENDS:${PN} += " \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-python', 'qtinterfaceframework', '', d)} \
     qtlottie \
     qtmqtt \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtmultimedia', '', d)} \
+    qtmultimedia \
     qtnetworkauth \
     qtopcua \
     qtpositioning \
