@@ -34,6 +34,7 @@ EOF
             -DPython3_EXECUTABLE=${PYTHON} \
             ${EXTRA_OECMAKE} \
             -DQT_BUILD_STANDALONE_TESTS=ON \
+            -DQT_ADDITIONAL_PACKAGES_PREFIX_PATH=${D}${QT6_INSTALL_LIBDIR}/cmake \
             -DCMAKE_STAGING_PREFIX=${D}${prefix} \
             -DCMAKE_SKIP_RPATH=ON \
             -DQT_DISABLE_NO_DEFAULT_PATH_IN_QT_PACKAGES=ON \
