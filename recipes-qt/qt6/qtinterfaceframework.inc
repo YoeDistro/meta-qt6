@@ -32,3 +32,4 @@ FILES:${PN}-simulation = " \
     ${systemd_unitdir}/system \
     ${sysconfdir}/simulation-server.conf \
     "
+RRECOMMENDS:${PN} += "${PN}-simulation"
