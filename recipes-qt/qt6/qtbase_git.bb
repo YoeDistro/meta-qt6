@@ -127,12 +127,12 @@ PACKAGECONFIG[sql-sqlite] = "-DFEATURE_system_sqlite=ON,-DFEATURE_sql_sqlite=OFF
 EXTRA_OECMAKE += "\
     -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
     -DQT_EDITION=${QT_EDITION} \
+    -DQT_AVOID_CMAKE_ARCHIVING_API=ON \
 "
 
 EXTRA_OECMAKE:append:class-target = "\
     -DFEATURE_rpath=OFF \
     -DQT_QPA_DEFAULT_PLATFORM=${QT_QPA_DEFAULT_PLATFORM} \
-    -DQT_AVOID_CMAKE_ARCHIVING_API=ON \
     ${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', '-DFEATURE_use_gold_linker=ON', '-DFEATURE_use_bfd_linker=ON', d)} \
 "
 
