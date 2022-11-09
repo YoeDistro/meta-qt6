@@ -64,7 +64,7 @@ PACKAGECONFIG[libxml] = "-DFEATURE_webengine_system_libxml=ON,-DFEATURE_webengin
 PACKAGECONFIG[opus] = "-DFEATURE_webengine_system_opus=ON,-DFEATURE_webengine_system_opus=OFF,libopus"
 PACKAGECONFIG[libpci] = "-DFEATURE_webengine_system_libpci=ON,-DFEATURE_webengine_system_libpci=OFF,pciutils"
 PACKAGECONFIG[pepper-plugins] = "-DFEATURE_webengine_pepper_plugins=ON,-DFEATURE_webengine_pepper_plugins=OFF"
-PACKAGECONFIG[printing-and-pdf] = "-DFEATURE_webengine_printing_and_pdf=ON,-DFEATURE_webengine_printing_and_pdf=OFF"
+PACKAGECONFIG[printing-and-pdf] = "-DFEATURE_webengine_printing_and_pdf=ON,-DFEATURE_webengine_printing_and_pdf=OFF,cups"
 PACKAGECONFIG[proprietary-codecs] = "-DFEATURE_webengine_proprietary_codecs=ON,-DFEATURE_webengine_proprietary_codecs=OFF"
 PACKAGECONFIG[pulseaudio] = "-DFEATURE_webengine_system_pulseaudio=ON,-DFEATURE_webengine_system_pulseaudio=OFF,pulseaudio"
 PACKAGECONFIG[re2] = "-DFEATURE_webengine_system_re2=ON,-DFEATURE_webengine_system_re2=OFF,re2"
