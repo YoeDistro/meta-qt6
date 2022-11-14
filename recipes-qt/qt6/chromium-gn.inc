@@ -56,7 +56,7 @@ python do_create_v8_qemu_wrapper () {
                     d.expand('${STAGING_DIR_HOST}${base_libdir}')]
     qemu_cmd = qemu_wrapper_cmdline(d, d.getVar('STAGING_DIR_HOST', True),
                                     qemu_libdirs)
-    wrapper_path = d.expand('${B}/src/core/Release/${TARGET_ARCH}')
+    wrapper_path = d.expand('${B}')
     bb.utils.mkdirhier(wrapper_path)
     wrapper_path = os.path.join(wrapper_path, "v8-qemu-wrapper.sh")
     with open(wrapper_path, 'w') as wrapper_file:
@@ -77,7 +77,7 @@ python do_create_v8_qemu_wrapper () {
 # to build. Instead of using QEMU, change the wrapper to try to run the
 # tools directly, using the target dynloader.
 python do_create_v8_qemu_wrapper:x86-64 () {
-    wrapper_path = d.expand('${B}/src/core/Release/${TARGET_ARCH}')
+    wrapper_path = d.expand('${B}')
     bb.utils.mkdirhier(wrapper_path)
     wrapper_path = os.path.join(wrapper_path, "v8-qemu-wrapper.sh")
     with open(wrapper_path, 'w') as wrapper_file:
