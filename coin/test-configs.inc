@@ -19,8 +19,6 @@ QT_COMMERCIAL_MODULES = "1"
 # fast compression of SDK tar package
 SDK_XZ_COMPRESSION_LEVEL = "-1"
 
-SDK_ARCHIVE_TYPE:sdkmingw32 = "zip"
-
 # be more strict with QA warnings, turn them all to errors:
 EXTRA_QA = "\
     ldflags useless-rpaths rpaths staticdev libdir xorg-driver-abi \
