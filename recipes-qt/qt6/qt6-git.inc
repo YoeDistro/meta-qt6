@@ -3,7 +3,7 @@ HOMEPAGE ?= "https://www.qt.io"
 
 QT_MODULE ?= "${BPN}"
 QT_MODULE_BRANCH ?= "6.2.4"
-QT_MODULE_BRANCH_PARAM ?= "branch=${QT_MODULE_BRANCH}"
+QT_MODULE_BRANCH_PARAM ?= "branch=${QT_MODULE_BRANCH};nobranch=1"
 
 SRC_URI = "${QT_GIT}/${QT_GIT_PROJECT}/${QT_MODULE}.git;name=${QT_MODULE};${QT_MODULE_BRANCH_PARAM};protocol=${QT_GIT_PROTOCOL}"
 
