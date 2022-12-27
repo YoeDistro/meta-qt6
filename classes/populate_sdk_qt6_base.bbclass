@@ -10,6 +10,9 @@ PATH_DELIM:sdkmingw32 = ";"
 QT6_INSTALL_HOST_LIBEXECDIR = "${QT6_INSTALL_LIBEXECDIR}"
 QT6_INSTALL_HOST_LIBEXECDIR:sdkmingw32 = "${QT6_INSTALL_LIBEXECDIR:mingw32}"
 
+TARGET_SYSROOT ?= "${SDKTARGETSYSROOT}"
+NATIVE_SYSROOT ?= "${SDKPATHNATIVE}"
+
 create_qt6_sdk_files () {
     # Generate a qt.conf file to be deployed with the SDK
     qtconf=${WORKDIR}/qt.conf
@@ -28,23 +31,23 @@ create_qt6_sdk_files () {
     echo 'Settings = ${QT6_INSTALL_SYSCONFDIR}' >> $qtconf
     echo 'Examples = ${QT6_INSTALL_EXAMPLESDIR}' >> $qtconf
     echo 'Tests = ${QT6_INSTALL_TESTSDIR}' >> $qtconf
-    echo 'HostPrefix = ${@os.path.relpath(d.expand("${SDKPATHNATIVE}"), d.expand("${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}"))}' >> $qtconf
-    echo 'HostData = ${@os.path.relpath(d.expand("${SDKTARGETSYSROOT}${QT6_INSTALL_ARCHDATADIR}"), d.expand("${SDKPATHNATIVE}"))}' >> $qtconf
-    echo 'HostBinaries = ${@os.path.relpath(d.expand("${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}"), d.expand("${SDKPATHNATIVE}"))}' >> $qtconf
-    echo 'HostLibraries = ${@os.path.relpath(d.expand("${SDKPATHNATIVE}${QT6_INSTALL_LIBDIR}"), d.expand("${SDKPATHNATIVE}"))}' >> $qtconf
-    echo 'HostLibraryExecutables = ${@os.path.relpath(d.expand("${SDKPATHNATIVE}${QT6_INSTALL_HOST_LIBEXECDIR}"), d.expand("${SDKPATHNATIVE}"))}' >> $qtconf
-    echo 'Sysroot = ${@os.path.relpath(d.expand("${SDKTARGETSYSROOT}"), d.expand("${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}"))}' >> $qtconf
+    echo 'HostPrefix = ${@os.path.relpath("${NATIVE_SYSROOT}", "${NATIVE_SYSROOT}${QT6_INSTALL_BINDIR}")}' >> $qtconf
+    echo 'HostData = ${@os.path.relpath("${TARGET_SYSROOT}${QT6_INSTALL_ARCHDATADIR}", "${NATIVE_SYSROOT}")}' >> $qtconf
+    echo 'HostBinaries = ${@os.path.relpath("${NATIVE_SYSROOT}${QT6_INSTALL_BINDIR}", "${NATIVE_SYSROOT}")}' >> $qtconf
+    echo 'HostLibraries = ${@os.path.relpath("${NATIVE_SYSROOT}${QT6_INSTALL_LIBDIR}", "${NATIVE_SYSROOT}")}' >> $qtconf
+    echo 'HostLibraryExecutables = ${@os.path.relpath("${NATIVE_SYSROOT}${QT6_INSTALL_HOST_LIBEXECDIR}", "${NATIVE_SYSROOT}")}' >> $qtconf
+    echo 'Sysroot = ${@os.path.relpath("${TARGET_SYSROOT}", "${NATIVE_SYSROOT}${QT6_INSTALL_BINDIR}")}' >> $qtconf
     echo 'HostSpec = linux-oe-g++' >> $qtconf
     echo 'TargetSpec = linux-oe-g++' >> $qtconf
     echo 'SysrootifyPrefix = true' >> $qtconf
 
     # add qt.conf to both bin and libexec dirs
-    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}/
-    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_HOST_LIBEXECDIR}/
-    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}/target_qt.conf
+    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${NATIVE_SYSROOT}${QT6_INSTALL_BINDIR}/
+    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${NATIVE_SYSROOT}${QT6_INSTALL_HOST_LIBEXECDIR}/
+    cp ${WORKDIR}/qt.conf ${SDK_OUTPUT}${NATIVE_SYSROOT}${QT6_INSTALL_BINDIR}/target_qt.conf
 
-    install -d ${SDK_OUTPUT}${SDKPATHNATIVE}/environment-setup.d
-    script=${SDK_OUTPUT}${SDKPATHNATIVE}/environment-setup.d/qt6.sh
+    install -d ${SDK_OUTPUT}${NATIVE_SYSROOT}/environment-setup.d
+    script=${SDK_OUTPUT}${NATIVE_SYSROOT}/environment-setup.d/qt6.sh
     touch $script
     echo 'export OE_QMAKE_CFLAGS="$CFLAGS"' >> $script
     echo 'export OE_QMAKE_CXXFLAGS="$CXXFLAGS"' >> $script
@@ -73,20 +76,20 @@ create_qt6_sdk_files () {
         -e 's:${TARGET_PREFIX}:$$[QT_HOST_PREFIX]${bindir}/${TARGET_SYS}/${TARGET_PREFIX}:'
 
     # Generate a toolchain file for using Qt without running setup-environment script
-    cat > ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/cmake/Qt6Toolchain.cmake <<EOF
+    cat > ${SDK_OUTPUT}${NATIVE_SYSROOT}/usr/share/cmake/Qt6Toolchain.cmake <<EOF
 cmake_minimum_required(VERSION 3.11)
 include_guard(GLOBAL)
 
 get_filename_component(SYSROOTS \${CMAKE_CURRENT_LIST_DIR}/../../../.. ABSOLUTE)
 
-set(ENV{PATH} "${SDKPATHNATIVE}${bindir}${PATH_DELIM}\$ENV{PATH}")
-set(ENV{PKG_CONFIG_SYSROOT_DIR} "${SDKTARGETSYSROOT}")
-set(ENV{PKG_CONFIG_PATH} "${SDKTARGETSYSROOT}${libdir}/pkgconfig")
+set(ENV{PATH} "${NATIVE_SYSROOT}${bindir}${PATH_DELIM}\$ENV{PATH}")
+set(ENV{PKG_CONFIG_SYSROOT_DIR} "${TARGET_SYSROOT}")
+set(ENV{PKG_CONFIG_PATH} "${TARGET_SYSROOT}${libdir}/pkgconfig")
 
 set(CMAKE_SYSTEM_NAME Linux)
-set(CMAKE_SYSROOT ${SDKTARGETSYSROOT})
+set(CMAKE_SYSROOT ${TARGET_SYSROOT})
 
-set(CMAKE_FIND_ROOT_PATH ${SDKTARGETSYSROOT})
+set(CMAKE_FIND_ROOT_PATH ${TARGET_SYSROOT})
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -94,10 +97,10 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 set(CMAKE_SYSTEM_PROCESSOR ${TUNE_PKGARCH})
 
-set(CMAKE_C_COMPILER "${SDKPATHNATIVE}${bindir}/${TARGET_SYS}/${TARGET_PREFIX}gcc${EXE_EXT}")
-set(CMAKE_CXX_COMPILER "${SDKPATHNATIVE}${bindir}/${TARGET_SYS}/${TARGET_PREFIX}g++${EXE_EXT}")
+set(CMAKE_C_COMPILER "${NATIVE_SYSROOT}${bindir}/${TARGET_SYS}/${TARGET_PREFIX}gcc${EXE_EXT}")
+set(CMAKE_CXX_COMPILER "${NATIVE_SYSROOT}${bindir}/${TARGET_SYS}/${TARGET_PREFIX}g++${EXE_EXT}")
 
-set(TARGET_COMPILER_FLAGS "${TARGET_CC_ARCH} --sysroot=${SDKTARGETSYSROOT}")
+set(TARGET_COMPILER_FLAGS "${TARGET_CC_ARCH} --sysroot=${TARGET_SYSROOT}")
 set(TARGET_LINKER_FLAGS "${TARGET_LDFLAGS}")
 
 include(CMakeInitializeConfigs)
@@ -135,14 +138,14 @@ EOF
 
     # resolve absolute paths at runtime
     sed -i -e 's|${SDKPATH}/sysroots|\${SYSROOTS}|g' \
-        ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/cmake/Qt6Toolchain.cmake
+        ${SDK_OUTPUT}${NATIVE_SYSROOT}/usr/share/cmake/Qt6Toolchain.cmake
 
     # Conan profile
-    mkdir -p ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/conan
-    cat > ${SDK_OUTPUT}${SDKPATHNATIVE}/usr/share/conan/profile <<EOF
-include(${SDKTARGETSYSROOT}${datadir}/conan/profile)
+    mkdir -p ${SDK_OUTPUT}${NATIVE_SYSROOT}/usr/share/conan
+    cat > ${SDK_OUTPUT}${NATIVE_SYSROOT}/usr/share/conan/profile <<EOF
+include(${TARGET_SYSROOT}${datadir}/conan/profile)
 [env]
-QT_CONFIGURE_MODULE=${SDKPATHNATIVE}${QT6_INSTALL_BINDIR}/qt-configure-module
+QT_CONFIGURE_MODULE=${NATIVE_SYSROOT}${QT6_INSTALL_BINDIR}/qt-configure-module
 EOF
 }
 
