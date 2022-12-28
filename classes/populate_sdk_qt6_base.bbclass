@@ -136,4 +136,4 @@ EOF
 
 # default debug prefix map isn't valid in the SDK
 DEBUG_PREFIX_MAP = ""
-SECURITY_CFLAGS = ""
+lcl_maybe_fortify = ""
