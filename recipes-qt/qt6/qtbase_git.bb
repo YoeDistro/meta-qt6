@@ -148,7 +148,7 @@ EXTRA_OECMAKE:append:mingw32 = "\
 SYSROOT_DIRS += "${QT6_INSTALL_MKSPECSDIR}"
 
 do_install:append() {
-    sed -i ${D}${libdir}/cmake/Qt6BuildInternals/QtBuildInternalsExtra.cmake \
+    sed -i ${D}${QT6_INSTALL_LIBDIR}/cmake/Qt6BuildInternals/QtBuildInternalsExtra.cmake \
         -e '/QT_SOURCE_TREE/,+2d'
 
     # remove mac and android specific scripts that depend on perl and bash
