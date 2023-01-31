@@ -8,7 +8,6 @@ URI: https://git.openembedded.org/openembedded-core/
 and optionally:
 
 URI: https://git.openembedded.org/meta-openembedded/
-URI: https://git.openembedded.org/meta-python2
 
 Yocto version support
 ---------------------
@@ -23,9 +22,9 @@ the LAYERSERIES_COMPAT (c).
 
 | Yocto \ Qt | 6.2 | 6.1 | 6.0 |
 | ---------- |:---:|:---:|:---:|
-| master     |  x  |     |     |
+| kirkstone  |  x  |     |     |
 | honister   |  x  |     |     |
-| hardknott  |  x  |  x  |  x  |
+| hardknott  |  c  |  x  |  x  |
 | gatesgarth |  c  |  x  |  x  |
 | dunfell    |  x  |  x  |  x  |
 
@@ -36,10 +35,17 @@ Qt is dual-licensed under commercial and open source licenses.
 The license can be selected using the `QT_EDITION` variable. `commercial` and
 `opensource` are valid values. The default value is `opensource`.
 
-For commercial Qt users, the layer provides LTS (Long Term Support) releases
-for selected Qt versions. These are available in branches named `lts-6.x`.
-The LTS versions can only be built and used if you have a commercial Qt license
-and you have set up SSH access to Qt Gerrit (see links below).
+For commercial Qt users, the layer provides additional support with LTS
+(Long Term Support) releases for selected Qt versions and additional
+Qt modules licensed as commercial-only.
+
+The LTS releases are available in branches named `lts-6.x`. The source code
+for the LTS releases and the commercial Qt modules are only available for
+commercial Qt license holders. They can only be built and used if you have
+a commercial Qt license and you have set up SSH access to Qt Gerrit (see links below).
+
+The commercial Qt modules are included in the build if the `QT_COMMERCIAL_MODULES`
+variable is set to `1` and you are using a commercial edition of Qt.
 
 QtWebEngine
 -----------

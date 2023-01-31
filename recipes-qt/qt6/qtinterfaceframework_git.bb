@@ -11,6 +11,7 @@ LIC_FILES_CHKSUM = " \
 inherit qt6-cmake
 
 include recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
 python() {
@@ -40,6 +41,8 @@ FILES:${PN}-refapi-vehiclefuntions = "\
     "
 
 DEPENDS += "qtbase qtinterfaceframework-native"
+
+PRIVATE_LIBS:${PN}-examples = "libInstrumentCluster.so"
 
 PACKAGECONFIG ?= "ifcodegen remoteobjects interfaceframework \
     ${PACKAGECONFIG_REFERENCE_API} \

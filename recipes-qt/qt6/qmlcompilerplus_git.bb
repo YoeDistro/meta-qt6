@@ -7,15 +7,7 @@ inherit qt6-cmake
 
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
-
-python() {
-    if d.getVar('QT_EDITION') != 'commercial':
-        raise bb.parse.SkipRecipe('Available only with Commercial Qt')
-}
-
-QT_GIT = "git://codereview.qt-project.org"
-QT_GIT_PROTOCOL = "ssh"
-QT_MODULE = "tqtc-qmlcompilerplus"
+include recipes-qt/qt6/qt6-commercial.inc
 
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
