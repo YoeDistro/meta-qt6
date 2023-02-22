@@ -20,11 +20,13 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtshadertools qtshadertools-native"
 
-PACKAGECONFIG ?= "gstreamer pulseaudio qml"
+PACKAGECONFIG ?= "gstreamer pulseaudio qml spatialaudio spatialaudio_quick3d"
 PACKAGECONFIG[alsa] = "-DFEATURE_alsa=ON,-DFEATURE_alsa=OFF,alsa-lib"
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtsvg"
 PACKAGECONFIG[ffmpeg] = "-DFEATURE_ffmpeg=ON,-DFEATURE_ffmpeg=OFF,ffmpeg"
 PACKAGECONFIG[gstreamer] = "-DFEATURE_gstreamer=ON,-DFEATURE_gstreamer=OFF,gstreamer1.0 gstreamer1.0-plugins-base gstreamer1.0-plugins-bad"
 PACKAGECONFIG[pulseaudio] = "-DFEATURE_pulseaudio=ON,-DFEATURE_pulseaudio=OFF,pulseaudio"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
+PACKAGECONFIG[spatialaudio] = "-DFEATURE_spatialaudio=ON,-DFEATURE_spatialaudio=OFF"
+PACKAGECONFIG[spatialaudio_quick3d] = "-DFEATURE_spatialaudio_quick3d=ON,-DFEATURE_spatialaudio_quick3d=OFF,qtquick3d qtquick3d-native"
 PACKAGECONFIG[vaapi] = "-DFEATURE_vaapi=ON,-DFEATURE_vaapi=OFF,libva"
