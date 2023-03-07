@@ -137,6 +137,7 @@ instructions:
       chmod +x repo
 
       ./repo init \
+          --repo-url https://github.com/theqtcompany/git-repo \
           -u git://code.qt.io/yocto/boot2qt-manifest \
           -b ci \
           -m ${MANIFEST} \
