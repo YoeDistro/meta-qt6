@@ -14,7 +14,9 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase"
 
-PACKAGECONFIG ?= "modbus-serialport socketcan"
+PACKAGECONFIG ?= "modbus-serialport \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'socketcan', '', d)} \
+"
 PACKAGECONFIG:class-native = ""
 PACKAGECONFIG:class-nativesdk = ""
 
