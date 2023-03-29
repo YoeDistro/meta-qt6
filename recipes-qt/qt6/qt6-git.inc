@@ -2,7 +2,7 @@ DESCRIPTION ?= "Qt is a cross-platform application development framework for des
 HOMEPAGE ?= "https://www.qt.io"
 
 QT_MODULE ?= "${BPN}"
-QT_MODULE_BRANCH ?= "6.2"
+QT_MODULE_BRANCH ?= "6.2.8"
 QT_MODULE_BRANCH_PARAM ?= "branch=${QT_MODULE_BRANCH};nobranch=1"
 QT_MODULE_REPO ?= "${QT_MODULE}.git"
 
