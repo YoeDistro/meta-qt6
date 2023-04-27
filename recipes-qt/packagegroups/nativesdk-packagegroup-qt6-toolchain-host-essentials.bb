@@ -2,7 +2,7 @@ DESCRIPTION = "Qt6 development host essential packages"
 LICENSE = "MIT"
 
 # disable sanity check for allarch packagegroup
-#PACKAGE_ARCH = ""
+PACKAGE_ARCH = ""
 
 inherit packagegroup nativesdk
 
