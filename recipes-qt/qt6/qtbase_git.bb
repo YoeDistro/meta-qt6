@@ -30,6 +30,8 @@ DEPENDS += "\
 DEPENDS:remove:class-native = "qtbase-native"
 RDEPENDS_${PN}:remove:class-native = "libssl-native"
 
+RRECOMMENDS:${PN}:append:class-target = " locale-base-c"
+
 PACKAGECONFIG:class-native ?= "\
     gui widgets jpeg png dbus no-opengl openssl zlib \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
