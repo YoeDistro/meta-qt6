@@ -123,7 +123,7 @@ instructions:
           -u git://code.qt.io/yocto/boot2qt-manifest \
           -b ci \
           -m ${MANIFEST} \
-          --reference /mnt/mirror
+          --reference /mnt/yocto-cache/mirror
       ./repo sync
 
       source ./poky/oe-init-build-env
