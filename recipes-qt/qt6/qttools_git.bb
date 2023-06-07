@@ -20,6 +20,8 @@ SRC_URI += " \
 
 DEPENDS += "qtbase qtdeclarative qttools-native"
 
+PACKAGECONFIG[clang] = "-DFEATURE_clang=ON,-DFEATURE_clang=OFF,clang"
+
 FILES:${PN}-tools += "${QT6_INSTALL_DATADIR}/phrasebooks"
 
 BBCLASSEXTEND = "native nativesdk"
