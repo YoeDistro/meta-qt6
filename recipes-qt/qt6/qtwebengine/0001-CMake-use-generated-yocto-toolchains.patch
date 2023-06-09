@@ -1,4 +1,4 @@
-From 6819917c14b55c4352dbd200bb6ab297bfd243fa Mon Sep 17 00:00:00 2001
+From c480cd09ed0297975f533c538faf26c7d4fcbe48 Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Wed, 18 Aug 2021 15:09:41 +0300
 Subject: [PATCH] CMake: use generated yocto toolchains
@@ -11,15 +11,15 @@ target binaries where needed.
 Upstream-Status: Inappropriate [embedded specific]
 Change-Id: I217c9122144f25bb2d28717e7248c2a51b149127
 ---
- cmake/Functions.cmake | 8 ++++----
- src/CMakeLists.txt    | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ cmake/Functions.cmake | 12 +++++-------
+ src/CMakeLists.txt    |  2 +-
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/cmake/Functions.cmake b/cmake/Functions.cmake
-index 89f4cdd39..8845c94f7 100644
+index b460dbbe8..98db2e52e 100644
 --- a/cmake/Functions.cmake
 +++ b/cmake/Functions.cmake
-@@ -750,7 +750,7 @@ endfunction()
+@@ -819,7 +819,7 @@ endfunction()
  
  macro(create_pkg_config_host_wrapper buildDir)
      find_package(PkgConfigHost)
@@ -28,24 +28,31 @@ index 89f4cdd39..8845c94f7 100644
              create_pkg_config_wrapper("${buildDir}/pkg-config-host_wrapper.sh" "${PKG_CONFIG_HOST_EXECUTABLE}")
              set(PKG_CONFIG_HOST_EXECUTABLE "${buildDir}/pkg-config-host_wrapper.sh")
          endif()
-@@ -979,9 +979,9 @@ endmacro()
+@@ -1055,15 +1055,13 @@ endmacro()
  macro(append_toolchain_setup)
      if(LINUX)
          list(APPEND gnArgArg
 -            custom_toolchain="${buildDir}/target_toolchain:target"
 -            host_toolchain="${buildDir}/host_toolchain:host"
--            v8_snapshot_toolchain="${buildDir}/v8_toolchain:v8"
 +            custom_toolchain="//build/toolchain/yocto:yocto_target"
 +            host_toolchain="//build/toolchain/yocto:yocto_native"
 +            v8_snapshot_toolchain="//build/toolchain/yocto:yocto_target"
          )
          get_gn_arch(cpu ${TEST_architecture_arch})
          if(CMAKE_CROSSCOMPILING)
+-            list(APPEND gnArgArg
+-                v8_snapshot_toolchain="${buildDir}/v8_toolchain:v8"
+-                target_cpu="${cpu}"
+-            )
++            list(APPEND gnArgArg target_cpu="${cpu}")
+         else()
+             list(APPEND gnArgArg host_cpu="${cpu}")
+         endif()
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 921871bee..c6141988b 100644
+index a62252783..3b7e4975f 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -151,7 +151,7 @@ endif()
+@@ -157,7 +157,7 @@ endif()
  #  HOST PROJECT
  ##
  
