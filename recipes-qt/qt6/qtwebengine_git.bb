@@ -70,7 +70,7 @@ PACKAGECONFIG[spellchecker] = "-DFEATURE_webengine_spellchecker=ON,-DFEATURE_web
 PACKAGECONFIG[webchannel] = "-DFEATURE_webengine_webchannel=ON,-DFEATURE_webengine_webchannel=OFF,qtwebchannel"
 PACKAGECONFIG[webrtc] = "-DFEATURE_webengine_webrtc=ON,-DFEATURE_webengine_webrtc=OFF,libvpx"
 PACKAGECONFIG[webrtc-pipewire] = "-DFEATURE_webengine_webrtc_pipewire=ON,-DFEATURE_webengine_webrtc_pipewire=OFF,pipewire glib-2.0 libepoxy virtual/libgbm"
-PACKAGECONFIG[zlib] = "-DFEATURE_webengine_system_zlib=ON -DFEATURE_webengine_system_minizip=ON,-DFEATURE_webengine_system_zlib=OFF -DFEATURE_webengine_system_minizip,zlib minizip"
+PACKAGECONFIG[zlib] = "-DFEATURE_webengine_system_zlib=ON -DFEATURE_webengine_system_minizip=ON,-DFEATURE_webengine_system_zlib=OFF -DFEATURE_webengine_system_minizip=OFF,zlib minizip"
 
 FILES:${PN} += "\
     ${QT6_INSTALL_TRANSLATIONSDIR} \
