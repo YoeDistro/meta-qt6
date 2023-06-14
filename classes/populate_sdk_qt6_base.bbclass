@@ -58,7 +58,7 @@ create_qt6_sdk_files () {
     echo 'export OE_QMAKE_AR="$AR"' >> $script
     echo 'export OE_QMAKE_STRIP="$STRIP"' >> $script
     echo 'export OE_QMAKE_OBJCOPY="$OBJCOPY"' >> $script
-    echo 'export OE_QMAKE_AR_LTCG="${HOST_PREFIX}gcc-ar"' >> $script
+    echo 'export OE_QMAKE_AR_LTCG="${AR}"' >> $script
 
     # Generate a toolchain file for using Qt without running setup-environment script
     cat > ${SDK_OUTPUT}${NATIVE_SYSROOT}/usr/share/cmake/Qt6Toolchain.cmake <<EOF
