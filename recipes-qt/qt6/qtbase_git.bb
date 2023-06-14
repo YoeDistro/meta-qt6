@@ -72,6 +72,7 @@ PACKAGECONFIG_DEFAULT ?= "\
     jpeg \
     libinput \
     ${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', 'use-gold-linker', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-lld', 'use-lld-linker', '', d)} \
     openssl  \
     png \
     udev \
@@ -99,6 +100,7 @@ PACKAGECONFIG[static] = "-DBUILD_SHARED_LIBS=OFF,-DBUILD_SHARED_LIBS=ON"
 PACKAGECONFIG[developer-build] = "-DFEATURE_developer_build=ON,-DFEATURE_developer_build=OFF"
 PACKAGECONFIG[use-gold-linker] = "-DFEATURE_use_gold_linker=ON"
 PACKAGECONFIG[use-bfd-linker] = "-DFEATURE_use_bfd_linker=ON"
+PACKAGECONFIG[use-lld-linker] = "-DFEATURE_use_lld_linker=ON"
 
 PACKAGECONFIG[cups] = "-DFEATURE_cups=ON,-DFEATURE_cups=OFF,cups"
 PACKAGECONFIG[dbus] = "-DFEATURE_dbus=ON,-DFEATURE_dbus=OFF,dbus"
