@@ -1,0 +1,110 @@
+From a67f504fcc2c96ea7e7a57e44dc9c6d559f19838 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Sat, 2 Feb 2019 19:28:59 -0800
+Subject: [PATCH] chromium: fix build with clang
+
+This is needed with OE because the tuples are already known to clang
+cross toolchain driver and since they do not match to what chromium
+hardcodes, it confuses the clang driver even more, which ends up not
+finding the crt files and tools in right locations in toolchain install
+
+Upstream-Status: Inappropriate [OE-Specific]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ chromium/build/config/compiler/BUILD.gn | 27 ++-----------------------
+ 1 file changed, 2 insertions(+), 25 deletions(-)
+
+--- a/chromium/build/config/compiler/BUILD.gn
++++ b/chromium/build/config/compiler/BUILD.gn
+@@ -979,11 +979,6 @@ config("compiler_cpu_abi") {
+         ]
+       }
+     } else if (current_cpu == "arm") {
+-      if (is_clang && !is_android && !is_nacl &&
+-          !(is_chromeos_lacros && is_chromeos_device)) {
+-        cflags += [ "--target=arm-linux-gnueabihf" ]
+-        ldflags += [ "--target=arm-linux-gnueabihf" ]
+-      }
+       if (!is_nacl) {
+         cflags += ["-mfloat-abi=$arm_float_abi"]
+         if (arm_arch != "") {
+@@ -997,11 +992,6 @@ config("compiler_cpu_abi") {
+         cflags += [ "-mtune=$arm_tune" ]
+       }
+     } else if (current_cpu == "arm64") {
+-      if (is_clang && !is_android && !is_nacl && !is_fuchsia &&
+-          !(is_chromeos_lacros && is_chromeos_device)) {
+-        cflags += [ "--target=aarch64-linux-gnu" ]
+-        ldflags += [ "--target=aarch64-linux-gnu" ]
+-      }
+       if (is_android) {
+         # Outline atomics crash on Exynos 9810. http://crbug.com/1272795
+         cflags += [ "-mno-outline-atomics" ]
+@@ -1013,9 +1003,6 @@ config("compiler_cpu_abi") {
+           if (is_android) {
+             cflags += [ "--target=mipsel-linux-android" ]
+             ldflags += [ "--target=mipsel-linux-android" ]
+-          } else {
+-            cflags += [ "--target=mipsel-linux-gnu" ]
+-            ldflags += [ "--target=mipsel-linux-gnu" ]
+           }
+         } else {
+           cflags += [ "-EL" ]
+@@ -1094,10 +1081,7 @@ config("compiler_cpu_abi") {
+     } else if (current_cpu == "mips" && !is_nacl) {
+       ldflags += [ "-Wl,--hash-style=sysv" ]
+       if (custom_toolchain == "") {
+-        if (is_clang) {
+-          cflags += [ "--target=mips-linux-gnu" ]
+-          ldflags += [ "--target=mips-linux-gnu" ]
+-        } else {
++        if (!is_clang) {
+           cflags += [ "-EB" ]
+           ldflags += [ "-EB" ]
+         }
+@@ -1144,9 +1128,6 @@ config("compiler_cpu_abi") {
+           if (is_android) {
+             cflags += [ "--target=mips64el-linux-android" ]
+             ldflags += [ "--target=mips64el-linux-android" ]
+-          } else {
+-            cflags += [ "--target=mips64el-linux-gnuabi64" ]
+-            ldflags += [ "--target=mips64el-linux-gnuabi64" ]
+           }
+         } else {
+           cflags += [
+@@ -1203,10 +1184,7 @@ config("compiler_cpu_abi") {
+     } else if (current_cpu == "mips64") {
+       ldflags += [ "-Wl,--hash-style=sysv" ]
+       if (custom_toolchain == "") {
+-        if (is_clang) {
+-          cflags += [ "--target=mips64-linux-gnuabi64" ]
+-          ldflags += [ "--target=mips64-linux-gnuabi64" ]
+-        } else {
++        if (!is_clang) {
+           cflags += [
+             "-EB",
+             "-mabi=64",
+@@ -1367,23 +1345,6 @@ config("compiler_deterministic") {
+       }
+     }
+   }
+-
+-  # Tells the compiler not to use absolute paths when passing the default
+-  # paths to the tools it invokes. We don't want this because we don't
+-  # really need it and it can mess up the goma cache entries.
+-  if (is_clang && (!is_nacl || is_nacl_saigo) && !(is_qtwebengine && use_libcxx)) {
+-    cflags += [ "-no-canonical-prefixes" ]
+-
+-    # Same for links: Let the compiler driver invoke the linker
+-    # with a relative path and pass relative paths to built-in
+-    # libraries. Not needed on Windows because we call the linker
+-    # directly there, not through the compiler driver.
+-    # We don't link on goma, so this change is just for cleaner
+-    # internal linker invocations, for people who work on the build.
+-    if (!is_win) {
+-      ldflags += [ "-no-canonical-prefixes" ]
+-    }
+-  }
+ }
+ 
+ config("clang_revision") {
