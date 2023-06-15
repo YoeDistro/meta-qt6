@@ -2,6 +2,8 @@ require recipes-qt/qt6/qtwebengine.inc
 require recipes-qt/qt6/chromium-gn.inc
 
 DEPENDS += " \
+    fontconfig-native \
+    libwebp-native \
     nodejs-native \
     gperf-native \
     bison-native \
