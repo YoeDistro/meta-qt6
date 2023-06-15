@@ -2,6 +2,7 @@ require recipes-qt/qt6/qtwebengine.inc
 require recipes-qt/qt6/chromium-gn.inc
 
 DEPENDS += " \
+    fontconfig-native \
     nodejs-native \
     gperf-native \
     bison-native \
@@ -56,7 +57,7 @@ PACKAGECONFIG[libevent] = "-DFEATURE_webengine_system_libevent=ON,-DFEATURE_webe
 PACKAGECONFIG[libjpeg] = "-DFEATURE_webengine_system_libjpeg=ON,-DFEATURE_webengine_system_libjpeg=OFF,jpeg"
 PACKAGECONFIG[libpng] = "-DFEATURE_webengine_system_libpng=ON,-DFEATURE_webengine_system_libpng=OFF,libpng"
 PACKAGECONFIG[libvpx] = "-DFEATURE_webengine_system_libvpx=ON,-DFEATURE_webengine_system_libvpx=OFF,libvpx"
-PACKAGECONFIG[libwebp] = "-DFEATURE_webengine_system_libwebp=ON,-DFEATURE_webengine_system_libwebp=OFF,libwebp"
+PACKAGECONFIG[libwebp] = "-DFEATURE_webengine_system_libwebp=ON,-DFEATURE_webengine_system_libwebp=OFF,libwebp libwebp-native"
 PACKAGECONFIG[libxml] = "-DFEATURE_webengine_system_libxml=ON,-DFEATURE_webengine_system_libxml=OFF,libxml2 libxslt"
 PACKAGECONFIG[opus] = "-DFEATURE_webengine_system_opus=ON,-DFEATURE_webengine_system_opus=OFF,libopus"
 PACKAGECONFIG[libpci] = "-DFEATURE_webengine_system_libpci=ON,-DFEATURE_webengine_system_libpci=OFF,pciutils"
