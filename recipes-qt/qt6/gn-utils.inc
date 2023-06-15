@@ -46,6 +46,10 @@ def gn_target_arch_name(d):
                  'GN_TARGET_ARCH_NAME variable could not be found.')
     return name
 
+def gn_host_pkg_config(d):
+    """Return absolute paths to pkg-config-native."""
+    return d.getVar("STAGING_BINDIR_NATIVE") + "/" + "pkg-config-native"
+
 def write_toolchain_file(d, file_path):
     """Creates a complete GN toolchain file in |file_path|."""
     import string
@@ -69,6 +73,7 @@ def write_toolchain_file(d, file_path):
         '    current_cpu = "${current_cpu}"\n'
         '    current_os = "linux"\n'
         '    is_clang = false\n'
+        '    host_pkg_config = "${host_pkg_config}"\n'
         '  }\n'
         '}\n'
     )
@@ -76,6 +81,7 @@ def write_toolchain_file(d, file_path):
     native_toolchain = {
         'toolchain_name': 'yocto_native',
         'current_cpu': gn_host_arch_name(d),
+        'host_pkg_config': gn_host_pkg_config(d),
         'cc': d.expand('${BUILD_CC}'),
         'cxx': d.expand('${BUILD_CXX}'),
         'ar': d.expand('${BUILD_AR}'),
@@ -89,6 +95,7 @@ def write_toolchain_file(d, file_path):
     target_toolchain = {
         'toolchain_name': 'yocto_target',
         'current_cpu': gn_target_arch_name(d),
+        'host_pkg_config': gn_host_pkg_config(d),
         'cc': d.expand('${CC}'),
         'cxx': d.expand('${CXX}'),
         'ar': d.expand('${AR}'),
