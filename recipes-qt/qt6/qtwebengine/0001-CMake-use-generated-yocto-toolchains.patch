@@ -10,6 +10,7 @@ target binaries where needed.
 
 Upstream-Status: Inappropriate [embedded specific]
 Change-Id: I217c9122144f25bb2d28717e7248c2a51b149127
+Signed-off-by: Samuli Piippo <samuli.piippo@qt.io>
 ---
  cmake/Functions.cmake | 12 +++++-------
  src/CMakeLists.txt    |  2 +-

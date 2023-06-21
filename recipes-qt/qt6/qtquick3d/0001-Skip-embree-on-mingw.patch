@@ -5,6 +5,9 @@ Subject: [PATCH] Skip embree on mingw
 
 Build fails with older mingw headers, skip it complete since
 it's not needed for the toolchain.
+
+Upstream-Status: Pending
+Signed-off-by: Samuli Piippo <samuli.piippo@qt.io>
 ---
  src/3rdparty/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
