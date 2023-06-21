@@ -4,7 +4,7 @@ Date: Wed, 29 Jan 2020 12:39:09 +0200
 Subject: [PATCH] Allow qtwaylandscanner to be built without dependencies
 
 Change-Id: I15aa5fc5128fcd0925d5950596bd56710b5b81d4
-
+Upstream-Status: Inappropriate [OE Specific]
 ---
  CMakeLists.txt     | 5 -----
  src/CMakeLists.txt | 2 +-
