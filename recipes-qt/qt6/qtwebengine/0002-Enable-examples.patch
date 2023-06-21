@@ -6,6 +6,7 @@ Subject: [PATCH] Enable examples
 The bug mentioned does not affect bitbake builds.
 
 Change-Id: I076763d9241061f9cdb4d46bcd88e46bd4f783aa
+Upstream-Status: Inappropriate [OE Specific]
 ---
  examples/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
