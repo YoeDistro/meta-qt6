@@ -8,6 +8,7 @@ of <stdint.h> on some implementations, and that breaks the build of Qt 6
 on GCC 13. Just use the unqualified name everywhere.
 ---
 Upstream-Status: Backport [v5.2.5 commit 253f8bfa621a9fa6cd2c36291cdaa8c60c99322c]
+Signed-off-by: Ville Voutilainen <ville.voutilainen@gmail.com>
 
  code/AssetLib/FBX/FBXBinaryTokenizer.cpp | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)

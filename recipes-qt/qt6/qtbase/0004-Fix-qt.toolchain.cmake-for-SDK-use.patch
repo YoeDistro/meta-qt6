@@ -8,6 +8,7 @@ host sysroot which must not be used when cross-compiling other projects.
 
 Change-Id: I52aa2a10d2a13fd27d6bf8b4af6dc1833c7a286a
 Upstream-Status: Inappropriate [embedded specific]
+Signed-off-by: Samuli Piippo <samuli.piippo@qt.io>
 ---
  cmake/qt.toolchain.cmake.in | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)

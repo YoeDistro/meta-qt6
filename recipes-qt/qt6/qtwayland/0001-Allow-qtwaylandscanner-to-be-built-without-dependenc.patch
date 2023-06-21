@@ -5,6 +5,8 @@ Subject: [PATCH] Allow qtwaylandscanner to be built without dependencies
 
 Change-Id: I15aa5fc5128fcd0925d5950596bd56710b5b81d4
 
+Upstream-Status: Pending
+Signed-off-by: Samuli Piippo <samuli.piippo@qt.io>
 ---
  CMakeLists.txt     | 5 -----
  src/CMakeLists.txt | 2 +-

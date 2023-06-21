@@ -8,6 +8,7 @@ Build tests without location of the build and sources directories.
 Upstream-Status: Inappropriate [embedded specific]
 Change-Id: I8d5add473623a3d9f481097649819c9fb906e4b2
 
+Signed-off-by: Samuli Piippo <samuli.piippo@qt.io>
 ---
  src/testlib/CMakeLists.txt | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
