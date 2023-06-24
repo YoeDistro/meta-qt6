@@ -1,0 +1,114 @@
+From 4878976cd7391fbc02f87af4b7fb539b5c1f3817 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Wilken=20D=C3=B6rrie?= <jdoerrie@chromium.org>
+Date: Fri, 2 Jun 2023 17:15:58 +0000
+Subject: [PATCH] [base] Ensure CheckedContiguousIterator satisfies C++20
+ Concept
+
+This change ensures base::CheckedContiguousIterator satisfies the
+C++20 concept `std::contiguous_iterator`. In order to do so, this change
+also adds `iterator operator+(difference_type, iterator)`, which is a
+requirement of the `std::randon_access_iterator` concept:
+https://en.cppreference.com/w/cpp/iterator/random_access_iterator
+
+Bug: 1449299
+Change-Id: Id78fb2b00cd955189d25b0dfd9ff0a11dde0845f
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/4580749
+Reviewed-by: Daniel Cheng <dcheng@chromium.org>
+Commit-Queue: Daniel Cheng <dcheng@chromium.org>
+Cr-Commit-Position: refs/heads/main@{#1152610}
+
+Upstream-Status: Backport [https://chromium-review.googlesource.com/c/chromium/src/+/4580749]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ chromium/base/containers/checked_iterators.h           | 8 +++++++-
+ chromium/base/containers/checked_iterators_unittest.cc | 6 ++++++
+ chromium/base/containers/span_unittest.cc              | 3 +++
+ 3 files changed, 16 insertions(+), 1 deletion(-)
+
+--- a/chromium/base/containers/checked_iterators.h
++++ b/chromium/base/containers/checked_iterators.h
+@@ -146,6 +146,12 @@ class CheckedContiguousIterator {
+     return it;
+   }
+ 
++  constexpr friend CheckedContiguousIterator operator+(
++      difference_type lhs,
++      const CheckedContiguousIterator& rhs) {
++    return rhs + lhs;
++  }
++
+   constexpr CheckedContiguousIterator& operator-=(difference_type rhs) {
+     if (rhs < 0) {
+       CHECK_LE(-rhs, end_ - current_);
+@@ -217,7 +223,6 @@ using CheckedContiguousConstIterator = C
+ 
+ }  // namespace base
+ 
+-#if defined(_LIBCPP_VERSION) && !BUILDFLAG(IS_NACL)
+ // Specialize both std::__is_cpp17_contiguous_iterator and std::pointer_traits
+ // for CCI in case we compile with libc++ outside of NaCl. The former is
+ // required to enable certain algorithm optimizations (e.g. std::copy can be a
+@@ -235,13 +240,27 @@ using CheckedContiguousConstIterator = C
+ // [1] https://wg21.link/iterator.concept.contiguous
+ // [2] https://wg21.link/std.iterator.tags
+ // [3] https://wg21.link/pointer.traits.optmem
+-namespace std {
+-
++#if defined(_LIBCPP_VERSION)
++_LIBCPP_BEGIN_NAMESPACE_STD
++template <typename T>
++struct __is_cpp17_contiguous_iterator;
+ template <typename T>
+ struct __is_cpp17_contiguous_iterator<::base::CheckedContiguousIterator<T>>
+     : true_type {};
+ 
+ template <typename T>
++struct __libcpp_is_contiguous_iterator;
++template <typename T>
++struct __libcpp_is_contiguous_iterator<::base::CheckedContiguousIterator<T>>
++    : true_type {};
++
++_LIBCPP_END_NAMESPACE_STD
++
++#endif
++
++namespace std {
++
++template <typename T>
+ struct pointer_traits<::base::CheckedContiguousIterator<T>> {
+   using pointer = ::base::CheckedContiguousIterator<T>;
+   using element_type = T;
+@@ -260,6 +279,5 @@ struct pointer_traits<::base::CheckedCon
+ };
+ 
+ }  // namespace std
+-#endif
+ 
+ #endif  // BASE_CONTAINERS_CHECKED_ITERATORS_H_
+--- a/chromium/base/containers/checked_iterators_unittest.cc
++++ b/chromium/base/containers/checked_iterators_unittest.cc
+@@ -13,6 +13,12 @@
+ 
+ namespace base {
+ 
++#if defined(__cpp_lib_ranges)
++TEST(CheckedContiguousIterator, SatisfiesContiguousIteratorConcept) {
++  static_assert(std::contiguous_iterator<CheckedContiguousIterator<int>>);
++}
++#endif
++
+ // Checks that constexpr CheckedContiguousConstIterators can be compared at
+ // compile time.
+ TEST(CheckedContiguousIterator, StaticComparisonOperators) {
+--- a/chromium/base/containers/span_unittest.cc
++++ b/chromium/base/containers/span_unittest.cc
+@@ -1085,6 +1085,9 @@ TEST(SpanTest, ConstexprIterator) {
+ 
+   static_assert(1 == *((span.begin() + 1) -= 1), "");
+   static_assert(6 == *((span.begin() + 1) -= 0), "");
++
++  static_assert(0 + span.begin() == span.begin() + 0);
++  static_assert(1 + span.begin() == span.begin() + 1);
+ }
+ 
+ TEST(SpanTest, ReverseIterator) {
