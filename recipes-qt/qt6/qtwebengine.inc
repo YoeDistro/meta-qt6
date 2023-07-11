@@ -39,6 +39,7 @@ SRC_URI += " \
     file://chromium/0003-skia-vcvt_f32_f16.patch;patchdir=src/3rdparty \
     file://chromium/0004-chromium-fix-build-with-clang.patch;patchdir=src/3rdparty \
     file://chromium/0005-base-Ensure-CheckedContiguousIterator-satisfies-C-20.patch;patchdir=src/3rdparty \
+    file://chromium/0006-clang17.patch;patchdir=src/3rdparty \
 "
 
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"

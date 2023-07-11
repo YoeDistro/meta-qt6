@@ -1,0 +1,16 @@
+Fixes build with clang 17 libc++
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+
+--- 3rdparty/chromium/base/observer_list_internal.h.kk	2023-07-10 22:38:44.986472013 -0700
++++ 3rdparty/chromium/base/observer_list_internal.h	2023-07-10 22:38:59.733158448 -0700
+@@ -29,7 +29,7 @@
+   explicit UncheckedObserverAdapter(const void* observer)
+       : ptr_(const_cast<void*>(observer)) {}
+   UncheckedObserverAdapter(const UncheckedObserverAdapter&) = delete;
+-  UncheckedObserverAdapter& operator=(const UncheckedObserverAdapter&) = delete;
++  UncheckedObserverAdapter& operator=(const UncheckedObserverAdapter&);
+   UncheckedObserverAdapter(UncheckedObserverAdapter&& other) = default;
+   UncheckedObserverAdapter& operator=(UncheckedObserverAdapter&& other) =
+       default;
