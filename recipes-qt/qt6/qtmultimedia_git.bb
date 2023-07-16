@@ -20,7 +20,8 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtshadertools qtshadertools-native"
 
-PACKAGECONFIG ?= "ffmpeg gstreamer pulseaudio qml spatialaudio spatialaudio_quick3d"
+PACKAGECONFIG ?= "${@bb.utils.contains("LICENSE_FLAGS_ACCEPTED", "commercial", "ffmpeg", "", d)} \
+                  gstreamer pulseaudio qml spatialaudio spatialaudio_quick3d"
 PACKAGECONFIG[alsa] = "-DFEATURE_alsa=ON,-DFEATURE_alsa=OFF,alsa-lib"
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtsvg"
 PACKAGECONFIG[ffmpeg] = "-DFEATURE_ffmpeg=ON,-DFEATURE_ffmpeg=OFF,ffmpeg"
