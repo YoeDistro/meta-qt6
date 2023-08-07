@@ -29,6 +29,8 @@ SRC_URI += " \
 
 DEPENDS = "qtbase qtdeclarative qtdeclarative-native qtshadertools qtshadertools-native"
 
+CFLAGS:append:libc-musl = " -D_LARGEFILE64_SOURCE -D_GNU_SOURCE"
+
 PACKAGECONFIG[system-assimp] = "-DFEATURE_qt3d_system_assimp=ON,-DQT_FEATURE_qt3d_system_assimp=OFF,assimp"
 PACKAGECONFIG[qtgamepad] = ",,qtgamepad"
 
