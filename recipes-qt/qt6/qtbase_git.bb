@@ -23,6 +23,7 @@ SRC_URI += "\
     file://0004-Fix-qt.toolchain.cmake-for-SDK-use.patch \
     file://0005-testlib-don-t-track-the-build-or-source-directories.patch \
 "
+SRC_URI:append:libc-musl = " file://lfs64.patch "
 
 DEPENDS += "\
     patchelf-native \
