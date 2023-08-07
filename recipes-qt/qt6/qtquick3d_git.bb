@@ -33,6 +33,8 @@ PACKAGECONFIG:class-target ?= "qtquicktimeline"
 PACKAGECONFIG[qtquicktimeline] = ",,qtquicktimeline"
 PACKAGECONFIG[system-assimp] = "-DFEATURE_system_assimp=ON,-DFEATURE_system_assimp=OFF,assimp"
 
+CFLAGS:append:libc-musl = " -D_LARGEFILE64_SOURCE -D_GNU_SOURCE"
+
 FILES:${PN}-qmlplugins += " \
   ${QT6_INSTALL_QMLDIR}/QtQuick3D/Helpers/meshes/*.mesh \
 "
