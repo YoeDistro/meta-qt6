@@ -28,10 +28,10 @@ the LAYERSERIES_COMPAT (c).
 | mickledore |  x  |  x  |  x  |  x  |     |     |
 | langdale   |  x  |  x  |  x  |  x  |     |     |
 | kirkstone  |  x  |  x  |  x  |  x  |  x  |  x  |
-| honister   |  c  |  c  |  c  |  c  |  x  |  x  |
-| hardknott  |  c  |  c  |  c  |  c  |  c  |  c  |
-| gatesgarth |  c  |  c  |  c  |  c  |  c  |  c  |
-| dunfell    |  x  |  x  |  x  |  x  |  x  |  x  |
+| honister   |     |  c  |  c  |  c  |  x  |  x  |
+| hardknott  |     |  c  |  c  |  c  |  c  |  c  |
+| gatesgarth |     |  c  |  c  |  c  |  c  |  c  |
+| dunfell    |     |  x  |  x  |  x  |  x  |  x  |
 
 Commercial Qt
 -------------
