@@ -1,0 +1,33 @@
+From 77583a82ac534ed646ea7eb9156a681a4a44adbc Mon Sep 17 00:00:00 2001
+From: Samuli Piippo <samuli.piippo@qt.io>
+Date: Wed, 16 Aug 2023 13:25:36 +0000
+Subject: [PATCH] Avoid using libdrm
+
+Fixes: QTBUG-116152
+Change-Id: Iac97f11ea0d39f16b60c3ebec1de35db23181b1a
+Upstream-Status: Submitted
+---
+ chromium/media/gpu/sandbox/BUILD.gn | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/chromium/media/gpu/sandbox/BUILD.gn b/chromium/media/gpu/sandbox/BUILD.gn
+index cfcb7fa80ef..13d6b310d50 100644
+--- a/chromium/media/gpu/sandbox/BUILD.gn
++++ b/chromium/media/gpu/sandbox/BUILD.gn
+@@ -4,6 +4,7 @@
+ 
+ import("//build/config/chromeos/ui_mode.gni")
+ import("//media/gpu/args.gni")
++import("//build/config/features.gni")
+ 
+ source_set("sandbox") {
+   sources = []
+@@ -31,7 +32,7 @@ source_set("sandbox") {
+     deps += [ "//media/gpu/v4l2" ]
+   }
+   if (current_cpu != "s390x" && current_cpu != "ppc64" && is_linux &&
+-      !is_castos) {
++      !is_castos && !is_qtwebengine) {
+     # For DRI_DRIVER_DIR.
+     configs += [ "//build/config/linux/dri" ]
+   }
