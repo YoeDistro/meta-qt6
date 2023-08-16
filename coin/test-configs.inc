@@ -27,6 +27,10 @@ EXTRA_QA = "\
 ERROR_QA:append = "${EXTRA_QA}"
 WARN_QA:remove = "${EXTRA_QA}"
 
+# workaround for qemu
+# nativesdk-qemu-user-mips rdepends on nativesdk-bash, but it isn't a build dependency
+INSANE_SKIP:nativesdk-qemu-user-mips = "build-deps"
+
 # enable thumb for broader test coverage (oe-core autobuilder doesn't have thumb enabled)
 PREFERRED_ARM_INSTRUCTION_SET              ?= "thumb"
 ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
