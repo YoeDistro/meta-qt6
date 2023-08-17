@@ -26,7 +26,7 @@ the LAYERSERIES_COMPAT (c).
 | ---------- |:---:|:---:|:---:|:---:|:---:|:---:|
 | master     |  x  |  x  |  x  |     |     |     |
 | mickledore |  x  |  x  |  x  |  x  |     |     |
-| langdale   |  x  |  x  |  x  |  x  |     |     |
+| langdale   |  c  |  c  |  c  |  x  |     |     |
 | kirkstone  |  x  |  x  |  x  |  x  |  x  |  x  |
 | honister   |     |  c  |  c  |  c  |  x  |  x  |
 | hardknott  |     |  c  |  c  |  c  |  c  |  c  |
