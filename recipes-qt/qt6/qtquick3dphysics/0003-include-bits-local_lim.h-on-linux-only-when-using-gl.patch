@@ -1,0 +1,29 @@
+From 0b3bd13c633c2b26695856705ace6aed782d644a Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 8 Aug 2023 00:08:28 -0700
+Subject: [PATCH 3/3] include bits/local_lim.h on linux only when using glibc
+
+bits/local_lim.h is not available on musl e.g.
+
+Upstream-Status: Submitted [https://codereview.qt-project.org/c/qt/qtquick3dphysics/+/495053]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ src/3rdparty/PhysX/source/foundation/src/unix/PsUnixThread.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/3rdparty/PhysX/source/foundation/src/unix/PsUnixThread.cpp b/src/3rdparty/PhysX/source/foundation/src/unix/PsUnixThread.cpp
+index c29b09c..9389b4d 100644
+--- a/src/3rdparty/PhysX/source/foundation/src/unix/PsUnixThread.cpp
++++ b/src/3rdparty/PhysX/source/foundation/src/unix/PsUnixThread.cpp
+@@ -36,7 +36,7 @@
+ #include "PsThread.h"
+ 
+ #include <math.h>
+-#if !PX_APPLE_FAMILY && !defined(ANDROID) && !defined(__CYGWIN__) && !PX_PS4 && !PX_EMSCRIPTEN
++#if !PX_APPLE_FAMILY && !defined(ANDROID) && !defined(__CYGWIN__) && !PX_PS4 && !PX_EMSCRIPTEN && __GLIBC__
+ #include <bits/local_lim.h> // PTHREAD_STACK_MIN
+ #endif
+ #include <stdio.h>
+-- 
+2.41.0
+
