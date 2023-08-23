@@ -17,5 +17,7 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtshadertools qtshadertools-native qtdeclarative-native qtlanguageserver"
 
+PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtsvg"
+
 BBCLASSEXTEND = "native nativesdk"
 
