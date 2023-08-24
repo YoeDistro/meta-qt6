@@ -41,6 +41,7 @@ SRC_URI += " \
     file://chromium/0005-base-Ensure-CheckedContiguousIterator-satisfies-C-20.patch;patchdir=src/3rdparty \
     file://chromium/0006-clang17.patch;patchdir=src/3rdparty \
     file://chromium/0007-Remove-unsetting-_FILE_OFFSET_BITS.patch;patchdir=src/3rdparty \
+    file://chromium/0003-avcodec-x86-mathops-clip-constants-used-with-shift-i.patch;patchdir=src/3rdparty \
 "
 
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
