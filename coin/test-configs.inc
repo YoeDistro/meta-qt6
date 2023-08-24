@@ -1,9 +1,5 @@
-PREFERRED_PROVIDER_udev = "systemd"
 # use systemd
-DISTRO_FEATURES:append = " systemd"
-DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
-VIRTUAL-RUNTIME_init_manager = "systemd"
-VIRTUAL-RUNTIME_initscripts = ""
+INIT_MANAGER:forcevariable = "systemd"
 
 INHERIT += "buildstats buildstats-summary"
 INHERIT += "rm_work"
@@ -30,6 +26,10 @@ EXTRA_QA = "\
 "
 ERROR_QA:append = "${EXTRA_QA}"
 WARN_QA:remove = "${EXTRA_QA}"
+
+# workaround for qemu
+# nativesdk-qemu-user-mips rdepends on nativesdk-bash, but it isn't a build dependency
+INSANE_SKIP:nativesdk-qemu-user-mips = "build-deps"
 
 # enable thumb for broader test coverage (oe-core autobuilder doesn't have thumb enabled)
 PREFERRED_ARM_INSTRUCTION_SET              ?= "thumb"

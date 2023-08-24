@@ -17,7 +17,7 @@ machine_type:
 #
 #           [target1]       [target2]   [target3]       [target4]       [target5]
 # [machine] qemuarm64       qemux86     qemuarm         qemux86-64      qemuarm64
-# [yocto]   kirkstone       langdale    mickledore      dunfell         master
+# [yocto]   kirkstone       master      mickledore      dunfell         master
 # [X11]     no              no          yes             yes             no
 # [mingw]   no              yes         no              no              no
 # [static]  no              no          no              no              yes
@@ -47,7 +47,7 @@ target2: &target2
       variableValue: qemux86
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: langdale.xml
+      variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
       variableValue: ci configs wayland mingw no-webengine
