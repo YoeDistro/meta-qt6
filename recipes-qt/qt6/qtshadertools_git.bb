@@ -10,6 +10,7 @@ include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
 DEPENDS = "qtbase qtshadertools-native"
+DEPENDS:append:class-native = " spirv-tools-native"
 
 RDEPENDS:${PN}-tools = "spirv-tools"
 RDEPENDS:${PN}-tools:remove:mingw32 = "spirv-tools"
