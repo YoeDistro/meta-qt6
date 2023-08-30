@@ -215,7 +215,7 @@ AR_host:toolchain-clang = "llvm-ar"
 
 do_install:append:class-target() {
     sed >> ${D}${QT6_INSTALL_MKSPECSDIR}/linux-oe-g++/qmake.conf <<EOF \
-        -e 's:${lcl_maybe_fortify}::' \
+        -e 's: ${lcl_maybe_fortify}: :' \
         -e 's:${DEBUG_PREFIX_MAP}::' \
         -e 's:${RECIPE_SYSROOT}:$$[QT_SYSROOT]:' \
         -e 's:${TARGET_PREFIX}:$$[QT_HOST_PREFIX]${bindir}/${TARGET_SYS}/${TARGET_PREFIX}:'
