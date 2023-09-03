@@ -13,12 +13,6 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-SRC_URI += "\
-    file://0001-PhysX-Fix-breakage-due-to-reinterpret_cast-SomeType-.patch \
-    file://0002-Do-not-use-feenableexcept-fedisableexcept-on-musl.patch \
-    file://0003-include-bits-local_lim.h-on-linux-only-when-using-gl.patch \
-"
-
 COMPATIBLE_MACHINE = "(-)"
 COMPATIBLE_MACHINE:aarch64 = "(.*)"
 COMPATIBLE_MACHINE:arm = "(.*)"
