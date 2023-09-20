@@ -10,3 +10,8 @@ include recipes-qt/qt6/qt6-commercial.inc
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
 FILES:${PN} += "${QT6_INSTALL_DATADIR}/qtinsight"
+
+# error: unexpected reloc 3 against global symbol qt_version_tag without base register
+# in object file when generating a position-independent output file
+QT_PTEST_ENABLED:x86 = "${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', '0', \
+    bb.utils.contains('DISTRO_FEATURES', 'ptest', '1', '0', d), d)}"
