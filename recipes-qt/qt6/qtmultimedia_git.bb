@@ -18,8 +18,6 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-SRC_URI += "file://0001-include-sys-select.h.patch"
-
 DEPENDS += "qtbase qtshadertools qtshadertools-native"
 
 PACKAGECONFIG ?= "${@bb.utils.contains("LICENSE_FLAGS_ACCEPTED", "commercial", "ffmpeg", "", d)} \
