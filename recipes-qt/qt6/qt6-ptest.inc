@@ -57,7 +57,7 @@ INSANE_SKIP:${PN}-ptest += "file-rdeps"
 
 PACKAGESPLITFUNCS =+ "remove_ptest_debug"
 remove_ptest_debug() {
-    for i in $(find ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests/auto -name .debug); do
-        rm -rf $i
-    done
+    if [ -e ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests/auto ]; then
+        find ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests/auto -depth -type d -name .debug -exec rm -rf '{}' \;
+    fi
 }
