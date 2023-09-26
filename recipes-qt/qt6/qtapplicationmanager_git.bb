@@ -15,7 +15,6 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtdeclarative libyaml libarchive qtapplicationmanager-native"
 DEPENDS:append:libc-musl = " libexecinfo"
-LDFLAGS:append:libc-musl = " -lexecinfo"
 RDEPENDS:${PN}:class-target = "libcrypto ${PN}-tools"
 
 PACKAGECONFIG ?= "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'multi-process', '', d)}"
