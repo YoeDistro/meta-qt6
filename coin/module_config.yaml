@@ -49,7 +49,7 @@ target2: &target2
       variableValue: honister.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs pre-inclusive wayland mingw lts
+      variableValue: ci configs pre-inclusive wayland mingw no-webengine lts
   enable_if:
       condition: property
       property: target.arch

@@ -1,4 +1,4 @@
-From 87769922a455bec09951f95e8cd3402cf646ee33 Mon Sep 17 00:00:00 2001
+From 23d02fd87c766b6aef2a5aa81186b3db3f13b82a Mon Sep 17 00:00:00 2001
 From: Raphael Kubo da Costa <raphael.kubo.da.costa@intel.com>
 Date: Tue, 7 Nov 2017 15:24:32 +0100
 Subject: [PATCH] v8: qemu wrapper
@@ -16,50 +16,50 @@ Signed-off-by: Maksim Sisov <msisov@igalia.com>
  2 files changed, 5 insertions(+)
 
 diff --git a/chromium/tools/v8_context_snapshot/BUILD.gn b/chromium/tools/v8_context_snapshot/BUILD.gn
-index 6e86a543558..eee89b37064 100644
+index d868696dbf2..298273818ef 100644
 --- a/chromium/tools/v8_context_snapshot/BUILD.gn
 +++ b/chromium/tools/v8_context_snapshot/BUILD.gn
-@@ -56,6 +56,7 @@ if (use_v8_context_snapshot) {
-     output_path = rebase_path(output_file, root_build_dir)
+@@ -72,6 +72,7 @@ if (use_v8_context_snapshot) {
+       output_path = rebase_path(output_file, root_build_dir)
  
-     args = [
-+      "./v8-qemu-wrapper.sh",
-       "./" + rebase_path(
-               get_label_info(
-                       ":v8_context_snapshot_generator($v8_snapshot_toolchain)",
+       args = [
++        "../../../../v8-qemu-wrapper.sh",
+         "./" + rebase_path(get_label_info(":v8_context_snapshot_generator",
+                                           "root_out_dir") +
+                                "/v8_context_snapshot_generator",
 diff --git a/chromium/v8/BUILD.gn b/chromium/v8/BUILD.gn
-index db762c8c300..11e96d1ea3b 100644
+index 2f99c3d70b0..9b28cf2ed4c 100644
 --- a/chromium/v8/BUILD.gn
 +++ b/chromium/v8/BUILD.gn
-@@ -1521,6 +1521,7 @@ template("run_torque") {
+@@ -1870,6 +1870,7 @@ template("run_torque") {
      }
  
      args = [
-+      "./v8-qemu-wrapper.sh",
++      "../../../../v8-qemu-wrapper.sh",
        "./" + rebase_path(
                get_label_info(":torque($toolchain)", "root_out_dir") + "/torque",
                root_build_dir),
-@@ -1637,6 +1638,7 @@ action("generate_bytecode_builtins_list") {
+@@ -2002,6 +2003,7 @@ action("generate_bytecode_builtins_list") {
    outputs = [ "$target_gen_dir/builtins-generated/bytecodes-builtins-list.h" ]
    deps = [ ":bytecode_builtins_list_generator($v8_generator_toolchain)" ]
    args = [
-+    "./v8-qemu-wrapper.sh",
++    "../../../../v8-qemu-wrapper.sh",
      "./" + rebase_path(
              get_label_info(
                      ":bytecode_builtins_list_generator($v8_generator_toolchain)",
-@@ -1682,6 +1684,7 @@ template("run_mksnapshot") {
+@@ -2047,6 +2049,7 @@ template("run_mksnapshot") {
      data = []
  
      args = [
-+      "./v8-qemu-wrapper.sh",
++      "../../../../v8-qemu-wrapper.sh",
        "./" + rebase_path(get_label_info(":mksnapshot($v8_snapshot_toolchain)",
                                          "root_out_dir") + "/mksnapshot",
                           root_build_dir),
-@@ -5133,6 +5136,7 @@ if (v8_enable_i18n_support) {
+@@ -5849,6 +5852,7 @@ if (v8_enable_i18n_support) {
      outputs = [ output_file ]
  
      args = [
-+      "./v8-qemu-wrapper.sh",
++      "../../../../v8-qemu-wrapper.sh",
        "./" + rebase_path(
                get_label_info(
                        ":gen-regexp-special-case($v8_generator_toolchain)",

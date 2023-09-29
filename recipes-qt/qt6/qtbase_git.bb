@@ -19,6 +19,7 @@ SRC_URI += "\
     file://0002-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
     file://0003-tests-disable-failing-tests.patch \
     file://0004-Fix-qt.toolchain.cmake-for-SDK-use.patch \
+    file://0005-testlib-don-t-track-the-build-or-source-directories.patch \
 "
 
 DEPENDS += "\
@@ -28,7 +29,10 @@ DEPENDS += "\
 DEPENDS:remove:class-native = "qtbase-native"
 RDEPENDS_${PN}:remove:class-native = "libssl-native"
 
-PACKAGECONFIG:class-native ?= "gui widgets png dbus no-opengl openssl"
+PACKAGECONFIG:class-native ?= "\
+    gui widgets png dbus no-opengl openssl \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
+"
 PACKAGECONFIG:class-nativesdk ?= "${PACKAGECONFIG:class-native}"
 PACKAGECONFIG ?= "\
     ${PACKAGECONFIG_DEFAULT} \
@@ -52,7 +56,7 @@ PACKAGECONFIG_FONTS ?= ""
 PACKAGECONFIG_SYSTEM ?= ""
 PACKAGECONFIG_DISTRO ?= ""
 PACKAGECONFIG_DEFAULT ?= "accessibility dbus udev gui widgets icu openssl  \
-    jpeg png dbus libinput fontconfig harfbuzz \
+    jpeg png dbus libinput fontconfig harfbuzz zlib \
     ${@bb.utils.contains('SELECTED_OPTIMIZATION', '-Os', 'optimize-size ltcg', '', d)} \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
 "
@@ -76,6 +80,7 @@ PACKAGECONFIG[developer-build] = "-DFEATURE_developer_build=ON,-DFEATURE_develop
 PACKAGECONFIG[cups] = "-DFEATURE_cups=ON,-DFEATURE_cups=OFF,cups"
 PACKAGECONFIG[dbus] = "-DFEATURE_dbus=ON,-DFEATURE_dbus=OFF,dbus"
 PACKAGECONFIG[udev] = "-DFEATURE_libudev=ON,-DFEATURE_libudev=OFF,udev"
+PACKAGECONFIG[zlib] = "-DFEATURE_system_zlib=ON,-DFEATURE_system_zlib=OFF,zlib"
 PACKAGECONFIG[zstd] = "-DFEATURE_zstd=ON,-DFEATURE_zstd=OFF,zstd"
 
 # corelib
@@ -126,12 +131,12 @@ PACKAGECONFIG[sql-sqlite] = "-DFEATURE_system_sqlite=ON,-DFEATURE_sql_sqlite=OFF
 EXTRA_OECMAKE += "\
     -DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
     -DQT_EDITION=${QT_EDITION} \
+    -DQT_AVOID_CMAKE_ARCHIVING_API=ON \
 "
 
 EXTRA_OECMAKE:append:class-target = "\
     -DFEATURE_rpath=OFF \
     -DQT_QPA_DEFAULT_PLATFORM=${QT_QPA_DEFAULT_PLATFORM} \
-    -DQT_AVOID_CMAKE_ARCHIVING_API=ON \
     ${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', '-DFEATURE_use_gold_linker=ON', '-DFEATURE_use_bfd_linker=ON', d)} \
 "
 

@@ -36,9 +36,9 @@ PACKAGECONFIG ??= "\
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', '${PACKAGECONFIG_OPENEMBEDDED}', '', d)} \
     geolocation \
     webchannel \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'multimedia-layer', 'webrtc-pipewire', '', d)} \
     printing-and-pdf \
     pepper-plugins \
+    spellchecker \
 "
 PACKAGECONFIG_OPENEMBEDDED ?= "\
     lcms2 \
@@ -61,11 +61,10 @@ PACKAGECONFIG[libpng] = "-DFEATURE_webengine_system_libpng=ON,-DFEATURE_webengin
 PACKAGECONFIG[libvpx] = "-DFEATURE_webengine_system_libvpx=ON,-DFEATURE_webengine_system_libvpx=OFF,libvpx"
 PACKAGECONFIG[libwebp] = "-DFEATURE_webengine_system_libwebp=ON,-DFEATURE_webengine_system_libwebp=OFF,libwebp"
 PACKAGECONFIG[libxml] = "-DFEATURE_webengine_system_libxml=ON,-DFEATURE_webengine_system_libxml=OFF,libxml2 libxslt"
-PACKAGECONFIG[minizip] = "-DFEATURE_webengine_system_minizip=ON,-DFEATURE_webengine_system_minizip=OFF,minizip"
 PACKAGECONFIG[opus] = "-DFEATURE_webengine_system_opus=ON,-DFEATURE_webengine_system_opus=OFF,libopus"
 PACKAGECONFIG[libpci] = "-DFEATURE_webengine_system_libpci=ON,-DFEATURE_webengine_system_libpci=OFF,pciutils"
 PACKAGECONFIG[pepper-plugins] = "-DFEATURE_webengine_pepper_plugins=ON,-DFEATURE_webengine_pepper_plugins=OFF"
-PACKAGECONFIG[printing-and-pdf] = "-DFEATURE_webengine_printing_and_pdf=ON,-DFEATURE_webengine_printing_and_pdf=OFF"
+PACKAGECONFIG[printing-and-pdf] = "-DFEATURE_webengine_printing_and_pdf=ON,-DFEATURE_webengine_printing_and_pdf=OFF,cups"
 PACKAGECONFIG[proprietary-codecs] = "-DFEATURE_webengine_proprietary_codecs=ON,-DFEATURE_webengine_proprietary_codecs=OFF"
 PACKAGECONFIG[pulseaudio] = "-DFEATURE_webengine_system_pulseaudio=ON,-DFEATURE_webengine_system_pulseaudio=OFF,pulseaudio"
 PACKAGECONFIG[re2] = "-DFEATURE_webengine_system_re2=ON,-DFEATURE_webengine_system_re2=OFF,re2"
@@ -73,8 +72,8 @@ PACKAGECONFIG[snappy] = "-DFEATURE_webengine_system_snappy=ON,-DFEATURE_webengin
 PACKAGECONFIG[spellchecker] = "-DFEATURE_webengine_spellchecker=ON,-DFEATURE_webengine_spellchecker=OFF"
 PACKAGECONFIG[webchannel] = "-DFEATURE_webengine_webchannel=ON,-DFEATURE_webengine_webchannel=OFF,qtwebchannel"
 PACKAGECONFIG[webrtc] = "-DFEATURE_webengine_webrtc=ON,-DFEATURE_webengine_webrtc=OFF,libvpx"
-PACKAGECONFIG[webrtc-pipewire] = "-DFEATURE_webengine_webrtc_pipewire=ON,-DFEATURE_webengine_webrtc_pipewire=OFF,pipewire glib-2.0"
-PACKAGECONFIG[zlib] = "-DFEATURE_webengine_system_zlib=ON,-DFEATURE_webengine_system_zlib=OFF,zlib"
+PACKAGECONFIG[webrtc-pipewire] = "-DFEATURE_webengine_webrtc_pipewire=ON,-DFEATURE_webengine_webrtc_pipewire=OFF,pipewire glib-2.0 libepoxy virtual/libgbm"
+PACKAGECONFIG[zlib] = "-DFEATURE_webengine_system_zlib=ON -DFEATURE_webengine_system_minizip=ON,-DFEATURE_webengine_system_zlib=OFF -DFEATURE_webengine_system_minizip,zlib minizip"
 
 FILES:${PN} += "\
     ${QT6_INSTALL_TRANSLATIONSDIR} \

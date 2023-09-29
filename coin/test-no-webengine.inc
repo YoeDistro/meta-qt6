@@ -1,1 +1,1 @@
-DISTRO_FEATURES_remove = "webengine"
+DISTRO_FEATURES:remove = "webengine"
