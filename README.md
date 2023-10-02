@@ -73,12 +73,15 @@ Qt Multimedia only uses GStreamer.
 Contributing
 ------------
 
-To contribute to this layer you should submit the patches for review using
+To contribute to this layer submit the patches for review using
 [Qt Gerrit](https://codereview.qt-project.org).
 
 More information about Qt Gerrit and how to use it:
- - https://wiki.qt.io/Gerrit_Introduction
- - https://wiki.qt.io/Setting_up_Gerrit
+ - [Gerrit_Introduction](https://wiki.qt.io/Gerrit_Introduction)
+ - [Setting_up_Gerrit](https://wiki.qt.io/Setting_up_Gerrit)
+
+Report bugs on [Qt Bug Tracker](https://bugreports.qt.io) using
+`Yocto: meta-qt6 layer` component.
 
 Layer maintainers
 -----------------
