@@ -28,5 +28,6 @@ PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 # cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]
 SECURITY_STRINGFORMAT = ""
 
-DEPENDS += "qtbase"
+DEPENDS += "qtbase qtopcua-native"
 
+BBCLASSEXTEND = "native nativesdk"
