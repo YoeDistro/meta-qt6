@@ -13,11 +13,6 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-python() {
-    if 'meta-python' not in d.getVar('BBFILE_COLLECTIONS').split():
-        raise bb.parse.SkipRecipe('Requires meta-python to be present.')
-}
-
 # Default build and package these
 REFERENCE_API ?= "1"
 SIMULATION_SUPPORT ?= "1"

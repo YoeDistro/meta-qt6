@@ -5,8 +5,6 @@ This layer depends on:
 
 URI: https://git.openembedded.org/openembedded-core/
 
-and optionally:
-
 URI: https://git.openembedded.org/meta-openembedded/
 
 Yocto version support
