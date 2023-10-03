@@ -16,10 +16,10 @@ RDEPENDS:${PN} += " \
     qtconnectivity \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtdatavis3d', '', d)} \
     qtdeviceutilities \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'qtgrpc', '', d)} \
+    qtgrpc \
     qthttpserver \
     qtimageformats \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-python', 'qtinterfaceframework', '', d)} \
+    qtinterfaceframework \
     qtlocation \
     qtlottie \
     qtmqtt \
