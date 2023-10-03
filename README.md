@@ -52,12 +52,6 @@ a commercial Qt license and you have set up SSH access to Qt Gerrit (see links b
 The commercial Qt modules are included in the build if the `QT_COMMERCIAL_MODULES`
 variable is set to `1` and you are using a commercial edition of Qt.
 
-QtWebEngine
------------
-
-QtWebEngine needs at least CMake 3.19, which is available starting from Hardknott.
-For this reason QtWebEngine is not tested on older releases.
-
 QtMultimedia
 ------------
 
