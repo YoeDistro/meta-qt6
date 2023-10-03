@@ -36,8 +36,7 @@ RDEPENDS_${PN}:remove:class-native = "libssl-native"
 RRECOMMENDS:${PN}:append:class-target = " locale-base-c"
 
 PACKAGECONFIG:class-native ?= "\
-    gui widgets jpeg png dbus no-opengl openssl zlib \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
+    gui widgets jpeg png dbus no-opengl openssl zlib zstd \
 "
 PACKAGECONFIG:class-nativesdk ?= "${PACKAGECONFIG:class-native}"
 PACKAGECONFIG ?= "\
@@ -78,8 +77,8 @@ PACKAGECONFIG_DEFAULT ?= "\
     widgets \
     xkbcommon \
     zlib \
+    zstd \
     ${@bb.utils.contains('SELECTED_OPTIMIZATION', '-Os', 'optimize-size ltcg', '', d)} \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
 "
 
 PACKAGECONFIG:remove:mingw32 = "openssl"
