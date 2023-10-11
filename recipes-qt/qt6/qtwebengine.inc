@@ -42,5 +42,7 @@ SRC_URI += " \
     file://chromium/0007-clang17.patch;patchdir=src/3rdparty \
     file://chromium/0008-Remove-unsetting-_FILE_OFFSET_BITS.patch;patchdir=src/3rdparty \
 "
+# Machines not supporting AES instructions e.g. RPI4 need to disable  assembly in boringssl
+SRC_URI:append:aarch64 = "${@bb.utils.contains('TUNE_FEATURES', 'crypto', '', ' file://chromium/boringssl_no_asm_config.patch;patchdir=src/3rdparty', d)}"
 
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
