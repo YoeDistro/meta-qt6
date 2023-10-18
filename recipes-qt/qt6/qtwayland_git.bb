@@ -17,6 +17,7 @@ inherit features_check
 REQUIRED_DISTRO_FEATURES = "wayland"
 
 include recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
 SRC_URI +="\

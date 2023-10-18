@@ -18,6 +18,7 @@ inherit setuptools3
 inherit qt6-cmake
 
 require recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-lts.inc
 
 QT_GIT_PROJECT = "pyside"
 QT_MODULE = "pyside-setup"

@@ -8,6 +8,7 @@ LIC_FILES_CHKSUM = " \
 inherit qt6-cmake
 
 include recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qttools qttools-native"
