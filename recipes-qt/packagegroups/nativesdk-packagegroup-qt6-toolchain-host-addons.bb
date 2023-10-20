@@ -11,8 +11,8 @@ PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 RDEPENDS:${PN} += " \
     nativesdk-qtapplicationmanager-dev \
     nativesdk-qtapplicationmanager-tools \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'nativesdk-qtgrpc-dev', '', d)} \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'nativesdk-qtgrpc-tools', '', d)} \
+    nativesdk-qtgrpc-dev \
+    nativesdk-qtgrpc-tools \
     nativesdk-qtquick3d-dev \
     nativesdk-qtquick3d-tools \
     nativesdk-qtremoteobjects-dev \
@@ -28,6 +28,6 @@ RDEPENDS:${PN} += " \
 
 FORLINUXHOST:mingw32 = ""
 FORLINUXHOST = " \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'meta-python', 'nativesdk-qtinterfaceframework-dev nativesdk-qtinterfaceframework-tools', '', d)} \
+    nativesdk-qtinterfaceframework-dev nativesdk-qtinterfaceframework-tools \
 "
 

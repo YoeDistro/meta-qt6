@@ -36,8 +36,7 @@ RDEPENDS_${PN}:remove:class-native = "libssl-native"
 RRECOMMENDS:${PN}:append:class-target = " locale-base-c"
 
 PACKAGECONFIG:class-native ?= "\
-    gui widgets jpeg png dbus no-opengl openssl zlib \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
+    gui widgets jpeg png dbus no-opengl openssl zlib zstd \
 "
 PACKAGECONFIG:class-nativesdk ?= "${PACKAGECONFIG:class-native}"
 PACKAGECONFIG ?= "\
@@ -78,8 +77,8 @@ PACKAGECONFIG_DEFAULT ?= "\
     widgets \
     xkbcommon \
     zlib \
+    zstd \
     ${@bb.utils.contains('SELECTED_OPTIMIZATION', '-Os', 'optimize-size ltcg', '', d)} \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
 "
 
 PACKAGECONFIG:remove:mingw32 = "openssl"
@@ -124,6 +123,7 @@ PACKAGECONFIG[gbm] = "-DFEATURE_gbm=ON,-DFEATURE_gbm=OFF,virtual/libgbm"
 PACKAGECONFIG[gl] = "-DFEATURE_opengl_desktop=ON,-DFEATURE_opengl_desktop=OFF,virtual/libgl"
 PACKAGECONFIG[gles2] = "-DFEATURE_opengles2=ON,-DFEATURE_opengles2=OFF,virtual/libgles2 virtual/egl"
 PACKAGECONFIG[eglfs] = "-DFEATURE_eglfs=ON,-DFEATURE_eglfs=OFF"
+PACKAGECONFIG[eglfs-egldevice] = "-DFEATURE_eglfs_egldevice=ON,-DFEATURE_eglfs_egldevice=OFF"
 PACKAGECONFIG[harfbuzz] = "-DFEATURE_harfbuzz=ON,-DFEATURE_harfbuzz=OFF,harfbuzz"
 PACKAGECONFIG[jpeg] = "-DFEATURE_jpeg=ON,-DFEATURE_jpeg=OFF,jpeg"
 PACKAGECONFIG[kms] = "-DFEATURE_kms=ON,-DFEATURE_kms=OFF,drm virtual/egl"

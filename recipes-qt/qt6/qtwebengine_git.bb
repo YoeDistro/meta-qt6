@@ -26,25 +26,22 @@ SECURITY_STRINGFORMAT = ""
 
 PACKAGECONFIG ??= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'alsa pulseaudio', d)} \
+    geolocation \
     glib \
+    lcms2 \
     libevent \
     libjpeg \
     libpci \
     libpng \
     libwebp \
-    zlib \
-    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', '${PACKAGECONFIG_OPENEMBEDDED}', '', d)} \
-    geolocation \
-    webchannel \
-    printing-and-pdf \
-    pepper-plugins \
-    spellchecker \
-"
-PACKAGECONFIG_OPENEMBEDDED ?= "\
-    lcms2 \
     opus \
+    pepper-plugins \
+    printing-and-pdf \
     snappy \
+    spellchecker \
+    webchannel \
     webrtc \
+    zlib \
 "
 
 PACKAGECONFIG[alsa] = "-DFEATURE_webengine_system_alsa=ON,-DFEATURE_webengine_system_alsa=OFF,alsa-lib"
