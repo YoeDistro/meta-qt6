@@ -24,6 +24,10 @@ SRC_URI += " \
 
 DEPENDS += "qtbase qtdeclarative qttools-native"
 
+PACKAGECONFIG:class-native = "${@bb.utils.contains('BBFILE_COLLECTIONS', 'clang-layer', 'clang', '', d)}"
+PACKAGECONFIG:class-nativesdk = "${@bb.utils.contains('BBFILE_COLLECTIONS', 'clang-layer', 'clang', '', d)}"
+PACKAGECONFIG:remove:mingw32 = "clang"
+
 PACKAGECONFIG[clang] = "-DFEATURE_clang=ON,-DFEATURE_clang=OFF,clang"
 
 FILES:${PN}-tools += "${QT6_INSTALL_DATADIR}/phrasebooks"
