@@ -1,0 +1,18 @@
+Disable assembly routines on arm64/rpi4 since it uses
+AES crypto extensions and these extensions do not exist in rpi4
+
+This fixes random SIGILL seen in aes_hw_set_encrypt_key() on rpi4-64
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+--- a/chromium/third_party/boringssl/BUILD.gn
++++ b/chromium/third_party/boringssl/BUILD.gn
+@@ -92,7 +92,7 @@ if (is_win && !is_msan && current_cpu !=
+         public_configs = [ ":no_asm_config" ]
+       }
+     } else if (current_cpu == "arm64") {
+-      if (is_linux || is_chromeos || is_android) {
++      if (is_chromeos || is_android) {
+         sources += crypto_sources_linux_aarch64
+       } else if (is_apple) {
+         sources += crypto_sources_apple_aarch64
