@@ -33,6 +33,7 @@ DEPENDS:remove:class-native = "qtbase-native"
 RDEPENDS_${PN}:remove:class-native = "libssl-native"
 
 RRECOMMENDS:${PN}:append:libc-glibc:class-target = " locale-base-c"
+RRECOMMENDS:${PN}-ptest:append = " tzdata"
 
 PACKAGECONFIG:class-native ?= "\
     gui widgets jpeg png dbus no-opengl openssl zlib zstd \
