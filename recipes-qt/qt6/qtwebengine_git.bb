@@ -83,8 +83,6 @@ FILES:${PN}-tools = ""
 # when proprietary-codecs is enabled
 INSANE_SKIP:${PN} += "textrel"
 
-QT_PTEST_ENABLED = "0"
-
 # QTBUG-109565 workaround: Disable GCC -O2 on armv7a-neon due to stack alignment issue
 FULL_OPTIMIZATION:remove:armv7a = "${@bb.utils.contains('TUNE_FEATURES', 'neon', '-O2', '', d)}"
 FULL_OPTIMIZATION:append:armv7a = "${@bb.utils.contains('TUNE_FEATURES', 'neon', ' -O1', '', d)}"
