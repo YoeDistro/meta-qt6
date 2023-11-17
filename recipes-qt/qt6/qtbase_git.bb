@@ -164,6 +164,7 @@ EXTRA_OECMAKE += "\
 
 EXTRA_OECMAKE:append:class-target = "\
     -DFEATURE_rpath=OFF \
+    -DFEATURE_relocatable=OFF \
     -DQT_QPA_DEFAULT_PLATFORM=${QT_QPA_DEFAULT_PLATFORM} \
 "
 
