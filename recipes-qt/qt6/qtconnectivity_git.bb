@@ -14,9 +14,6 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-# QTBUG-93565
-PTEST_ENABLED = "0"
-
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
 PACKAGECONFIG ?= "${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'bluez', '', d)}"
