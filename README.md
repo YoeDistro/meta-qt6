@@ -23,6 +23,7 @@ the LAYERSERIES_COMPAT (c).
 | Yocto \ Qt | 6.6 | 6.5 | 6.4 | 6.3 | 6.2 |
 | ---------- |:---:|:---:|:---:|:---:|:---:|
 | master     |  x  |  x  |     |     |     |
+| nanbield   |  x  |  x  |     |     |     |
 | mickledore |  x  |  x  |  x  |     |     |
 | langdale   |  c  |  c  |  x  |     |     |
 | kirkstone  |  x  |  x  |  x  |  x  |  x  |
