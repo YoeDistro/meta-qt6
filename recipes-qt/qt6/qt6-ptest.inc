@@ -10,6 +10,8 @@ DEBUG_PREFIX_MAP += "\
  -fmacro-prefix-map=${D}= \
 "
 
+do_install_ptest_base[progress] = "${@d.getVarFlag('do_compile', 'progress')}"
+
 fakeroot do_install_ptest() {
     cat >${WORKDIR}/toolchain-ptest.cmake <<EOF
 include(${WORKDIR}/toolchain.cmake)
