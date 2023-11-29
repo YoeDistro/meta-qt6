@@ -1,5 +1,16 @@
 #!/bin/sh
 
+if [ ! -e tst_list ]; then
+    echo PASS: no tests
+    exit 0
+fi
+
+export LANG=C.UTF-8
+export QT_QPA_PLATFORM=offscreen
 for test in $(cat tst_list); do
-    ( cd $(dirname ${test}) && ./$(basename ${test}) )
+    (
+    cd $(dirname ${test})
+    t=$(basename ${test})
+    ./${t} && echo PASS: ${t} || echo FAIL: ${t}
+    )
 done
