@@ -15,9 +15,7 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-DEPENDS += "qtbase qtshadertools qtshadertools-native qtdeclarative-native qtlanguageserver"
-
-PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtsvg"
+DEPENDS += "qtbase qtshadertools qtshadertools-native qtdeclarative-native qtlanguageserver qtsvg"
 
 BBCLASSEXTEND = "native nativesdk"
 
