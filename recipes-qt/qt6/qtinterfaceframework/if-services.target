@@ -1,3 +1,0 @@
-[Unit]
-Description=Qt Interface Framework services
-After=systemd-user-sessions.service
