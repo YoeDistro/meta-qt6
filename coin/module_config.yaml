@@ -7,7 +7,7 @@ accept_configuration:
       equals_value: Yocto
     - condition: property
       property: target.arch
-      in_values: [TARGET1, TARGET2, TARGET3, TARGET4, TARGET5]
+      in_values: [TARGET1, TARGET2, TARGET3, TARGET4, TARGET5, INSIGNIFICANT_TARGET1]
 
 machine_type:
   Build:
@@ -15,12 +15,12 @@ machine_type:
 
 # Target build matrix:
 #
-#           [target1]       [target2]   [target3]       [target4]       [target5]
-# [machine] qemuarm64       qemux86     qemuarm         qemux86-64      qemuarm64
-# [yocto]   nanbield        master      mickledore      dunfell         kirkstone
-# [X11]     no              no          yes             yes             no
-# [mingw]   no              yes         no              no              no
-# [static]  no              no          no              no              yes
+#           [target1]       [target2]   [target3]       [target4]       [target5]     [target6]
+# [machine] qemuarm64       qemux86     qemuarm         qemux86-64      qemuarm64     qemuarm64
+# [yocto]   nanbield        master      mickledore      dunfell         kirkstone     master
+# [X11]     no              no          yes             yes             no            no
+# [mingw]   no              yes         no              no              no            no
+# [static]  no              no          no              no              yes           no
 #
 
 target1: &target1
@@ -103,6 +103,22 @@ target5: &target5
       condition: property
       property: target.arch
       equals_value: TARGET5
+target6: &target6
+  type: Group
+  instructions:
+    - type: EnvironmentVariable
+      variableName: MACHINE
+      variableValue: qemuarm64
+    - type: EnvironmentVariable
+      variableName: MANIFEST
+      variableValue: master.xml
+    - type: EnvironmentVariable
+      variableName: TEST_CONFIGS
+      variableValue: ci configs wayland python
+  enable_if:
+      condition: property
+      property: target.arch
+      equals_value: INSIGNIFICANT_TARGET1
 
 instructions:
   Build:
@@ -111,6 +127,7 @@ instructions:
   - *target3
   - *target4
   - *target5
+  - *target6
   - type: EnvironmentVariable
     variableName: DL_DIR
     variableValue: "/mnt/yocto-cache/downloads"
