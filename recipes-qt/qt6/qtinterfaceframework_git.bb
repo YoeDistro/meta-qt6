@@ -28,3 +28,5 @@ PACKAGECONFIG[ifcodegen] = "-DFEATURE_ifcodegen=ON,-DFEATURE_ifcodegen=OFF,pytho
 PACKAGECONFIG[remoteobjects] = "-DFEATURE_remoteobjects=ON,-DFEATURE_remoteobjects=OFF,qtremoteobjects qtremoteobjects-native"
 
 BBCLASSEXTEND = "native nativesdk"
+
+PRIVATE_LIBS:${PN}-examples = "libInstrumentCluster.so"
