@@ -2,7 +2,7 @@ python do_srcrev_update() {
     import subprocess
 
     recipe = d.getVar('FILE')
-    srcrev_file = os.path.join(os.path.dirname(recipe), 'qt6-git.inc')
+    srcrev_file = os.path.join(d.getVar('QT6BASE'), 'recipes-qt/qt6/qt6-git.inc')
 
     module = d.getVar('QT_MODULE')
 
