@@ -1,6 +1,8 @@
 DESCRIPTION ?= "Qt is a cross-platform application development framework for desktop, embedded and mobile."
 HOMEPAGE ?= "https://www.qt.io"
 
+inherit srcrev-update
+
 QT_MODULE ?= "${BPN}"
 QT_MODULE_BRANCH ?= "6.6"
 QT_MODULE_BRANCH_PARAM ?= "branch=${QT_MODULE_BRANCH};nobranch=1"
