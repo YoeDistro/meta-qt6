@@ -166,6 +166,9 @@ instructions:
       bitbake-layers add-layer ../meta-openembedded/meta-python
       bitbake-layers add-layer ../meta-openembedded/meta-multimedia
       bitbake-layers add-layer ../meta-mingw
+      if [ -e ../meta-clang ]; then
+        bitbake-layers add-layer ../meta-clang
+      fi
       bitbake-layers add-layer ${SOURCE_DIR}
 
       for conf in ${TEST_CONFIGS}; do
