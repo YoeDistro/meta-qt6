@@ -12,66 +12,85 @@ DEBUG_PREFIX_MAP += "\
 
 do_install_ptest_base[progress] = "${@d.getVarFlag('do_compile', 'progress')}"
 
+B_PTEST = "${WORKDIR}/build-ptest"
+
 fakeroot do_install_ptest() {
     cat >${WORKDIR}/toolchain-ptest.cmake <<EOF
 include(${WORKDIR}/toolchain.cmake)
 list(PREPEND CMAKE_FIND_ROOT_PATH ${D})
 EOF
 
-    if [ -n "${OE_QMAKE_QMAKE}" ]; then
-        # qmake project
-        B_PTEST=${B}
-        mkdir -p ${B_PTEST}/tests
-        cd ${B_PTEST}/tests
-        ${OE_QMAKE_QMAKE} -o Makefile ${S}/tests
-        oe_runmake
-    else
-        # cmake project
-        B_PTEST=${WORKDIR}/build-ptest
-        mkdir -p ${B_PTEST}
-        cd ${B_PTEST}
-        cmake \
-            ${OECMAKE_GENERATOR_ARGS} \
-            -DCMAKE_TOOLCHAIN_FILE=${WORKDIR}/toolchain-ptest.cmake \
-            -DPython3_EXECUTABLE=${PYTHON} \
-            ${EXTRA_OECMAKE} \
-            -DQT_BUILD_STANDALONE_TESTS=ON \
-            -DQT_ADDITIONAL_PACKAGES_PREFIX_PATH=${D}${QT6_INSTALL_LIBDIR}/cmake \
-            -DCMAKE_STAGING_PREFIX=${D}${prefix} \
-            -DCMAKE_SKIP_RPATH=ON \
-            -DQT_DISABLE_NO_DEFAULT_PATH_IN_QT_PACKAGES=ON \
-            ${S} \
-            -Wno-dev
-        ${CMAKE_VERBOSE} cmake --build ${B_PTEST} --target all
-    fi
+    mkdir -p ${B_PTEST}
+    cd ${B_PTEST}
+    cmake \
+        ${OECMAKE_GENERATOR_ARGS} \
+        -DCMAKE_TOOLCHAIN_FILE=${WORKDIR}/toolchain-ptest.cmake \
+        -DPython3_EXECUTABLE=${PYTHON} \
+        ${EXTRA_OECMAKE} \
+        -DQT_BUILD_STANDALONE_TESTS=ON \
+        -DQT_ADDITIONAL_PACKAGES_PREFIX_PATH=${D}${QT6_INSTALL_LIBDIR}/cmake \
+        -DCMAKE_STAGING_PREFIX=${D}${prefix} \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DQT_DISABLE_NO_DEFAULT_PATH_IN_QT_PACKAGES=ON \
+        ${S} \
+        -Wno-dev
+    ${CMAKE_VERBOSE} cmake --build ${B_PTEST} --target all
 
-    # if any auto tests were build
-    if [ -e "${B_PTEST}/tests/auto" ]; then
-        install -d ${D}${PTEST_PATH}/tests
-        cp -r ${B_PTEST}/tests/auto ${D}${PTEST_PATH}/tests
+    for tests in auto baseline
+    do
+        if [ -e "${B_PTEST}/tests/$tests" ]; then
+            install -d ${D}${PTEST_PATH}/tests
+            cp -r ${B_PTEST}/tests/$tests ${D}${PTEST_PATH}/tests
 
-        # remove build files
-        find ${D}${PTEST_PATH}/tests \
-            \( -wholename "*/.*" -o -wholename "*autogen*" -o -iwholename "*cmake*" -o -name Makefile \) \
-            -delete
+            # remove build files
+            find ${D}${PTEST_PATH}/tests/$tests \
+                \( -wholename "*/.*" -o -wholename "*autogen*" -o -iwholename "*cmake*" -o -name Makefile \) \
+                -delete
 
-        for f in $(find ${D}${PTEST_PATH} -name tst_* -executable); do
-            test=${f##${D}${PTEST_PATH}/}
-            testdir=$(dirname ${test})
             # tests may depend on files from sources
-            if [ -e ${S}/${testdir} ]; then
-                cp -r ${S}/${testdir}/* ${D}${PTEST_PATH}/${testdir}
-            fi
-            echo ${test} >> ${D}${PTEST_PATH}/tst_list
-        done
-    fi
+            cp -r ${S}/tests/$tests ${D}${PTEST_PATH}/tests
+        fi
+    done
+}
+
+fakeroot python do_create_ptest_list() {
+    import json, os, subprocess
+
+    builddir = d.getVar('B_PTEST')
+    ptest_path = d.getVar('PTEST_PATH')
+    try:
+        command_output = subprocess.check_output(['ctest', '--show-only=json-v1'], cwd=builddir, text=True)
+    except subprocess.CalledProcessError as e:
+        bb.fatal('Could not get list of tests: {e.output}')
+
+    json_data = json.loads(command_output)
+    tests_data = json_data.get('tests', [])
+
+    output = d.getVar('D') + os.path.join(ptest_path, 'tst_list')
+    file = open(output, 'w')
+
+    for test in tests_data:
+        test_name = test.get('name')
+        working_directory = next((prop['value'] for prop in test.get('properties', []) if prop['name'] == 'WORKING_DIRECTORY'), None)
+
+        if test_name and working_directory:
+            test_executable = os.path.normpath(os.path.join(working_directory,test_name)).replace(builddir,ptest_path)
+            file.write(f'{test_executable}\n')
+
+    file.close()
+}
+
+addtask create_ptest_list after do_install_ptest_base before do_package
+python () {
+    if not(d.getVar('PTEST_ENABLED') == "1"):
+        bb.build.deltask('do_create_ptest_list', d)
 }
 
 INSANE_SKIP:${PN}-ptest += "file-rdeps"
 
 PACKAGESPLITFUNCS =+ "remove_ptest_debug"
 remove_ptest_debug() {
-    if [ -e ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests/auto ]; then
-        find ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests/auto -depth -type d -name .debug -exec rm -rf '{}' \;
+    if [ -e ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests ]; then
+        find ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests -depth -type d -name .debug -exec rm -rf '{}' \;
     fi
 }

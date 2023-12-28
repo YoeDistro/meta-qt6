@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -e tst_list ]; then
+if [ ! -s tst_list ]; then
     echo PASS: no tests
     exit 0
 fi
