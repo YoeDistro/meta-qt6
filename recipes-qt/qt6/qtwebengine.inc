@@ -35,7 +35,6 @@ SRC_URI += " \
 
 SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
-    file://chromium/0006-base-Ensure-CheckedContiguousIterator-satisfies-C-20.patch;patchdir=src/3rdparty \
 "
 # Machines not supporting AES instructions e.g. RPI4 need to disable  assembly in boringssl
 SRC_URI:append:aarch64 = "${@bb.utils.contains('TUNE_FEATURES', 'crypto', '', ' file://chromium/boringssl_no_asm_config.patch;patchdir=src/3rdparty', d)}"
