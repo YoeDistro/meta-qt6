@@ -30,7 +30,7 @@ DEPENDS:remove:class-native = "qtbase-native"
 RDEPENDS_${PN}:remove:class-native = "libssl-native"
 
 PACKAGECONFIG:class-native ?= "\
-    gui widgets png dbus no-opengl openssl \
+    gui widgets jpeg png dbus no-opengl openssl zlib \
     ${@bb.utils.contains('BBFILE_COLLECTIONS', 'openembedded-layer', 'zstd', '', d)} \
 "
 PACKAGECONFIG:class-nativesdk ?= "${PACKAGECONFIG:class-native}"
@@ -147,7 +147,7 @@ EXTRA_OECMAKE:append:mingw32 = "\
 SYSROOT_DIRS += "${QT6_INSTALL_MKSPECSDIR}"
 
 do_install:append() {
-    sed -i ${D}${libdir}/cmake/Qt6BuildInternals/QtBuildInternalsExtra.cmake \
+    sed -i ${D}${QT6_INSTALL_LIBDIR}/cmake/Qt6BuildInternals/QtBuildInternalsExtra.cmake \
         -e '/QT_SOURCE_TREE/,+2d'
 
     # remove mac and android specific scripts that depend on perl and bash
@@ -175,6 +175,28 @@ EOF
     RELPATH=${@os.path.relpath(d.getVar('prefix') + '/share/cmake/Qt6Toolchain.cmake', d.getVar('QT6_INSTALL_LIBDIR') + '/cmake/Qt6')}
     sed -i ${D}${QT6_INSTALL_LIBDIR}/cmake/Qt6/qt.toolchain.cmake \
         -e "s|/.*/toolchain.cmake|\${CMAKE_CURRENT_LIST_DIR}/$RELPATH|"
+}
+
+do_install:append:class-target() {
+    sed >> ${D}${QT6_INSTALL_MKSPECSDIR}/linux-oe-g++/qmake.conf <<EOF \
+        -e 's:${lcl_maybe_fortify}::' \
+        -e 's:${DEBUG_PREFIX_MAP}::' \
+        -e 's:${RECIPE_SYSROOT}:$$[QT_SYSROOT]:' \
+        -e 's:${TARGET_PREFIX}:$$[QT_HOST_PREFIX]${bindir}/${TARGET_SYS}/${TARGET_PREFIX}:'
+
+isEmpty(QMAKE_CC): {
+    QMAKE_AR = ${AR} cqs
+    QMAKE_AR_LTCG = ${HOST_PREFIX}gcc-ar cqs
+    QMAKE_STRIP = ${STRIP}
+    QMAKE_OBJCOPY = ${OBJCOPY}
+    QMAKE_CC = ${HOST_PREFIX}gcc
+    QMAKE_CFLAGS +=  ${TARGET_CC_ARCH}${TOOLCHAIN_OPTIONS}
+    QMAKE_CXX = ${HOST_PREFIX}g++
+    QMAKE_CXXFLAGS +=  ${TARGET_CC_ARCH}${TOOLCHAIN_OPTIONS}
+    QMAKE_LINK = ${HOST_PREFIX}g++
+    QMAKE_LFLAGS += ${TARGET_CC_ARCH}${TOOLCHAIN_OPTIONS} ${TARGET_LDFLAGS}
+    }
+EOF
 }
 
 INSANE_SKIP:${PN}-ptest += "arch"

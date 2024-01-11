@@ -9,4 +9,5 @@ PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
 RDEPENDS:${PN} += " \
     qmlcompilerplus \
+    qtinsighttracker \
 "

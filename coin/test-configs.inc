@@ -19,8 +19,6 @@ QT_COMMERCIAL_MODULES = "1"
 # fast compression of SDK tar package
 SDK_XZ_COMPRESSION_LEVEL = "-1"
 
-SDK_ARCHIVE_TYPE:sdkmingw32 = "zip"
-
 # be more strict with QA warnings, turn them all to errors:
 EXTRA_QA = "\
     ldflags useless-rpaths rpaths staticdev libdir xorg-driver-abi \
@@ -63,6 +61,7 @@ PACKAGECONFIG:append:pn-qtdatavis3d = " examples"
 PACKAGECONFIG:append:pn-qtdeclarative = " examples"
 PACKAGECONFIG:append:pn-qtdeviceutilities = " examples"
 PACKAGECONFIG:append:pn-qtimageformats = " examples"
+PACKAGECONFIG:append:pn-qtinsighttracker = " examples"
 PACKAGECONFIG:append:pn-qtinterfaceframework = " examples"
 PACKAGECONFIG:append:pn-qtlanguageserver = " examples"
 PACKAGECONFIG:append:pn-qtlottie = " examples"
