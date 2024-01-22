@@ -35,6 +35,9 @@ SRC_URI += " \
 
 SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
+    file://chromium/0002-mojom-Drop-using-imp-module.patch;patchdir=src/3rdparty \
+    file://chromium/0003-Update-vendored-copy-of-six-to-1.16.0.patch;patchdir=src/3rdparty \
+    file://chromium/0004-Replace-imp.load_source-with-importlib-equivalent.patch;patchdir=src/3rdparty \
 "
 # Machines not supporting AES instructions e.g. RPI4 need to disable  assembly in boringssl
 SRC_URI:append:aarch64 = "${@bb.utils.contains('TUNE_FEATURES', 'crypto', '', ' file://chromium/boringssl_no_asm_config.patch;patchdir=src/3rdparty', d)}"
