@@ -40,6 +40,7 @@ SRC_URI += " \
     file://chromium/0004-Replace-imp.load_source-with-importlib-equivalent.patch;patchdir=src/3rdparty \
     file://chromium/0005-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
     file://chromium/0006-267f9bd.patch;patchdir=src/3rdparty \
+    file://chromium/0007-csp_validator.cc-Explicitly-delete-default-copy-cons.patch;patchdir=src/3rdparty \
 "
 # Machines not supporting AES instructions e.g. RPI4 need to disable  assembly in boringssl
 SRC_URI:append:aarch64 = "${@bb.utils.contains('TUNE_FEATURES', 'crypto', '', ' file://chromium/boringssl_no_asm_config.patch;patchdir=src/3rdparty', d)}"

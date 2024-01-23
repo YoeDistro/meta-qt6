@@ -1,0 +1,40 @@
+From 8c781455b886bc677d4d063ac1ab6e8a0b3c2bb1 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Mon, 22 Jan 2024 23:36:35 -0800
+Subject: [PATCH] csp_validator.cc: Explicitly delete default copy constructor.
+
+This helps avoid ambiguity with clang 18
+
+./../../../../../git/src/3rdparty/chromium/extensions/common/csp_validator.cc:648:20: error: call to constructor of 'DirectiveMapping' is ambiguous
+  648 |   DirectiveMapping script_src_mapping({DirectiveStatus({kScriptSrc})});
+      |                    ^                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./../../../../../git/src/3rdparty/chromium/extensions/common/csp_validator.cc:639:10: note: candidate constructor (the implicit copy constructor) has been implicitly deleted
+  639 |   struct DirectiveMapping {
+      |          ^
+./../../../../../git/src/3rdparty/chromium/extensions/common/csp_validator.cc:640:5: note: candidate constructor
+  640 |     DirectiveMapping(DirectiveStatus status) : status(std::move(status)) {}
+      |     ^
+./../../../../../git/src/3rdparty/chromium/extensions/common/csp_validator.cc:641:5: note: candidate constructor has been explicitly deleted
+  641 |     DirectiveMapping(DirectiveMapping&& ) = delete;
+      |     ^
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ chromium/extensions/common/csp_validator.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/chromium/extensions/common/csp_validator.cc b/chromium/extensions/common/csp_validator.cc
+index 97204918f94..b24d99bae30 100644
+--- a/chromium/extensions/common/csp_validator.cc
++++ b/chromium/extensions/common/csp_validator.cc
+@@ -638,6 +638,7 @@ bool DoesCSPDisallowRemoteCode(const std::string& content_security_policy,
+ 
+   struct DirectiveMapping {
+     DirectiveMapping(DirectiveStatus status) : status(std::move(status)) {}
++    DirectiveMapping(DirectiveMapping& ) = delete;
+ 
+     DirectiveStatus status;
+     raw_ptr<const CSPParser::Directive, DanglingUntriaged> directive = nullptr;
+-- 
+2.43.0
+
