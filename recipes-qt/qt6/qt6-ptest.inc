@@ -73,9 +73,10 @@ fakeroot python do_create_ptest_list() {
         test_name = test.get('name')
         working_directory = next((prop['value'] for prop in test.get('properties', []) if prop['name'] == 'WORKING_DIRECTORY'), None)
 
-        if test_name and working_directory:
-            test_executable = os.path.normpath(os.path.join(working_directory,test_name)).replace(builddir,ptest_path)
-            file.write(f'{test_executable}\n')
+        test_executable = os.path.normpath(os.path.join(working_directory,test_name))
+        if test_executable.startswith(builddir) and os.path.isfile(test_executable):
+           test_executable = test_executable.replace(builddir,ptest_path)
+           file.write(f'{test_executable}\n')
 
     file.close()
 }
