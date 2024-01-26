@@ -20,17 +20,22 @@ Following table shows the Yocto branches which are used to test each
 Qt version (x) and any additional Yocto releases that are stated in
 the LAYERSERIES_COMPAT (c).
 
-| Yocto \ Qt | dev | 6.6 | 6.5 | 6.4 | 6.3 | 6.2 |
-| ---------- |:---:|:---:|:---:|:---:|:---:|:---:|
-| master     |  x  |  x  |  x  |     |     |     |
-| nanbield   |  x  |  x  |  x  |     |     |     |
-| mickledore |  x  |  x  |  x  |  x  |     |     |
-| langdale   |  c  |  c  |  c  |  x  |     |     |
-| kirkstone  |  x  |  x  |  x  |  x  |  x  |  x  |
-| honister   |     |  c  |  c  |  c  |  x  |  x  |
-| hardknott  |     |  c  |  c  |  c  |  c  |  c  |
-| gatesgarth |     |  c  |  c  |  c  |  c  |  c  |
-| dunfell    |     |  x  |  x  |  x  |  x  |  x  |
+| Yocto \ Qt | dev | 6.7  | 6.6  | 6.5 | 6.4 | 6.3 | 6.2 |
+|:---------- |:---:|:----:|:----:|:---:|:---:|:---:|:---:|
+| scarthgap  |  x  |  x   |  x   |  x  |     |     |     |
+| nanbield   |  x  |  x   |  x   |  x  |     |     |     |
+| mickledore |  c  |  c   |  c   |  c  |  c  |     |     |
+| langdale   |  c  |  c   |  c   |  c  |  c  |     |     |
+| kirkstone  |  x  |  x   |  x   |  x  |  c  |  c  |  x  |
+| honister   |     |      |  c   |  c  |  c  |  c  |  c  |
+| hardknott  |     |      |  c   |  c  |  c  |  c  |  c  |
+| gatesgarth |     |      |  c   |  c  |  c  |  c  |  c  |
+| dunfell    |     |      |  x   |  x  |  c  |  c  |  x  |
+|            |     |      |      |     |     |     |     |
+|            | dev |stable|stable| LTS | EOL | EOL | LTS |
+
+Detailed status of supported Qt versions can be found from
+https://doc.qt.io/qt-6/supported-platforms.html#supported-qt-versions
 
 Commercial Qt
 -------------
