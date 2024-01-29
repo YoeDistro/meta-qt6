@@ -54,7 +54,7 @@ PACKAGECONFIG[glib] = "-DFEATURE_webengine_system_glib=ON,-DFEATURE_webengine_sy
 PACKAGECONFIG[harfbuzz] = "-DFEATURE_webengine_system_harfbuzz=ON,-DFEATURE_webengine_system_harfbuzz=OFF,harfbuzz"
 PACKAGECONFIG[icu] = "-DFEATURE_webengine_system_icu=ON,-DFEATURE_webengine_system_icu=OFF,icu"
 PACKAGECONFIG[lcms2] = "-DFEATURE_webengine_system_lcms2=ON,-DFEATURE_webengine_system_lcms2=OFF,lcms"
-PACKAGECONFIG[libevent] = "-DFEATURE_webengine_system_libevent=ON,-DFEATURE_webengine_system_libevent=OFF,libevent"
+PACKAGECONFIG[libevent] = "-DFEATURE_webengine_system_libevent=ON,-DFEATURE_webengine_system_libevent=OFF,libevent libevent-native"
 PACKAGECONFIG[libjpeg] = "-DFEATURE_webengine_system_libjpeg=ON,-DFEATURE_webengine_system_libjpeg=OFF,jpeg"
 PACKAGECONFIG[libpng] = "-DFEATURE_webengine_system_libpng=ON,-DFEATURE_webengine_system_libpng=OFF,libpng"
 PACKAGECONFIG[libvpx] = "-DFEATURE_webengine_system_libvpx=ON,-DFEATURE_webengine_system_libvpx=OFF,libvpx"
