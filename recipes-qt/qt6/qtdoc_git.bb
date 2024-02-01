@@ -30,7 +30,10 @@ DEPENDS += "\
     qtwebsockets \
 "
 DEPENDS:append:aarch64 = " qtpdf qtquick3dphysics"
-DEPENDS:append:arm = " qtpdf qtquick3dphysics"
+DEPENDS:append:arm = " qtquick3dphysics"
+DEPENDS:append:armv6 = " qtpdf"
+DEPENDS:append:armv7a = " qtpdf"
+DEPENDS:append:armv7ve = " qtpdf"
 DEPENDS:append:x86 = " qtquick3dphysics"
 DEPENDS:append:x86-64 = " qtpdf qtquick3dphysics"
 
