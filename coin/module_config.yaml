@@ -16,10 +16,10 @@ machine_type:
 # Target build matrix:
 #
 #           [target1]       [target2]   [target3]       [target4]       [target5]     [target6]
-# [machine] qemuarm64       qemux86     qemuarm         qemux86-64      qemuarm64     qemuarm64
-# [yocto]   nanbield        master      mickledore      dunfell         kirkstone     master
-# [X11]     no              no          yes             yes             no            no
-# [mingw]   no              yes         no              no              no            no
+# [machine] qemuarm64       qemux86-64  qemuarm         qemux86         qemuarm64     qemuarm64
+# [yocto]   master          master      dunfell         nanbield        kirkstone     master
+# [wayland] yes             no          no              yes             yes           no
+# [mingw]   no              no          no              yes             no            no
 # [static]  no              no          no              no              yes           no
 #
 
@@ -31,7 +31,7 @@ target1: &target1
       variableValue: qemuarm64
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: nanbield.xml
+      variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
       variableValue: ci configs wayland
@@ -44,13 +44,13 @@ target2: &target2
   instructions:
     - type: EnvironmentVariable
       variableName: MACHINE
-      variableValue: qemux86
+      variableValue: qemux86-64
     - type: EnvironmentVariable
       variableName: MANIFEST
       variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland mingw no-webengine
+      variableValue: ci configs
   enable_if:
       condition: property
       property: target.arch
@@ -63,10 +63,10 @@ target3: &target3
       variableValue: qemuarm
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: mickledore.xml
+      variableValue: dunfell.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs
+      variableValue: ci configs dunfell no-webengine
   enable_if:
       condition: property
       property: target.arch
@@ -76,13 +76,13 @@ target4: &target4
   instructions:
     - type: EnvironmentVariable
       variableName: MACHINE
-      variableValue: qemux86-64
+      variableValue: qemux86
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: dunfell.xml
+      variableValue: nanbield.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs dunfell no-webengine
+      variableValue: ci configs wayland mingw no-webengine
   enable_if:
       condition: property
       property: target.arch
