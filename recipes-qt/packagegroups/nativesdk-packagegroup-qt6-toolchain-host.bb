@@ -1,8 +1,7 @@
 DESCRIPTION = "Qt6 development host packages"
 LICENSE = "MIT"
 
-inherit packagegroup
-inherit_defer nativesdk
+inherit packagegroup nativesdk
 
 PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
