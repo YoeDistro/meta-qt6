@@ -1,8 +1,10 @@
 DESCRIPTION = "Qt6 development host packages"
 LICENSE = "MIT"
 
-inherit packagegroup
-inherit_defer nativesdk
+# avoid warning with inherit_defer allarch
+PACKAGE_ARCH = ""
+
+inherit packagegroup nativesdk
 
 PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
