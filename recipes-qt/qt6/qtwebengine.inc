@@ -36,7 +36,6 @@ SRC_URI += " \
 SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
     file://chromium/0002-mojom-Drop-using-imp-module.patch;patchdir=src/3rdparty \
-    file://chromium/0003-Update-vendored-copy-of-six-to-1.16.0.patch;patchdir=src/3rdparty \
     file://chromium/0005-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
     file://chromium/0006-267f9bd.patch;patchdir=src/3rdparty \
     file://chromium/0007-csp_validator.cc-Explicitly-delete-default-copy-cons.patch;patchdir=src/3rdparty \
