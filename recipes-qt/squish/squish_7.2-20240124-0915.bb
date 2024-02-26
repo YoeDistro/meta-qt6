@@ -22,9 +22,8 @@ DEPENDS += "\
     qtbase \
     qt5compat \
     qtdeclarative qtdeclarative-native \
-    qtwayland qtwayland-native \
     qtapplicationmanager \
-    wayland wayland-native \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland qtwayland-native wayland wayland-native', '', d)} \
 "
 
 lcl_maybe_fortify = ""
