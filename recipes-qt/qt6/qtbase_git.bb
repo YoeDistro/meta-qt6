@@ -51,6 +51,7 @@ PACKAGECONFIG ?= "\
 
 PACKAGECONFIG_GRAPHICS ?= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'vulkan', d)} \
+    ${@bb.utils.filter('DISTRO_FEATURES', 'wayland', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', \
         bb.utils.contains('DISTRO_FEATURES', 'x11', 'gl', 'kms gbm gles2 eglfs', d), 'no-opengl linuxfb', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'directfb', 'directfb', '', d)} \
@@ -136,6 +137,7 @@ PACKAGECONFIG[no-opengl] = "-DINPUT_opengl=no"
 PACKAGECONFIG[png] = "-DFEATURE_system_png=ON,-DFEATURE_png=OFF,libpng"
 PACKAGECONFIG[tslib] = "-DFEATURE_tslib=ON,-DFEATURE_tslib=OFF,tslib"
 PACKAGECONFIG[vulkan] = "-DFEATURE_vulkan=ON,-DFEATURE_vulkan=OFF,vulkan-headers,vulkan-loader"
+PACKAGECONFIG[wayland] = "-DFEATURE_wayland=ON,-DFEATURE_wayland=OFF,wayland wayland-native"
 PACKAGECONFIG[xcb] = "-DFEATURE_xcb=ON,-DFEATURE_xcb=OFF,libxcb xcb-util-wm xcb-util-image xcb-util-keysyms xcb-util-renderutil xcb-util-cursor"
 PACKAGECONFIG[xkbcommon] = "-DFEATURE_xkbcommon=ON,-DFEATURE_xkbcommon=OFF,libxkbcommon,xkeyboard-config"
 
