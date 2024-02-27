@@ -63,6 +63,9 @@ do_install() {
     install -d ${D}${QT6_INSTALL_PLUGINSDIR}
     mv ${DESTDIR}/plugins/* ${D}${QT6_INSTALL_PLUGINSDIR}
     rmdir ${DESTDIR}/plugins
+
+    install -d ${D}${sysconfdir}/profile.d
+    echo "export SQUISH_PREFIX=/opt/squish" > ${D}${sysconfdir}/profile.d/squish.sh
 }
 
 FILES:${PN} += "\
