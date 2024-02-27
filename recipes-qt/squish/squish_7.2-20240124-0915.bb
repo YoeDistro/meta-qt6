@@ -64,6 +64,8 @@ do_install() {
     mv ${DESTDIR}/plugins/* ${D}${QT6_INSTALL_PLUGINSDIR}
     rmdir ${DESTDIR}/plugins
 
+    sed -i -e 's|${RECIPE_SYSROOT}||' ${D}/opt/squish/etc/paths.ini
+
     install -d ${D}${sysconfdir}/profile.d
     echo "export SQUISH_PREFIX=/opt/squish" > ${D}${sysconfdir}/profile.d/squish.sh
 }
