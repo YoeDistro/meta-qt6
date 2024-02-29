@@ -56,10 +56,6 @@ do_install() {
     DESTDIR=${D}/opt/squish
     ./build install DESTDIR=${DESTDIR}
 
-    install -d ${D}${bindir}
-    mv ${DESTDIR}/bin/* ${D}${bindir}
-    rmdir ${DESTDIR}/bin
-
     install -d ${D}${QT6_INSTALL_PLUGINSDIR}
     mv ${DESTDIR}/plugins/* ${D}${QT6_INSTALL_PLUGINSDIR}
     rmdir ${DESTDIR}/plugins
