@@ -19,7 +19,7 @@ machine_type:
 # [machine] qemuarm64       qemux86-64  qemuarm         qemux86         qemuarm64
 # [yocto]   master          master      master          nanbield        kirkstone
 # [wayland] yes             no          no              yes             yes
-# [mingw]   no              no          no              yes             no
+# [mingw]   no              no          yes             no              no
 # [static]  no              no          no              no              yes
 #
 
@@ -66,7 +66,7 @@ target3: &target3
       variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs python
+      variableValue: ci configs mingw python
   enable_if:
       condition: property
       property: target.arch
@@ -82,7 +82,7 @@ target4: &target4
       variableValue: nanbield.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland mingw no-webengine python
+      variableValue: ci configs wayland no-webengine python
   enable_if:
       condition: property
       property: target.arch
