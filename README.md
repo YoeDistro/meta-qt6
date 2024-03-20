@@ -7,6 +7,10 @@ URI: https://git.openembedded.org/openembedded-core/
 
 URI: https://git.openembedded.org/meta-openembedded/
 
+and optionally:
+
+URI: https://github.com/kraj/meta-clang
+
 Yocto version support
 ---------------------
 
