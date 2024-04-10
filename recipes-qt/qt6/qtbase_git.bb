@@ -173,6 +173,7 @@ EXTRA_OECMAKE:append:class-target = "\
 
 EXTRA_OECMAKE:append:mingw32 = "\
     -DQT_GENERATE_WRAPPER_SCRIPTS_FOR_ALL_HOSTS=ON \
+    -DFEATURE_stack_protector=OFF \
 "
 
 SYSROOT_DIRS += "${QT6_INSTALL_MKSPECSDIR}"
