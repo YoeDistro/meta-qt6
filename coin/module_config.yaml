@@ -17,7 +17,7 @@ machine_type:
 #
 #           [target1]       [target2]   [target3]       [target4]       [target5]
 # [machine] qemuarm64       qemux86-64  qemuarm         qemux86         qemuarm64
-# [yocto]   master          master      master          nanbield        kirkstone
+# [yocto]   master          master      scarthgap       nanbield        kirkstone
 # [wayland] yes             no          no              yes             yes
 # [mingw]   no              no          yes             no              no
 # [static]  no              no          no              no              yes
@@ -63,7 +63,7 @@ target3: &target3
       variableValue: qemuarm
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: master.xml
+      variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
       variableValue: ci configs mingw python
