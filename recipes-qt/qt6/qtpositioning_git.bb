@@ -17,9 +17,8 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase"
 
-PACKAGECONFIG ?= "nmea qml"
+PACKAGECONFIG ?= "nmea qml geoclue"
 PACKAGECONFIG[geoclue] = ",,,geoclue"
 PACKAGECONFIG[gypsy] = "-DFEATURE_gypsy=ON,-DFEATURE_gypsy=OFF,gconf gypsy"
 PACKAGECONFIG[nmea] = ",,qtserialport"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
-
