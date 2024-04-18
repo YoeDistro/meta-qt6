@@ -1,4 +1,4 @@
-From e92ceba596c50930f48490a227d1a405924c0c0b Mon Sep 17 00:00:00 2001
+From 743bfbd8a9a11eb75234068c63e0b3f52e1a2823 Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Wed, 29 Jan 2020 12:39:09 +0200
 Subject: [PATCH] Allow qtwaylandscanner to be built without dependencies
@@ -11,7 +11,7 @@ Upstream-Status: Inappropriate [OE Specific]
  2 files changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 51fdc9e6..da2411f3 100644
+index c498e15b..21fadd02 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -18,11 +18,6 @@ find_package(Qt6 ${PROJECT_VERSION} CONFIG REQUIRED COMPONENTS
@@ -25,9 +25,9 @@ index 51fdc9e6..da2411f3 100644
 -
  find_package(Qt6 ${PROJECT_VERSION} CONFIG REQUIRED COMPONENTS
      Core
-     Gui
+ )
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index c3219f9d..9886cb51 100644
+index a38d9551..c4fe5fb1 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -20,7 +20,7 @@ endforeach()
