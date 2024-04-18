@@ -20,12 +20,13 @@ that is `dev` for the development branch, `6.x` for minor stabilization branches
 
 Each Qt release is tagged either as `v6.x.y` or `v6.x.y-lts`
 
-Following table shows the Yocto branches which are used to test each
+Following table shows the Yocto releases which are used to test each
 Qt version (x) and any additional Yocto releases that are stated in
 the LAYERSERIES_COMPAT (c).
 
 | Yocto \ Qt | dev | 6.7  | 6.6  | 6.5 | 6.4 | 6.3 | 6.2 |
 |:---------- |:---:|:----:|:----:|:---:|:---:|:---:|:---:|
+| styhead    |  x  |  x   |      |     |     |     |     |
 | scarthgap  |  x  |  x   |  x   |  x  |     |     |     |
 | nanbield   |  x  |  x   |  x   |  x  |     |     |     |
 | mickledore |  c  |  c   |  c   |  c  |  c  |     |     |
