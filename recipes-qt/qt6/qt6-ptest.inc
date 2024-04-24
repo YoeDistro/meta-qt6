@@ -41,12 +41,11 @@ EOF
     do
         if [ -e "${B_PTEST}/tests/$tests" ]; then
             install -d ${D}${PTEST_PATH}/tests
-            cp -r ${B_PTEST}/tests/$tests ${D}${PTEST_PATH}/tests
-
-            # remove build files
-            find ${D}${PTEST_PATH}/tests/$tests \
-                \( -wholename "*/.*" -o -wholename "*autogen*" -o -iwholename "*cmake*" -o -name Makefile \) \
-                -delete
+            find ${B_PTEST}/tests/$tests \
+                \( -executable  \! -type d -o -name qmldir \) \
+                -exec sh -c '\
+                    install -D "$1" "${D}${PTEST_PATH}${1#${B_PTEST}}" \
+                ' _ {} \;
 
             # tests may depend on files from sources
             cp -r ${S}/tests/$tests ${D}${PTEST_PATH}/tests
