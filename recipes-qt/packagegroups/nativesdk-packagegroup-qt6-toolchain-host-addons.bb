@@ -21,8 +21,7 @@ RDEPENDS:${PN} += " \
     nativesdk-qtscxml-tools \
     nativesdk-qtshadertools-dev \
     nativesdk-qtshadertools-tools \
-    nativesdk-qtwayland-dev \
-    nativesdk-qtwayland-tools \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'nativesdk-qtwayland-dev nativesdk-qtwayland-tools', '', d)} \
     ${FORLINUXHOST} \
 "
 
