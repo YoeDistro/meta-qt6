@@ -10,7 +10,7 @@ QT_MODULE_REPO ?= "${QT_MODULE}.git"
 
 SRC_URI = "${QT_GIT}/${QT_GIT_PROJECT}/${QT_MODULE_REPO};name=${QT_MODULE};${QT_MODULE_BRANCH_PARAM};protocol=${QT_GIT_PROTOCOL}"
 
-CVE_PRODUCT:append = " qt"
+CVE_PRODUCT ?= "qt:${BPN} qt:qt"
 
 S = "${WORKDIR}/git"
 
