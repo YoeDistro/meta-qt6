@@ -33,6 +33,7 @@ EOF
         -DCMAKE_STAGING_PREFIX=${D}${prefix} \
         -DCMAKE_SKIP_RPATH=ON \
         -DQT_DISABLE_NO_DEFAULT_PATH_IN_QT_PACKAGES=ON \
+        -DQT_FORCE_BUILTIN_TESTDATA=ON \
         ${S} \
         -Wno-dev
     ${CMAKE_VERBOSE} cmake --build ${B_PTEST} --target all
@@ -48,9 +49,6 @@ EOF
                 \) -exec sh -c '\
                     install -D "$1" "${D}${PTEST_PATH}${1#${B_PTEST}}" \
                 ' _ {} \;
-
-            # tests may depend on files from sources
-            cp -r ${S}/tests/$tests ${D}${PTEST_PATH}/tests
         fi
     done
 }
