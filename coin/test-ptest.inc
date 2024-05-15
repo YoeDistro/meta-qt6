@@ -1,4 +1,5 @@
 IMAGE_CLASSES += "testimage"
+QB_MEM = "-m 8192"
 TEST_SUITES = "ssh ping parselogs ptest"
 IMAGE_FEATURES += "ssh-server-dropbear"
 IMAGE_INSTALL:append = "\
