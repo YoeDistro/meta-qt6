@@ -27,6 +27,9 @@ SRC_URI += " \
     ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=qt3d-assimp;branch=${ASSIMP_BRANCH};protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
 "
 
+# Needed for supporting 64bit off_t
+CFLAGS:append:libc-musl = " -DIOAPI_NO_64 -D_GNU_SOURCE"
+
 DEPENDS = "qtbase qtdeclarative qtdeclarative-native qtshadertools qtshadertools-native"
 
 PACKAGECONFIG[system-assimp] = "-DFEATURE_qt3d_system_assimp=ON,-DQT_FEATURE_qt3d_system_assimp=OFF,assimp"
