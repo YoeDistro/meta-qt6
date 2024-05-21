@@ -38,3 +38,5 @@ FILES:${PN}-qmlplugins += " \
 "
 
 SRCREV_FORMAT = "qtquick3d_qtquick3d-assimp"
+
+CFLAGS += "-DIOAPI_NO_64 -D_GNU_SOURCE"
