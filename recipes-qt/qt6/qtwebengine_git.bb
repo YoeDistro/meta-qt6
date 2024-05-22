@@ -8,7 +8,6 @@ DEPENDS += " \
     bison-native \
     qemu-native \
     nss nss-native \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'libxcomposite libxcursor libxi libxrandr libxtst libxkbfile', '', d)} \
     qtbase qtdeclarative qtdeclarative-native \
     gn-native \
     python3-html5lib-native \
@@ -27,6 +26,7 @@ SECURITY_STRINGFORMAT = ""
 
 PACKAGECONFIG ??= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'alsa pulseaudio', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11 opengl', 'ozone-x11', '', d)} \
     geolocation \
     glib \
     lcms2 \
@@ -60,6 +60,7 @@ PACKAGECONFIG[libvpx] = "-DFEATURE_webengine_system_libvpx=ON,-DFEATURE_webengin
 PACKAGECONFIG[libwebp] = "-DFEATURE_webengine_system_libwebp=ON,-DFEATURE_webengine_system_libwebp=OFF,libwebp libwebp-native"
 PACKAGECONFIG[libxml] = "-DFEATURE_webengine_system_libxml=ON,-DFEATURE_webengine_system_libxml=OFF,libxml2 libxslt"
 PACKAGECONFIG[opus] = "-DFEATURE_webengine_system_opus=ON,-DFEATURE_webengine_system_opus=OFF,libopus"
+PACKAGECONFIG[ozone-x11] = "-DFEATURE_webengine_ozone_x11=ON,-DFEATURE_webengine_ozone_x11=OFF,libxcomposite libxcursor libxi libxrandr libxtst libxkbfile libxdamage virtual/libgl"
 PACKAGECONFIG[libpci] = "-DFEATURE_webengine_system_libpci=ON,-DFEATURE_webengine_system_libpci=OFF,pciutils"
 PACKAGECONFIG[pepper-plugins] = "-DFEATURE_webengine_pepper_plugins=ON,-DFEATURE_webengine_pepper_plugins=OFF"
 PACKAGECONFIG[printing-and-pdf] = "-DFEATURE_webengine_printing_and_pdf=ON,-DFEATURE_webengine_printing_and_pdf=OFF,cups"
