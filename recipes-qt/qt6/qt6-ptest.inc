@@ -41,9 +41,11 @@ EOF
     do
         if [ -e "${B_PTEST}/tests/$tests" ]; then
             install -d ${D}${PTEST_PATH}/tests
-            find ${B_PTEST}/tests/$tests \
-                \( -executable  \! -type d -o -name qmldir \) \
-                -exec sh -c '\
+            find ${B_PTEST}/tests/$tests ! -type d -a \( \
+                    -executable -o \
+                    -name qmldir -o \
+                    -name *.rcc \
+                \) -exec sh -c '\
                     install -D "$1" "${D}${PTEST_PATH}${1#${B_PTEST}}" \
                 ' _ {} \;
 
