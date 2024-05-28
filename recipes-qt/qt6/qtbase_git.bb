@@ -200,7 +200,7 @@ do_install:append() {
     install -d ${D}${datadir}/cmake/OEToolchainConfig.cmake.d
     RELPATH=${@os.path.relpath(d.getVar('prefix'), d.getVar('datadir') + '/cmake/OEToolchainConfig.cmake.d')}
     cat > ${D}${datadir}/cmake/OEToolchainConfig.cmake.d/OEQt6Toolchain.cmake <<EOF
-get_filename_component(QT_HOST_PATH "\${CMAKE_CURRENT_LIST_DIR}/${RELPATH}" ABSOLUTE CACHE)
+get_filename_component(QT_HOST_PATH "\${CMAKE_CURRENT_LIST_DIR}/$RELPATH" ABSOLUTE CACHE)
 set(QT_BUILD_INTERNALS_NO_FORCE_SET_INSTALL_PREFIX ON CACHE BOOL "")
 EOF
 

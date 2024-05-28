@@ -82,7 +82,7 @@ inherit qt6-paths remove-libtool
 
 generate_target_qt_config_file() {
     qtconf="$1"
-    cat > "${qtconf}" <<EOF
+    cat > "$qtconf" <<EOF
 [Paths]
 Prefix = ${OE_QMAKE_PATH_PREFIX}
 Headers = ${OE_QMAKE_PATH_HEADERS}
