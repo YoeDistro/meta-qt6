@@ -21,6 +21,7 @@ SRC_URI += "\
     file://0001-Add-linux-oe-g-platform.patch \
     file://0004-Fix-qt.toolchain.cmake-for-SDK-use.patch \
     file://0005-testlib-don-t-track-the-build-or-source-directories.patch \
+    file://0001-tests-corelib-Disable-qbytearrayview-and-qstringview.patch \
 "
 SRC_URI:append:class-native = "\
     file://0002-qlibraryinfo-allow-to-set-qt.conf-from-the-outside-u.patch \
