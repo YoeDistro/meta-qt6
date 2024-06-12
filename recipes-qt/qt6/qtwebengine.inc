@@ -38,5 +38,7 @@ SRC_URI += " \
     file://chromium/0002-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
     file://chromium/0004-Fix-QuicIntervalDeque-Iterator-operator.patch;patchdir=src/3rdparty \
     file://chromium/0005-Fix-base-IDMap-Iterator-operator.patch;patchdir=src/3rdparty \
+    file://chromium/0001-Fix-instances-of-new-clang-warning-Wmissing-template.patch;patchdir=src/3rdparty \
+    file://chromium/0001-Fix-instances-of-Wmissing-template-arg-list-after-te.patch;patchdir=src/3rdparty \
 "
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
