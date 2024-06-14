@@ -35,7 +35,7 @@ INSANE_SKIP:nativesdk-qemu-user-mips = "build-deps"
 PREFERRED_ARM_INSTRUCTION_SET              ?= "thumb"
 ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
 
-RDEPENDS:${PN}:append:pn-packagegroup-qt6-addons = " squish"
+#RDEPENDS:${PN}:append:pn-packagegroup-qt6-addons = " squish"
 
 # enable webengine with commercial/proprietary features
 DISTRO_FEATURES:append = " webengine"
