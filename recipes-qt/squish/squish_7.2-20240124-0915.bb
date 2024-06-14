@@ -4,6 +4,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=26ea9708fd32ef443b69239b5d9b343c"
 EXCLUDE_FROM_WORLD = "1"
 
 inherit qt6-qmake
+inherit disable-build
 
 SQUISH_MIRROR ?= "https://ci-files01-hki.ci.qt.io/input/squish/coin/66x/20240124"
 
