@@ -24,6 +24,7 @@ SRC_URI += "\
     file://0005-testlib-don-t-track-the-build-or-source-directories.patch \
     file://0001-qplatformdefs-Do-not-use-LFS64-legacy-APIs.patch \
     file://0001-tests-corelib-Disable-qbytearrayview-and-qstringview.patch \
+    file://0001-Force-using-c-17-with-clang19.patch \
 "
 
 DEPENDS += "\
