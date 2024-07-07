@@ -2,6 +2,7 @@ require recipes-qt/qt6/qtwebengine.inc
 require recipes-qt/qt6/chromium-gn.inc
 
 DEPENDS += " \
+    cups \
     nodejs-native \
     gperf-native \
     bison-native \
