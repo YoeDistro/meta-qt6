@@ -36,5 +36,6 @@ SRC_URI += " \
 SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
     file://chromium/0002-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
+    file://chromium/0003-Do-not-build-webnn-with-xnnpack.patch;patchdir=src/3rdparty \
 "
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
