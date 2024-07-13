@@ -43,6 +43,10 @@ DEBUG_FLAGS:append:aarch64 = "-g1"
 DEBUG_FLAGS:remove:x86-64 = "-g"
 DEBUG_FLAGS:append:x86-64 = "-g1"
 
+# The default debug level flag has moved from DEBUG_FLAGS to a new
+# variable starting with Yocto 'styhead' (5.1) release
+DEBUG_LEVELFLAG = "-g1"
+
 # V8's JIT infrastructure requires binaries such as mksnapshot and
 # mkpeephole to be run in the host during the build. However, these
 # binaries must have the same bit-width as the target (e.g. a x86_64
