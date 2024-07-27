@@ -37,6 +37,17 @@ EXTRA_OECMAKE += "\
     -DINSTALL_MKSPECSDIR:PATH=${@os.path.relpath(d.getVar('QT6_INSTALL_MKSPECSDIR'), d.getVar('prefix') + '/')} \
 "
 
+do_install:prepend() {
+    [ -d  ${B}/src ] && find ${B}/src \( -name "*.h" -or -name "*.cpp" \) -prune -exec \
+        sed -i \
+            -e "s|${S}/||g" \
+            -e "s|${B}/||g" {} \;
+    [ -d  ${B}/tools ] && find ${B}/tools \( -name "*.cpp" \) -prune -exec \
+        sed -i \
+            -e "s|${S}/||g" \
+            -e "s|${B}/||g" {} \;
+}
+
 do_install:append() {
     # Replace host paths with qmake built-in properties QTBUG-84725
     find ${D} \( -name "*.pri" -or -name "*.prl" \) -exec \
@@ -46,3 +57,5 @@ do_install:append() {
 }
 
 export QT_DISABLE_SHADER_DISK_CACHE = "1"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"
