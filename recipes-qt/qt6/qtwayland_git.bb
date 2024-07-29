@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/LGPL-3.0-only.txt;md5=e6a600fd5e1d9cbde2d983680233ad02 \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/Qt-GPL-exception-1.0.txt;md5=9a13522cd91a88fba784baf16ea66af8 \
-    file://src/3rdparty/protocol/HPND_LICENSE.txt;md5=147672b78461c805e65dc29a92591db1 \
+    file://src/3rdparty/protocol/text-input/v2/HPND_LICENSE.txt;md5=147672b78461c805e65dc29a92591db1 \
     file://src/3rdparty/protocol/MIT_LICENSE.txt;md5=e8ad01a5182f2c1b3a2640e9ea268264 \
 "
 
