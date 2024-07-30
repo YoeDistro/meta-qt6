@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/GPL-3.0-only.txt;md5=d32239bcb673463ab874e80d47fae504 \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/Qt-GPL-exception-1.0.txt;md5=9a13522cd91a88fba784baf16ea66af8 \
-    file://LICENSES/MIT-Khronos-old.txt;md5=a81aa9fd63b8e618b46e566919afa6a5 \
+    file://LICENSES/LicenseRef-MIT-Khronos-old.txt;md5=a81aa9fd63b8e618b46e566919afa6a5 \
     file://src/3rdparty/SPIRV-Cross/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57 \
     file://src/3rdparty/glslang/LICENSE.txt;md5=2a2b5acd7bc4844964cfda45fe807dc3 \
 "
