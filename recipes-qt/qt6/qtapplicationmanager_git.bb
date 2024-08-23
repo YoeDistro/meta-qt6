@@ -13,10 +13,6 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-SRC_URI += " \
-    file://0001-CMake-Add-workaround-to-skip-excluding-tools-for-Boo.patch \
-"
-
 DEPENDS += "qtbase qtdeclarative libyaml libarchive qtapplicationmanager-native"
 DEPENDS:append:libc-musl = " libexecinfo"
 RDEPENDS:${PN}:class-target = "libcrypto ${PN}-tools"
