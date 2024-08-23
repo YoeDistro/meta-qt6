@@ -1,0 +1,29 @@
+From e63624bccd3e0da3bcf7cf70523c58703c6dc385 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 19 Jun 2024 18:18:58 -0700
+Subject: [PATCH] Force using c++17 with clang19+
+
+This is a workaround for a compiler error seen with clang19+libc++
+when c++20 or c++23 std is used
+
+See - https://codereview.qt-project.org/c/qt/qtbase/+/568930
+
+Upstream-Status: Inappropriate [OE Workaround]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ tests/auto/corelib/global/qcomparehelpers/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/auto/corelib/global/qcomparehelpers/CMakeLists.txt b/tests/auto/corelib/global/qcomparehelpers/CMakeLists.txt
+index d3593c7b52..a6011ae1fa 100644
+--- a/tests/auto/corelib/global/qcomparehelpers/CMakeLists.txt
++++ b/tests/auto/corelib/global/qcomparehelpers/CMakeLists.txt
+@@ -17,7 +17,7 @@ qt_internal_add_test(tst_qcomparehelpers
+ 
+ # CMake recognizes CXX_STANDARD=23 only starting from version 3.20
+ # macOS has some issues with concepts, see QTBUG-117765
+-if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.20" AND NOT MACOS AND NOT VXWORKS AND NOT (LINUX AND "${CMAKE_SYSTEM_PROCESSOR}" MATCHES "aarch64"))
++if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.20" AND NOT MACOS AND NOT VXWORKS AND NOT (LINUX AND "${CMAKE_SYSTEM_PROCESSOR}" MATCHES "aarch64") AND NOT (LINUX AND CLANG AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "19"))
+     qt_internal_add_test(tst_qcomparehelpers_cpp23
+         SOURCES
+             tst_qcomparehelpers.h tst_qcomparehelpers.cpp
