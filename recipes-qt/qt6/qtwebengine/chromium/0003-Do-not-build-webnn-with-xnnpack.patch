@@ -3,6 +3,8 @@ From: Michal Klocek <michal.klocek@qt.io>
 Date: Wed, 14 Aug 2024 13:40:31 +0200
 Subject: [PATCH] Do not build webnn with xnnpack for arm64
 
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
 Change-Id: Ib23b6da98eddc8319fa79e8c1365b4e67d21086d
 ---
  .../third_party/blink/renderer/modules/ml/webnn/features.gni   | 3 ++-
