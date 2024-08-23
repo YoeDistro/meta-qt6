@@ -1,0 +1,37 @@
+From 250e4d419cda20977572bd35f0a9dfa870d20a7f Mon Sep 17 00:00:00 2001
+From: QUICHE team <quiche-dev@google.com>
+Date: Mon, 6 May 2024 00:24:25 -0700
+Subject: [PATCH 5/5] Fix QuicIntervalDeque::Iterator::operator+=
+
+The code was referring to a member which didn't exist. This was uncovered by a
+recent Clang change [1] which made the compiler lookup these names at template
+parse time rather than instantiation time.
+
+ 1. https://github.com/llvm/llvm-project/pull/90152
+
+Upstream-Status: Backport [https://github.com/google/quiche/commit/c1af894e0f5c4f732a983e7c93227854e203570e]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+PiperOrigin-RevId: 630952202
+---
+ .../quiche/src/quiche/quic/core/quic_interval_deque.h         | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/chromium/net/third_party/quiche/src/quiche/quic/core/quic_interval_deque.h b/chromium/net/third_party/quiche/src/quiche/quic/core/quic_interval_deque.h
+index e79ff8ee810..55a712cb998 100644
+--- a/chromium/net/third_party/quiche/src/quiche/quic/core/quic_interval_deque.h
++++ b/chromium/net/third_party/quiche/src/quiche/quic/core/quic_interval_deque.h
+@@ -198,12 +198,12 @@ class QUICHE_NO_EXPORT QuicIntervalDeque {
+     Iterator operator+(difference_type amount) const {
+       Iterator copy = *this;
+       copy.index_ += amount;
+-      QUICHE_DCHECK(copy.index_ < copy.deque_->size());
++      QUICHE_DCHECK(copy.index_ < copy.deque_->Size());
+       return copy;
+     }
+     Iterator& operator+=(difference_type amount) {
+       index_ += amount;
+-      QUICHE_DCHECK(index_ < deque_->size());
++      QUICHE_DCHECK(index_ < deque_->Size());
+       return *this;
+     }
+     difference_type operator-(const Iterator& rhs) const {
