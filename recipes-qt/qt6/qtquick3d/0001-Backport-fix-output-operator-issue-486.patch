@@ -1,0 +1,44 @@
+From f5bd6357230add5b21da2c5aa32d4165cada5b7c Mon Sep 17 00:00:00 2001
+From: Daniel Opitz <daniel.opitz@intel.com>
+Date: Mon, 13 May 2024 10:17:51 +0200
+Subject: [PATCH] [Backport] fix output operator, issue #486
+
+Upstream-Status: Backport [https://github.com/RenderKit/embree/commit/cda4cf1919bb2a748e78915fbd6e421a1056638d]
+Pick-to: 6.8
+Change-Id: I9d019f4a613ec580265d51018a2b852e2af3fa0b
+
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ src/3rdparty/embree/kernels/geometry/pointi.h     | 4 ++--
+ src/3rdparty/embree/kernels/subdiv/bezier_curve.h | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/3rdparty/embree/kernels/geometry/pointi.h b/src/3rdparty/embree/kernels/geometry/pointi.h
+index bed04116b..f33169223 100644
+--- a/src/3rdparty/embree/kernels/geometry/pointi.h
++++ b/src/3rdparty/embree/kernels/geometry/pointi.h
+@@ -210,9 +210,9 @@ namespace embree
+     };
+ 
+     /*! output operator */
+-    friend __forceinline embree_ostream operator<<(embree_ostream cout, const PointMi& line)
++    friend __forceinline embree_ostream operator<<(embree_ostream cout, const PointMi& point)
+     {
+-      return cout << "Line" << M << "i {" << line.v0 << ", " << line.geomID() << ", " << line.primID() << "}";
++      return cout << "Point" << M << "i {" << point.geomID() << ", " << point.primID() << "}";
+     }
+ 
+    public:
+diff --git a/src/3rdparty/embree/kernels/subdiv/bezier_curve.h b/src/3rdparty/embree/kernels/subdiv/bezier_curve.h
+index a5adad5cc..4f20a5abb 100644
+--- a/src/3rdparty/embree/kernels/subdiv/bezier_curve.h
++++ b/src/3rdparty/embree/kernels/subdiv/bezier_curve.h
+@@ -135,7 +135,7 @@ namespace embree
+       }
+       
+       friend embree_ostream operator<<(embree_ostream cout, const QuadraticBezierCurve& a) {
+-        return cout << "QuadraticBezierCurve ( (" << a.u.lower << ", " << a.u.upper << "), " << a.v0 << ", " << a.v1 << ", " << a.v2 << ")";
++        return cout << "QuadraticBezierCurve (" << a.v0 << ", " << a.v1 << ", " << a.v2 << ")";
+       }
+     };
+   
