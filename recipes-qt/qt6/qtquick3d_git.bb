@@ -23,6 +23,7 @@ ASSIMP_BRANCH = "qt6_assimp"
 SRC_URI += " \
     ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=qtquick3d-assimp;branch=${ASSIMP_BRANCH};protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
     file://0001-Skip-embree-on-mingw.patch \
+    file://0001-Backport-fix-output-operator-issue-486.patch \
 "
 
 DEPENDS = "qtbase qtdeclarative qtshadertools qtshadertools-native qtquick3d-native"
