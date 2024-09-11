@@ -1,0 +1,38 @@
+From 90d9c2522114ab3318fea3e80839e8617ef16754 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 11 Sep 2024 08:04:23 -0700
+Subject: [PATCH] Fix narrowing conversions seen on 32bit arm
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This issue is seen with clang-19 when compiling for arm32
+make clang-19 happier with -Wc++11-narrowing
+
+Fixes
+native_skia_output_device_opengl.cpp:292:47: error: non-constant-expression cannot be narrowed from type '
+   ↪ uint32_t' (aka 'unsigned int') to 'EGLAttrib' (aka 'int') in initializer list [-Wc++11-narrowing]
+     292 |                 EGL_DMA_BUF_PLANE0_PITCH_EXT, nativePixmap->GetDmaBufPitch(0),
+
+Pick-to: 6.8
+Change-Id: I95ba1ab0a37218b6d05324df563efba6d5c39ba2
+
+Upstream-Status: Submitted [https://codereview.qt-project.org/c/qt/qtwebengine/+/590252]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ src/core/compositor/native_skia_output_device_opengl.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/core/compositor/native_skia_output_device_opengl.cpp b/src/core/compositor/native_skia_output_device_opengl.cpp
+index af30b5526..7c70e4770 100644
+--- a/src/core/compositor/native_skia_output_device_opengl.cpp
++++ b/src/core/compositor/native_skia_output_device_opengl.cpp
+@@ -561,7 +561,7 @@ QSGTexture *NativeSkiaOutputDeviceOpenGL::texture(QQuickWindow *win, uint32_t te
+                 EGL_LINUX_DRM_FOURCC_EXT, drmFormat,
+                 EGL_DMA_BUF_PLANE0_FD_EXT, scopedFd.get(),
+                 EGL_DMA_BUF_PLANE0_OFFSET_EXT, static_cast<EGLAttrib>(nativePixmap->GetDmaBufOffset(0)),
+-                EGL_DMA_BUF_PLANE0_PITCH_EXT, nativePixmap->GetDmaBufPitch(0),
++                EGL_DMA_BUF_PLANE0_PITCH_EXT, static_cast<EGLAttrib>(nativePixmap->GetDmaBufPitch(0)),
+                 EGL_DMA_BUF_PLANE0_MODIFIER_LO_EXT, static_cast<EGLAttrib>(modifier & 0xffffffff),
+                 EGL_DMA_BUF_PLANE0_MODIFIER_HI_EXT, static_cast<EGLAttrib>(modifier >> 32),
+                 EGL_NONE
