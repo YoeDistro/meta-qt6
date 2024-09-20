@@ -29,12 +29,12 @@ DEPENDS += "\
     qtsvg \
     qtwebsockets \
 "
-DEPENDS:append:aarch64 = " qtpdf qtquick3dphysics"
+DEPENDS:append:aarch64 = " ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)} qtquick3dphysics"
 DEPENDS:append:arm = " qtquick3dphysics"
-DEPENDS:append:armv6 = " qtpdf"
-DEPENDS:append:armv7a = " qtpdf"
-DEPENDS:append:armv7ve = " qtpdf"
+DEPENDS:append:armv6 = " ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)}"
+DEPENDS:append:armv7a = " ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)}"
+DEPENDS:append:armv7ve = " ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)}"
 DEPENDS:append:x86 = " qtquick3dphysics"
-DEPENDS:append:x86-64 = " qtpdf qtquick3dphysics"
+DEPENDS:append:x86-64 = " ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)} qtquick3dphysics"
 
 PACKAGECONFIG ?= "examples"
