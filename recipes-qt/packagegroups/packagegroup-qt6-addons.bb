@@ -50,25 +50,20 @@ RDEPENDS:${PN} += " \
 
 RDEPENDS:${PN}:append:aarch64 = "\
     qtquick3dphysics \
-    qtpdf \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview qtpdf', '', d)} \
 "
 RDEPENDS:${PN}:append:arm = " qtquick3dphysics"
 RDEPENDS:${PN}:append:armv6 = "\
-    qtpdf \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview qtpdf', '', d)} \
 "
 RDEPENDS:${PN}:append:armv7a = "\
-    qtpdf \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview qtpdf', '', d)} \
 "
 RDEPENDS:${PN}:append:armv7ve = "\
-    qtpdf \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview qtpdf', '', d)} \
 "
 RDEPENDS:${PN}:append:x86 = " qtquick3dphysics"
 RDEPENDS:${PN}:append:x86-64 = "\
     qtquick3dphysics \
-    qtpdf \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview qtpdf', '', d)} \
 "
