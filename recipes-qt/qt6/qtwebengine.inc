@@ -38,11 +38,5 @@ SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
     file://chromium/0002-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
     file://chromium/0003-Do-not-build-webnn-with-xnnpack.patch;patchdir=src/3rdparty \
-    \
-    file://chromium/0001-Fix-NoDestructor-PlacementStorage-get-const.patch;patchdir=src/3rdparty \
-    file://chromium/0002-Fix-instances-of-Wmissing-template-arg-list-after-te.patch;patchdir=src/3rdparty \
-    file://chromium/0003-Fix-instances-of-new-clang-warning-Wmissing-template.patch;patchdir=src/3rdparty \
-    file://chromium/0004-Fix-base-IDMap-Iterator-operator.patch;patchdir=src/3rdparty \
-    file://chromium/0005-Fix-QuicIntervalDeque-Iterator-operator.patch;patchdir=src/3rdparty \
 "
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
