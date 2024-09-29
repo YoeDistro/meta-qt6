@@ -1,0 +1,31 @@
+From 62125f64451a08ef629bf1999f3eedf120688e2e Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Sat, 28 Sep 2024 08:53:56 -0700
+Subject: [PATCH] Remove Q_CONSTINIT qualifier from unique_ptr jitStacks
+
+This was added via [1] part of overarching cleanup [2].
+But clang-20 now reports this
+as non-const variable, therefore remove this qualifier for now
+
+[1] https://codereview.qt-project.org/c/qt/qtbase/+/429858
+[2] https://bugreports.qt.io/browse/QTBUG-100486
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ src/corelib/text/qregularexpression.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/corelib/text/qregularexpression.cpp b/src/corelib/text/qregularexpression.cpp
+index 6073a965de..04e76563bc 100644
+--- a/src/corelib/text/qregularexpression.cpp
++++ b/src/corelib/text/qregularexpression.cpp
+@@ -956,7 +956,7 @@ struct PcreJitStackFree
+             pcre2_jit_stack_free_16(stack);
+     }
+ };
+-Q_CONSTINIT static thread_local std::unique_ptr<pcre2_jit_stack_16, PcreJitStackFree> jitStacks;
++static thread_local std::unique_ptr<pcre2_jit_stack_16, PcreJitStackFree> jitStacks;
+ }
+ 
+ /*!
