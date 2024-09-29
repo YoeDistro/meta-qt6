@@ -23,6 +23,7 @@ SRC_URI += "\
     file://0004-Fix-qt.toolchain.cmake-for-SDK-use.patch \
     file://0005-testlib-don-t-track-the-build-or-source-directories.patch \
     file://0001-tests-corelib-Disable-qbytearrayview-and-qstringview.patch \
+    file://0006-Remove-Q_CONSTINIT-qualifier-from-unique_ptr-jitStac.patch \
 "
 
 DEPENDS += "\
