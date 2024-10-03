@@ -6,17 +6,20 @@ SRC_URI[sha256sum] = "b55c239f3ae7e23c5c8434f38901c5bcacb6afd17e88e37934b46e4455
 
 inherit pypi setuptools3
 
+# Colorama is optional dependency from coloredlogs, but
+# it seems to be required in general, at least on windows
 DEPS = "\
-    python3-jinja2 \
-    python3-click \
-    python3-pyyaml \
-    python3-pytest \
-    python3-six \
-    python3-path \
     python3-antlr4-runtime \
-    python3-watchdog \
+    python3-argh \
+    python3-click \
+    python3-coloredlogs \
+    python3-jinja2 \
     python3-markupsafe \
-    python3-setuptools \
+    python3-pyyaml \
+    python3-six \
+    python3-watchdog \
+    python3-pytest \
+    python3-colorama \
 "
 DEPENDS += "${DEPS}"
 RDEPENDS:${PN} += "${DEPS}"
