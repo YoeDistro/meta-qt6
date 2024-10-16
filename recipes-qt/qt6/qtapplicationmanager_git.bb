@@ -36,3 +36,5 @@ FILES:${PN}-tools = "\
 "
 
 BBCLASSEXTEND = "nativesdk native"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

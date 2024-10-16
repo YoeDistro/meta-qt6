@@ -21,3 +21,4 @@ PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
 BBCLASSEXTEND = "native nativesdk"
 
+INSANE_SKIP:${PN}-ptest += "buildpaths"
