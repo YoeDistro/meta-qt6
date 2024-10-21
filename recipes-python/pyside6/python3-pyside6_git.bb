@@ -63,6 +63,13 @@ EXTRA_OECMAKE += "\
     ' \
 "
 
+do_install:append() {
+    # __init__.py in package python3-pyside6 contains reference to TMPDIR [buildpaths]
+    # PYSIDE-2895
+    sed -i ${D}${PYTHON_SITEPACKAGES_DIR}/PySide6/__init__.py \
+        -e '/while still building/,+5d'
+}
+
 FILES:${PN} += "\
     ${QT6_INSTALL_PLUGINSDIR}/designer \
 "
