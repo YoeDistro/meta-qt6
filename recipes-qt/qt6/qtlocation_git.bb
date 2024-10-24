@@ -25,3 +25,5 @@ PACKAGECONFIG[mapbox] = "-DFEATURE_geoservices_mapbox=ON,-DFEATURE_geoservices_m
 PACKAGECONFIG[nokia] = "-DFEATURE_geoservices_nokia=ON,-DFEATURE_geoservices_nokia=OFF,"
 PACKAGECONFIG[osm] = "-DFEATURE_geoservices_osm=ON,-DFEATURE_geoservices_osm=OFF,"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

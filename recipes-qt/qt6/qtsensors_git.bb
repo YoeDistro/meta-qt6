@@ -16,3 +16,4 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
+INSANE_SKIP:${PN}-ptest += "buildpaths"
