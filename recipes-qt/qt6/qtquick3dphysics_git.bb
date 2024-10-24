@@ -22,3 +22,5 @@ COMPATIBLE_MACHINE:x86-64 = "(.*)"
 DEPENDS = "qtbase qtquick3d qtquick3d-native qtdeclarative-native"
 
 FILES:${PN}-tools = ""
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

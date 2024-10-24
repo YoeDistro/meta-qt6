@@ -1,0 +1,29 @@
+From be7e162bd89b4778dd43513b35349ccaa6b3589f Mon Sep 17 00:00:00 2001
+From: Samuli Piippo <samuli.piippo@qt.io>
+Date: Fri, 18 Oct 2024 09:02:20 +0000
+Subject: [PATCH] examples: don't track source path
+
+Avoid using source path in the example binary as that causes
+QA error [buildpaths]
+
+Upstream-Status: Pending
+Change-Id: Id5aebc2afa7d4ded38d6bdd43fbbb2813f4bad5d
+---
+ examples/assistant/simpletextviewer/CMakeLists.txt | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/examples/assistant/simpletextviewer/CMakeLists.txt b/examples/assistant/simpletextviewer/CMakeLists.txt
+index 8d459a261..89076bcd1 100644
+--- a/examples/assistant/simpletextviewer/CMakeLists.txt
++++ b/examples/assistant/simpletextviewer/CMakeLists.txt
+@@ -27,10 +27,6 @@ set_target_properties(simpletextviewer PROPERTIES
+     MACOSX_BUNDLE TRUE
+ )
+ 
+-target_compile_definitions(simpletextviewer PUBLIC
+-    SRCDIR="${CMAKE_CURRENT_SOURCE_DIR}/"
+-)
+-
+ target_link_libraries(simpletextviewer PUBLIC
+     Qt::Core
+     Qt::Gui

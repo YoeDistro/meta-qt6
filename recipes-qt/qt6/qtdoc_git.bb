@@ -38,3 +38,5 @@ DEPENDS:append:x86 = " qtquick3dphysics"
 DEPENDS:append:x86-64 = " ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)} qtquick3dphysics"
 
 PACKAGECONFIG ?= "examples"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

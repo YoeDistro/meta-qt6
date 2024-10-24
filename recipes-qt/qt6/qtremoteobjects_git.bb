@@ -18,3 +18,5 @@ DEPENDS += "qtbase qtdeclarative qtremoteobjects-native"
 
 
 BBCLASSEXTEND += "native nativesdk"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

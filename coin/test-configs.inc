@@ -31,6 +31,10 @@ WARN_QA:remove = "${EXTRA_QA}"
 # nativesdk-qemu-user-mips rdepends on nativesdk-bash, but it isn't a build dependency
 INSANE_SKIP:nativesdk-qemu-user-mips = "build-deps"
 
+# workaround for clang
+# nativesdk-liblldb contains reference to TMPDIR [buildpaths]
+INSANE_SKIP:append:pn-nativesdk-clang = " buildpaths"
+
 # enable thumb for broader test coverage (oe-core autobuilder doesn't have thumb enabled)
 PREFERRED_ARM_INSTRUCTION_SET              ?= "thumb"
 ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
