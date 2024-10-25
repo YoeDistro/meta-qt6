@@ -1,0 +1,30 @@
+From 7e5ddd2e22c57fcd2eb7c8ae24150deb564a1b57 Mon Sep 17 00:00:00 2001
+From: Alexey Edelev <alexey.edelev@qt.io>
+Date: Wed, 16 Oct 2024 11:19:03 +0200
+Subject: [PATCH] Remove the export of QT_PROTO_INCLUDES property
+
+The export is not needed in recent version since the QT_PROTO_INCLUDES
+property is calculated according to the QtProtobufWellknownTypes
+install/staging/build prefixes.
+
+Pick-to: 6.8
+Fixes: QTBUG-130113
+Change-Id: I81ddc90334b4828ce5c73fe2ef0f12e3efe6b07c
+Upstream-Status: Submitted
+---
+ src/wellknown/Qt6ProtobufWellKnownTypesBuildInternals.cmake | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/wellknown/Qt6ProtobufWellKnownTypesBuildInternals.cmake b/src/wellknown/Qt6ProtobufWellKnownTypesBuildInternals.cmake
+index 50900553..49152702 100644
+--- a/src/wellknown/Qt6ProtobufWellKnownTypesBuildInternals.cmake
++++ b/src/wellknown/Qt6ProtobufWellKnownTypesBuildInternals.cmake
+@@ -121,8 +121,6 @@ function(qt_internal_add_protobuf_wellknown_types target)
+             EXPORT_NAME_PREFIX "${INSTALL_CMAKE_NAMESPACE}${target}"
+         )
+     endif()
+-
+-    set_property(TARGET ${target} APPEND PROPERTY EXPORT_PROPERTIES QT_PROTO_INCLUDES)
+ endfunction()
+ 
+ # The function generates the header 'alias_file' containing the include of the original

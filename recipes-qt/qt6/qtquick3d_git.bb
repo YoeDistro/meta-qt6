@@ -42,3 +42,5 @@ SRCREV_FORMAT = "qtquick3d_qtquick3d-assimp"
 
 # Needed for supporting 64bit off_t
 CFLAGS:append:libc-musl = " -DIOAPI_NO_64 -D_GNU_SOURCE"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

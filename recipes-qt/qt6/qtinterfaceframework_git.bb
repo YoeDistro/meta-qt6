@@ -30,3 +30,5 @@ PACKAGECONFIG[remoteobjects] = "-DFEATURE_remoteobjects=ON,-DFEATURE_remoteobjec
 BBCLASSEXTEND = "native nativesdk"
 
 PRIVATE_LIBS:${PN}-examples = "libInstrumentCluster.so"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

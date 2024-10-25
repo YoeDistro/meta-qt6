@@ -1,0 +1,29 @@
+From 37b0a11ac7ca9521b4f1446ad817ee28d2216698 Mon Sep 17 00:00:00 2001
+From: Samuli Piippo <samuli.piippo@qt.io>
+Date: Wed, 16 Oct 2024 09:05:15 +0000
+Subject: [PATCH] Don't store build dir to the binaries
+
+Storing build dir to the binaries causes QA errors:
+ "contains reference to TMPDIR [buildpaths]"
+
+Change-Id: Ic887b8ca5332e0bd2ddbabb22aeb386dac6e2eac
+Task-number: QTBUG-130117
+Upstream-Status: Pending
+---
+ src/main-lib/main.cpp | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/src/main-lib/main.cpp b/src/main-lib/main.cpp
+index 1deba17d..8cd5599a 100644
+--- a/src/main-lib/main.cpp
++++ b/src/main-lib/main.cpp
+@@ -139,9 +139,6 @@ Main::Main(int &argc, char **argv, InitFlags initFlags)
+             false;
+ #endif
+ 
+-    // this might be needed later on by the native runtime to find a suitable qml runtime launcher
+-    setProperty("_am_build_dir", QString::fromLatin1(AM_BUILD_DIR));
+-
+     UnixSignalHandler::instance()->install(UnixSignalHandler::ForwardedToEventLoopHandler,
+                                            { SIGINT, SIGTERM },
+                                            [](int sig) {

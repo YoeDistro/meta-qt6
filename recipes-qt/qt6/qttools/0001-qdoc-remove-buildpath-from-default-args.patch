@@ -1,0 +1,25 @@
+From f4b0fc8061e30edbaf7a9b23827cebfadccdd2f4 Mon Sep 17 00:00:00 2001
+From: Samuli Piippo <samuli.piippo@qt.io>
+Date: Thu, 17 Oct 2024 10:52:56 +0000
+Subject: [PATCH] qdoc: remove buildpath from default args
+
+QDoc stored buildtime path in the code that leads to QA issues.
+
+Task-number: QTBUG-130282
+Upstream-Status: Pending
+---
+ src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp b/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
+index 385d651ec..73f207720 100644
+--- a/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
++++ b/src/qdoc/qdoc/src/qdoc/clangcodeparser.cpp
+@@ -1487,7 +1487,6 @@ static const char *defaultArgs_[] = {
+     "-Wno-nullability-completeness",
+     "-fvisibility=default",
+     "-ferror-limit=0",
+-    ("-I" CLANG_RESOURCE_DIR)
+ };
+ 
+ /*!

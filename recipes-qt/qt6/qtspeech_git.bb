@@ -18,3 +18,5 @@ DEPENDS += "qtbase qtmultimedia"
 PACKAGECONFIG ?= "qml"
 PACKAGECONFIG[flite] = "-DFEATURE_flite=ON,-DFEATURE_flite=OFF,flite"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

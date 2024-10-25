@@ -14,3 +14,5 @@ include recipes-qt/qt6/qt6.inc
 REQUIRED_DISTRO_FEATURES = "opengl"
 
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"

@@ -16,3 +16,4 @@ DEPENDS += "qtbase"
 PACKAGECONFIG ?= "qml"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
+INSANE_SKIP:${PN}-ptest += "buildpaths"
