@@ -23,14 +23,17 @@ the LAYERSERIES_COMPAT (c).
 | Yocto \ Qt | 6.5 | 6.4 | 6.3 | 6.2 |
 | ---------- |:---:|:---:|:---:|:---:|
 | scarthgap  |  x  |     |     |     |
-| nanbield   |  x  |     |     |     |
-| mickledore |  c  |  x  |     |     |
-| langdale   |  c  |  x  |     |     |
-| kirkstone  |  x  |  x  |  x  |  x  |
-| honister   |  c  |  c  |  x  |  x  |
+| nanbield   |  c  |     |     |     |
+| mickledore |  c  |  c  |     |     |
+| langdale   |  c  |  c  |     |     |
+| kirkstone  |  x  |  c  |  c  |  c  |
+| honister   |  c  |  c  |  c  |  c  |
 | hardknott  |  c  |  c  |  c  |  c  |
 | gatesgarth |  c  |  c  |  c  |  c  |
-| dunfell    |  x  |  x  |  x  |  x  |
+| dunfell    |  x  |  c  |  c  |  c  |
+|            |     |     |     |     |
+|            | LTS | EOL | EOL | EOL |
+
 
 Commercial Qt
 -------------
