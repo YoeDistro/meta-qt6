@@ -1,4 +1,4 @@
-From be7e162bd89b4778dd43513b35349ccaa6b3589f Mon Sep 17 00:00:00 2001
+From 6acac52cec61494e97d3e3db68df2da3c22cff5b Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Fri, 18 Oct 2024 09:02:20 +0000
 Subject: [PATCH] examples: don't track source path
@@ -10,7 +10,8 @@ Upstream-Status: Pending
 Change-Id: Id5aebc2afa7d4ded38d6bdd43fbbb2813f4bad5d
 ---
  examples/assistant/simpletextviewer/CMakeLists.txt | 4 ----
- 1 file changed, 4 deletions(-)
+ examples/help/contextsensitivehelp/CMakeLists.txt  | 4 ----
+ 2 files changed, 8 deletions(-)
 
 diff --git a/examples/assistant/simpletextviewer/CMakeLists.txt b/examples/assistant/simpletextviewer/CMakeLists.txt
 index 8d459a261..89076bcd1 100644
@@ -27,3 +28,18 @@ index 8d459a261..89076bcd1 100644
  target_link_libraries(simpletextviewer PUBLIC
      Qt::Core
      Qt::Gui
+diff --git a/examples/help/contextsensitivehelp/CMakeLists.txt b/examples/help/contextsensitivehelp/CMakeLists.txt
+index fb251dea7..dd0c30434 100644
+--- a/examples/help/contextsensitivehelp/CMakeLists.txt
++++ b/examples/help/contextsensitivehelp/CMakeLists.txt
+@@ -27,10 +27,6 @@ set_target_properties(contextsensitivehelp PROPERTIES
+     MACOSX_BUNDLE TRUE
+ )
+ 
+-target_compile_definitions(contextsensitivehelp PUBLIC
+-    SRCDIR="${CMAKE_CURRENT_SOURCE_DIR}/"
+-)
+-
+ target_link_libraries(contextsensitivehelp PUBLIC
+     Qt6::Core
+     Qt6::Gui
