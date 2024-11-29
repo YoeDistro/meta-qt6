@@ -9,7 +9,9 @@ inherit packagegroup nativesdk
 PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
 RDEPENDS:${PN} += " \
+    nativesdk-cmake \
     nativesdk-make \
+    nativesdk-ninja \
     nativesdk-packagegroup-qt6-toolchain-host-essentials \
     nativesdk-packagegroup-qt6-toolchain-host-addons \
     ${@bb.utils.contains('QT_COMMERCIAL_MODULES', '1', 'nativesdk-packagegroup-qt6-toolchain-host-commercial', '', d)} \
@@ -18,8 +20,6 @@ RDEPENDS:${PN} += " \
 
 FORLINUXHOST:mingw32 = ""
 FORLINUXHOST = " \
-    nativesdk-cmake \
-    nativesdk-ninja \
     nativesdk-perl-modules \
     nativesdk-python3-html5lib \
 "
