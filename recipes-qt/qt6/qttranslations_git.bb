@@ -27,4 +27,4 @@ python split_translation_packages () {
     d.setVar('RRECOMMENDS:' + pn, ' '.join(pkgs))
 }
 
-FILES:${PN}-dev = "${QT6_INSTALL_TRANSLATIONSDIR}/catalogs.json"
+FILES:${PN}-dev += "${QT6_INSTALL_TRANSLATIONSDIR}/catalogs.json"

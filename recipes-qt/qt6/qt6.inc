@@ -121,9 +121,7 @@ FILES:${PN}-staticdev += " \
     ${QT6_INSTALL_QMLDIR}/*/*/*/*/objects*/ \
 "
 
-# Note: INSTALL_EXAMPLESDIR is not used
 FILES:${PN}-examples = " \
     ${QT6_INSTALL_EXAMPLESDIR} \
-    ${prefix}/examples \
 "
 RDEPENDS:${PN}-examples = "${PN}"
