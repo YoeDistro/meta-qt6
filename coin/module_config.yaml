@@ -98,7 +98,7 @@ target5: &target5
       variableValue: kirkstone.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland static no-webengine python
+      variableValue: ci configs wayland static no-webengine
   enable_if:
       condition: property
       property: target.arch

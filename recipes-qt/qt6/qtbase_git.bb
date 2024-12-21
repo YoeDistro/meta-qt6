@@ -54,8 +54,9 @@ PACKAGECONFIG_GRAPHICS ?= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'vulkan', d)} \
     ${@bb.utils.filter('DISTRO_FEATURES', 'wayland', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', \
-        bb.utils.contains('DISTRO_FEATURES', 'x11', 'gl', 'kms gbm gles2 eglfs', d), 'no-opengl linuxfb', d)} \
+        bb.utils.contains('DISTRO_FEATURES', 'x11', 'gl', 'kms gbm gles2 eglfs', d), 'no-opengl', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'directfb', 'directfb', '', d)} \
+    linuxfb \
 "
 PACKAGECONFIG_X11 ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', '', d)}"
 PACKAGECONFIG_KDE ?= "${@bb.utils.contains('DISTRO_FEATURES', 'kde', 'sm cups kms gbm sql-sqlite', '', d)}"
@@ -194,6 +195,11 @@ do_install:append() {
     rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/uikit/devices.py
     rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/uikit/device_destinations.sh
     rm -f ${D}${QT6_INSTALL_MKSPECSDIR}/features/data/mac/objc_namespace.sh
+
+    if [ -e ${D}${QT6_INSTALL_EXAMPLESDIR}/corelib/serialization/cbordump/cbortag.py ]; then
+        sed -i ${D}${QT6_INSTALL_EXAMPLESDIR}/corelib/serialization/cbordump/cbortag.py \
+            -e 's|/bin/env|/usr/bin/env|'
+    fi
 
     # remove unneeded files that contains reference to TMPDIR [buildpaths]
     rm -f ${D}${QT6_INSTALL_BINDIR}/host-*

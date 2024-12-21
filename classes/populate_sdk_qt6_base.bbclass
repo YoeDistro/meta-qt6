@@ -27,7 +27,7 @@ create_qt6_sdk_files () {
     echo 'Binaries = ${QT6_INSTALL_BINDIR}' >> $qtconf
     echo 'LibraryExecutables = ${QT6_INSTALL_LIBEXECDIR}' >> $qtconf
     echo 'Plugins = ${QT6_INSTALL_PLUGINSDIR}' >> $qtconf
-    echo 'Qml2Imports = ${QT6_INSTALL_QMLDIR}' >> $qtconf
+    echo 'QmlImports = ${QT6_INSTALL_QMLDIR}' >> $qtconf
     echo 'Translations = ${QT6_INSTALL_TRANSLATIONSDIR}' >> $qtconf
     echo 'Documentation = ${QT6_INSTALL_DOCDIR}' >> $qtconf
     echo 'Settings = ${QT6_INSTALL_SYSCONFDIR}' >> $qtconf

@@ -92,7 +92,7 @@ Data = ${OE_QMAKE_PATH_DATA}
 Binaries = ${OE_QMAKE_PATH_BINS}
 LibraryExecutables = ${OE_QMAKE_PATH_LIBEXECS}
 Plugins = ${OE_QMAKE_PATH_PLUGINS}
-Qml2Imports = ${OE_QMAKE_PATH_QML}
+QmlImports = ${OE_QMAKE_PATH_QML}
 Translations = ${OE_QMAKE_PATH_TRANSLATIONS}
 Documentation = ${OE_QMAKE_PATH_DOCS}
 Settings = ${OE_QMAKE_PATH_SETTINGS}
@@ -124,7 +124,7 @@ Data = ${OE_QMAKE_PATH_DATA}
 Binaries = ${OE_QMAKE_PATH_BINS}
 LibraryExecutables = ${OE_QMAKE_PATH_LIBEXECS}
 Plugins = ${OE_QMAKE_PATH_PLUGINS}
-Qml2Imports = ${OE_QMAKE_PATH_QML}
+QmlImports = ${OE_QMAKE_PATH_QML}
 Translations = ${OE_QMAKE_PATH_TRANSLATIONS}
 Documentation = ${OE_QMAKE_PATH_DOCS}
 Settings = ${OE_QMAKE_PATH_SETTINGS}
@@ -162,7 +162,7 @@ EOF
 # Binaries The location of installed Qt binaries (tools and applications).
 # Plugins The location of installed Qt plugins.
 # Imports The location of installed QML extensions to import (QML 1.x).
-# Qml2Imports The location of installed QML extensions to import (QML 2.x).
+# QmlImports The location of installed QML extensions to import (QML 2.x).
 # ArchData The location of general architecture-dependent Qt data.
 # Data The location of general architecture-independent Qt data.
 # Translations The location of translation information for Qt strings.
