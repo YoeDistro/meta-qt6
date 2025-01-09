@@ -27,7 +27,7 @@ QT6_INSTALL_SYSCONFDIR ?= "${sysconfdir}/xdg"
 QT6_INSTALL_EXAMPLESDIR ?= "${datadir}/examples"
 # Tests [PREFIX/tests]
 QT6_INSTALL_TESTSDIR ?= "${prefix}/tests"
-# Module description files directory [DATADIR/modules]
-QT6_INSTALL_DESCRIPTIONSDIR ?= "${datadir}/modules"
+# Module description files directory [ARCHDATADIR/modules]
+QT6_INSTALL_DESCRIPTIONSDIR ?= "${libdir}/modules"
 # Mkspecs files [PREFIX/mkspecs]
 QT6_INSTALL_MKSPECSDIR ?= "${libdir}/mkspecs"
