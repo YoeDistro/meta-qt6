@@ -1,4 +1,4 @@
-From efa68fdedbec60380946f69a6a2f985958148e83 Mon Sep 17 00:00:00 2001
+From 6b711b3e301742e22a42fa206a2112d9d6ade1a6 Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Wed, 18 Aug 2021 15:09:41 +0300
 Subject: [PATCH] CMake: use generated yocto toolchains
@@ -16,10 +16,10 @@ Change-Id: I217c9122144f25bb2d28717e7248c2a51b149127
  2 files changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/cmake/Functions.cmake b/cmake/Functions.cmake
-index 3371e5ff5..ac889d3f7 100644
+index 0514a5062..a46272e9e 100644
 --- a/cmake/Functions.cmake
 +++ b/cmake/Functions.cmake
-@@ -825,7 +825,7 @@ endfunction()
+@@ -512,7 +512,7 @@ endfunction()
  
  macro(create_pkg_config_host_wrapper buildDir)
      find_package(PkgConfigHost)
@@ -28,7 +28,7 @@ index 3371e5ff5..ac889d3f7 100644
              create_pkg_config_wrapper("${buildDir}/pkg-config-host_wrapper.sh" "${PKG_CONFIG_HOST_EXECUTABLE}")
              set(PKG_CONFIG_HOST_EXECUTABLE "${buildDir}/pkg-config-host_wrapper.sh")
          endif()
-@@ -1097,14 +1097,12 @@ macro(append_toolchain_setup)
+@@ -840,14 +840,12 @@ macro(append_toolchain_setup)
      elseif(LINUX)
          get_gn_arch(cpu ${TEST_architecture_arch})
          list(APPEND gnArgArg
@@ -48,14 +48,14 @@ index 3371e5ff5..ac889d3f7 100644
              list(APPEND gnArgArg host_cpu="${cpu}")
          endif()
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 0084697f2..1c9059ae6 100644
+index 578bdce2a..58fefd9e0 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -161,7 +161,7 @@ endif()
+@@ -110,7 +110,7 @@ endif()
  #  HOST PROJECT
  ##
  
--if(CMAKE_CROSSCOMPILING AND NOT IOS AND NOT MACOS)
+-if(CMAKE_CROSSCOMPILING AND NOT IOS AND NOT MACOS AND NOT WIN32)
 +if(FALSE)
  
      if(NOT Gn_FOUND)
