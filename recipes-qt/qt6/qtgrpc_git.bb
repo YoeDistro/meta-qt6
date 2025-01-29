@@ -17,7 +17,8 @@ SRC_URI += "file://0001-Remove-the-export-of-QT_PROTO_INCLUDES-property.patch"
 
 DEPENDS += "qtbase qtgrpc-native protobuf protobuf-native"
 
-PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtdeclarative qtdeclarative-native"
+PACKAGECONFIG ?= "qml"
+PACKAGECONFIG[qml] = "-DFEATURE_grpcquick=ON,-DFEATURE_grpcquick=OFF,qtdeclarative qtdeclarative-native"
 
 BBCLASSEXTEND = "native nativesdk"
 

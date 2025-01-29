@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/Qt-GPL-exception-1.0.txt;md5=9a13522cd91a88fba784baf16ea66af8 \
     file://src/plugins/openwnn/3rdparty/openwnn/NOTICE;md5=50e3e853eb9dd5ccdf6192678106b3da \
-    file://src/plugins/pinyin/3rdparty/pinyin/NOTICE;md5=506fbea94b9d051d6478776c50a4c66b \
+    file://src/plugins/pinyin/3rdparty/pinyin/NOTICE;md5=42ec637ebc122938c27a784b351dafef \
     file://src/plugins/tcime/3rdparty/tcime/COPYING;md5=1474257e03071e0ffb9ed0db6dac8954 \
 "
 

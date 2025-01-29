@@ -24,8 +24,11 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-PACKAGECONFIG ?= "qml"
+PACKAGECONFIG ?= "qml open62541"
+PACKAGECONFIG:class-native ?= ""
+PACKAGECONFIG:class-nativesdk ?= ""
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
+PACKAGECONFIG[open62541] = "-DFEATURE_open62541=ON,-DFEATURE_open62541=OFF,openssl"
 
 # src/3rdparty/open62541.pri adds -Wno-format, causing following error
 # because -Wformat-security cannot be used together with -Wno-format

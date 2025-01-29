@@ -15,6 +15,8 @@ RDEPENDS:${PN} += " \
     nativesdk-qtgrpc-tools \
     nativesdk-qtquick3d-dev \
     nativesdk-qtquick3d-tools \
+    nativesdk-qtopcua-dev \
+    nativesdk-qtopcua-tools \
     nativesdk-qtremoteobjects-dev \
     nativesdk-qtremoteobjects-tools \
     nativesdk-qtscxml-dev \
