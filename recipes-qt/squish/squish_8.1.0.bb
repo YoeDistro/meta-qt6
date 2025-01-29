@@ -12,6 +12,7 @@ SQUISH_INSTALLER = "squish-${PV}-qt68x-linux64.run"
 SRC_URI = "\
     ${SQUISH_MIRROR}/${SQUISH_INSTALLER};name=squish \
     ${SQUISH_MIRROR}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded \
+    file://0001-Use-correct-prefix-for-Xft-include.patch \
 "
 
 SRC_URI[squish.sha256sum] = "2ff96e9f2e8594833c186d0b34f12f2014b2fcd30f087e53edc39066587c42b6"

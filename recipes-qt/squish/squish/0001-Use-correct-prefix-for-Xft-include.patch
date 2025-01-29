@@ -1,0 +1,26 @@
+From 4c4daf9c1d2b32bcd19206f91d50aaf8f073c764 Mon Sep 17 00:00:00 2001
+From: Samuli Piippo <samuli.piippo@qt.io>
+Date: Fri, 24 Jan 2025 16:54:17 +0000
+Subject: [PATCH] Use correct prefix for Xft include
+
+Use sysroot prefix include path to prevent:
+  cc1plus: error: include location "/usr/include/freetype2" is unsafe for cross-compilation [-Werror=poison-system-directories]
+
+Upstream-Status: Pending
+---
+ configure.cos | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.cos b/configure.cos
+index 138e5fe..d1c1723 100644
+--- a/configure.cos
++++ b/configure.cos
+@@ -2257,7 +2257,7 @@ function checkXft()
+     if ( compileTest( target ) ) {
+         msgResult( "yes" );
+         config["LIBXFT"] = libXft;
+-        config["XFT_INC"] = ["/usr/include/freetype2"];
++        config["XFT_INC"] = [freetypePrefix + "/include/freetype2"];
+         defines["HAVE_XFT"] = 1;
+         return true;
+     }
