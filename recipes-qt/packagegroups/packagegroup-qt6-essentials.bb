@@ -12,6 +12,7 @@ RDEPENDS:${PN} += " \
     qtdeclarative \
     qtdeclarative-tools \
     qttools \
+    qttools-tools \
     qttranslations-qtbase \
     qttranslations-qtdeclarative \
 "
