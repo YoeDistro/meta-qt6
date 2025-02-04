@@ -21,6 +21,9 @@ inherit gettext
 inherit perlnative
 inherit python3native
 
+inherit features_check
+REQUIRED_DISTRO_FEATURES = "opengl"
+
 # we don't want gettext.bbclass to append --enable-nls
 def gettext_oeconf(d):
     return ""
