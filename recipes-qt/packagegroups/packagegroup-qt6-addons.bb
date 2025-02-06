@@ -8,6 +8,7 @@ inherit packagegroup
 PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 
 RDEPENDS:${PN} += " \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'clang-layer', 'python3-pyside6', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qt3d', '', d)} \
     qt5compat \
     qtapplicationmanager \

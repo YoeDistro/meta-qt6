@@ -39,7 +39,8 @@ INSANE_SKIP:append:pn-nativesdk-clang = " buildpaths"
 PREFERRED_ARM_INSTRUCTION_SET              ?= "thumb"
 ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
 
-RDEPENDS:${PN}:append:pn-packagegroup-qt6-addons = " squish"
+# build squish
+USE_SQUISH = "1"
 
 # enable webengine with commercial/proprietary features
 DISTRO_FEATURES:append = " webengine"
