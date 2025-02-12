@@ -8,6 +8,9 @@ Content-Transfer-Encoding: 8bit
 
 Fixes:
 /home/abuild/rpmbuild/BUILD/python-PyQt6-6.8.0-build/PyQt6-6.8.0/build/QtCore/sipQtCoreQStringConverterBase.cpp:58:52: error: use of deleted function ‘constexpr QStringConverterBase::QStringConverterBase(const QStringConverterBase&)’
+
+Upstream-Status: Pending
+
 ---
  sip/QtCore/qstringconverter_base.sip | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)

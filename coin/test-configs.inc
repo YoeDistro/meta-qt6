@@ -50,7 +50,6 @@ PACKAGECONFIG:append:pn-qtbase = "\
     tslib kms gbm zstd libproxy gssapi vulkan mtdev cups \
     sql-mysql sql-odbc sql-psql sql-sqlite journald brotli \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'gtk', '', d)} \
-    use-gold-linker \
 "
 
 # imageformats mng FIXME

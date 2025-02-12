@@ -83,6 +83,10 @@ do_configure() {
         $extra_args
 
     QMAKE_PROFILES=${B}/PyQt6.pro
+
+    # Fixes: cc1plus: error: include location "/usr/include/python3.13"
+    # is unsafe for cross-compilation [-Werror=poison-system-directories]
+    sed -i "s|/usr/include/${PYTHON_DIR}|${PYTHON_INCLUDE_DIR}|g" ${B}/*/*.pro
 }
 
 do_compile:append() {
