@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/HPND-sell-variant.txt;md5=46bb75504ccdcac579aa4fee538e6c39 \
     file://LICENSES/LGPL-3.0-only.txt;md5=e6a600fd5e1d9cbde2d983680233ad02 \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
-    file://src/svg/XSVG_LICENSE.txt;md5=46bb75504ccdcac579aa4fee538e6c39 \
+    file://src/svg/LICENSE.XSVG.txt;md5=46bb75504ccdcac579aa4fee538e6c39 \
 "
 
 inherit qt6-cmake
