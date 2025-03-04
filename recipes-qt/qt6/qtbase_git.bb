@@ -96,8 +96,8 @@ OPENSSL_LINKING_MODE ?= "runtime"
 QT_QPA_DEFAULT_PLATFORM ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', \
     bb.utils.contains('PACKAGECONFIG', 'gles2', 'eglfs', 'linuxfb', d), d)}"
 
-# at-spi bridge requires XCB currently
-ACCESSIBILITY_DEPENDS = "${@bb.utils.contains("DISTRO_FEATURES", "x11", "at-spi2-core", "", d)}"
+# at-spi bridge is used by XCB and wayland
+ACCESSIBILITY_DEPENDS = "${@bb.utils.contains_any("DISTRO_FEATURES", "x11 wayland", "at-spi2-core", "", d)}"
 
 PACKAGECONFIG[ltcg] = "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON,-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF"
 PACKAGECONFIG[optimize-size] = "-DFEATURE_optimize_size=ON,-DFEATURE_optimize_size=OFF"
