@@ -1,0 +1,29 @@
+From a1dfe7752f309f417cb6fa81c1463463cf01bacd Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 5 Mar 2025 19:22:05 -0800
+Subject: [PATCH] api: Do not use ABSL_ATTRIBUTE_LIFETIME_BOUND on a void
+ function
+
+Clang-20 complains
+chromium/third_party/webrtc/api/candidate.h:96:40: error: 'lifetimebound' attribute cannot be applied to a parameter of a function that returns void; did you mean 'lifetime_capture_by(X)'
+|    96 |   void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND) {
+
+Upstream-Status: Inappropriate [Fixed diffrently upstream]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ chromium/third_party/webrtc/api/candidate.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/chromium/third_party/webrtc/api/candidate.h b/chromium/third_party/webrtc/api/candidate.h
+index d48f4fc5599..1bfaa64bcc9 100644
+--- a/chromium/third_party/webrtc/api/candidate.h
++++ b/chromium/third_party/webrtc/api/candidate.h
+@@ -93,7 +93,7 @@ class RTC_EXPORT Candidate {
+   // cricket::LOCAL_PORT_TYPE). The type should really be an enum rather than a
+   // string, but until we make that change the lifetime attribute helps us lock
+   // things down. See also the `Port` class.
+-  void set_type(absl::string_view type ABSL_ATTRIBUTE_LIFETIME_BOUND) {
++  void set_type(absl::string_view type) {
+     Assign(type_, type);
+   }
+ 
