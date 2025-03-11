@@ -5,7 +5,14 @@ EXCLUDE_FROM_WORLD = "1"
 
 inherit qt6-qmake
 
-SQUISH_MIRROR ?= "https://ci-files01-hki.ci.qt.io/input/squish/releasepackages"
+# location where Squish release packages can be downloaded
+SQUISH_MIRROR ?= ""
+SQUISH_LICENSE_KEY ?= ""
+
+python __anonymous() {
+    if not (d.getVar('SQUISH_MIRROR') and d.getVar('SQUISH_LICENSE_KEY')):
+        raise bb.parse.SkipRecipe("You need to define SQUISH_MIRROR and SQUISH_LICENSE_KEY in the config", d)
+}
 
 SQUISH_INSTALLER = "squish-${PV}-qt68x-linux64.run"
 
@@ -47,7 +54,8 @@ do_install_squish() {
     fi
     chmod +x $SQUISH_INSTALLER
     TMPDIR=${WORKDIR}/tmp XDG_RUNTIME_DIR=${WORKDIR}/tmp $SQUISH_INSTALLER \
-        -platform minimal unattended=1 targetdir=${WORKDIR}/squish ide=0
+        -platform minimal unattended=1 targetdir=${WORKDIR}/squish ide=0 \
+        licensekey=${SQUISH_LICENSE_KEY}
 }
 
 do_configure() {
