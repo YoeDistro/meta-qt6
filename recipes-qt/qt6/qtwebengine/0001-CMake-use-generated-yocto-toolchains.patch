@@ -1,4 +1,4 @@
-From 6b711b3e301742e22a42fa206a2112d9d6ade1a6 Mon Sep 17 00:00:00 2001
+From a485259228b3692e7874c6d5a2b41f91da47fa4c Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Wed, 18 Aug 2021 15:09:41 +0300
 Subject: [PATCH] CMake: use generated yocto toolchains
@@ -11,15 +11,15 @@ target binaries where needed.
 Upstream-Status: Inappropriate [embedded specific]
 Change-Id: I217c9122144f25bb2d28717e7248c2a51b149127
 ---
- cmake/Functions.cmake | 12 +++++-------
- src/CMakeLists.txt    |  2 +-
+ cmake/QtToolchainHelpers.cmake | 12 +++++-------
+ src/CMakeLists.txt             |  2 +-
  2 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/cmake/Functions.cmake b/cmake/Functions.cmake
-index 0514a5062..a46272e9e 100644
---- a/cmake/Functions.cmake
-+++ b/cmake/Functions.cmake
-@@ -512,7 +512,7 @@ endfunction()
+diff --git a/cmake/QtToolchainHelpers.cmake b/cmake/QtToolchainHelpers.cmake
+index eaa3a4339..9a6d57945 100644
+--- a/cmake/QtToolchainHelpers.cmake
++++ b/cmake/QtToolchainHelpers.cmake
+@@ -210,7 +210,7 @@ endfunction()
  
  macro(create_pkg_config_host_wrapper buildDir)
      find_package(PkgConfigHost)
@@ -28,7 +28,7 @@ index 0514a5062..a46272e9e 100644
              create_pkg_config_wrapper("${buildDir}/pkg-config-host_wrapper.sh" "${PKG_CONFIG_HOST_EXECUTABLE}")
              set(PKG_CONFIG_HOST_EXECUTABLE "${buildDir}/pkg-config-host_wrapper.sh")
          endif()
-@@ -840,14 +840,12 @@ macro(append_toolchain_setup)
+@@ -551,14 +551,12 @@ macro(append_toolchain_setup)
      elseif(LINUX)
          get_gn_arch(cpu ${TEST_architecture_arch})
          list(APPEND gnArgArg
@@ -48,10 +48,10 @@ index 0514a5062..a46272e9e 100644
              list(APPEND gnArgArg host_cpu="${cpu}")
          endif()
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 578bdce2a..58fefd9e0 100644
+index 453b2c1b6..6b8c5c254 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -110,7 +110,7 @@ endif()
+@@ -114,7 +114,7 @@ endif()
  #  HOST PROJECT
  ##
  
