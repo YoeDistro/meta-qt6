@@ -1,5 +1,5 @@
 LICENSE = "Squish-Commercial-License-Agreement"
-LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=899603087536444c628655da3a982a75"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=a25acc1c5f693af9921102a049958aa8"
 
 EXCLUDE_FROM_WORLD = "1"
 
@@ -19,11 +19,10 @@ SQUISH_INSTALLER = "squish-${PV}-qt68x-linux64.run"
 SRC_URI = "\
     ${SQUISH_MIRROR}/${SQUISH_INSTALLER};name=squish \
     ${SQUISH_MIRROR}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded \
-    file://0001-Use-correct-prefix-for-Xft-include.patch \
 "
 
-SRC_URI[squish.sha256sum] = "2ff96e9f2e8594833c186d0b34f12f2014b2fcd30f087e53edc39066587c42b6"
-SRC_URI[qt-squish-embedded.sha256sum] = "729870aafba482d7a772c930209830796a5c9d4a8ab0c49e8caa54738f1032e8"
+SRC_URI[squish.sha256sum] = "145191899db959d627861094a7d3cfcb11ebb614cb96a3d7e9f564b2b6081a71"
+SRC_URI[qt-squish-embedded.sha256sum] = "4a64c4304defdc937efe997862a65c5d17d654f425a9d2a6840c6c62dbbc698e"
 
 S = "${WORKDIR}/squish-${PV}-qt-embedded-src"
 B = "${WORKDIR}/build"
