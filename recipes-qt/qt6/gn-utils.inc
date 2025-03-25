@@ -50,6 +50,20 @@ def gn_host_pkg_config(d):
     """Return absolute paths to pkg-config-native."""
     return d.getVar("STAGING_BINDIR_NATIVE") + "/" + "pkg-config-native"
 
+def gn_clang(d):
+    """Return true if using clang compiler else return false"""
+    if "clang++" in d.getVar("CXX"):
+        return "true"
+    else:
+        return "false"
+
+def gn_clang_native(d):
+    """Return true if using native clang compiler else return false"""
+    if "clang++" in d.getVar("BUILD_CXX"):
+        return "true"
+    else:
+        return "false"
+
 def write_toolchain_file(d, file_path):
     """Creates a complete GN toolchain file in |file_path|."""
     import string
@@ -72,7 +86,7 @@ def write_toolchain_file(d, file_path):
         '  toolchain_args = {\n'
         '    current_cpu = "${current_cpu}"\n'
         '    current_os = "linux"\n'
-        '    is_clang = false\n'
+        '    is_clang = ${is_clang}\n'
         '    host_pkg_config = "${host_pkg_config}"\n'
         '  }\n'
         '}\n'
@@ -80,6 +94,7 @@ def write_toolchain_file(d, file_path):
 
     native_toolchain = {
         'toolchain_name': 'yocto_native',
+        'is_clang': gn_clang_native(d),
         'current_cpu': gn_host_arch_name(d),
         'host_pkg_config': gn_host_pkg_config(d),
         'cc': d.expand('${BUILD_CC}'),
@@ -94,6 +109,7 @@ def write_toolchain_file(d, file_path):
     }
     target_toolchain = {
         'toolchain_name': 'yocto_target',
+        'is_clang': gn_clang(d),
         'current_cpu': gn_target_arch_name(d),
         'host_pkg_config': gn_host_pkg_config(d),
         'cc': d.expand('${CC}'),
