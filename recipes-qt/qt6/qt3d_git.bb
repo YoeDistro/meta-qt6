@@ -8,8 +8,8 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/Qt-GPL-exception-1.0.txt;md5=9a13522cd91a88fba784baf16ea66af8 \
     file://src/3rdparty/assimp/LICENSE;md5=2119edef0916b0bd511cb3c731076271 \
-    file://src/3rdparty/imgui/LICENSE_imstb.txt;md5=2c03212e4ad1f727e9c2251327812596 \
-    file://src/3rdparty/imgui/LICENSE_proggyclean.txt;md5=f9db3a4f99ffc4d38de6bb590db15f31 \
+    file://src/3rdparty/imgui/LICENSE.imstb.txt;md5=2c03212e4ad1f727e9c2251327812596 \
+    file://src/3rdparty/imgui/LICENSE.proggyclean.txt;md5=f9db3a4f99ffc4d38de6bb590db15f31 \
     file://src/3rdparty/imgui/LICENSE.txt;md5=875a54e93593c8b244ef6b78cacc336e \
 "
 
