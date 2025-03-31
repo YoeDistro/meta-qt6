@@ -20,18 +20,21 @@ python do_srcrev_update() {
     d.setVar("__BBSRCREV_SEEN", "1")
     for scm in scms:
         ud = urldata[scm]
-        for name in ud.names:
-            rev = ud.method.latest_revision(ud, d, name)
-            srcrev = d.getVar("SRCREV_%s" % name)
-            if srcrev is None: srcrev = d.getVar("SRCREV")
+        if hasattr(ud, 'names'):
+            name = ud.names[0]
+        else:
+            name = ud.name
+        rev = ud.method.latest_revision(ud, d, name)
+        srcrev = d.getVar("SRCREV_%s" % name)
+        if srcrev is None: srcrev = d.getVar("SRCREV")
 
-            if srcrev == rev:
-                bb.plain("%s: %s is already latest" % (name, srcrev))
-                continue
+        if srcrev == rev:
+            bb.plain("%s: %s is already latest" % (name, srcrev))
+            continue
 
-            bb.plain("%s: %s -> %s" % (name, srcrev, rev))
-            cmd = "sed -E -i %s %s -e '/SRCREV(_%s)? /s/%s/%s/'" %  (recipe, srcrev_file, name, srcrev, rev)
-            bb.process.run(cmd, log=None, shell=True, stderr=subprocess.PIPE, cwd=None)
+        bb.plain("%s: %s -> %s" % (name, srcrev, rev))
+        cmd = "sed -E -i %s %s -e '/SRCREV(_%s)? /s/%s/%s/'" %  (recipe, srcrev_file, name, srcrev, rev)
+        bb.process.run(cmd, log=None, shell=True, stderr=subprocess.PIPE, cwd=None)
 }
 do_srcrev_update[nostamp] = "1"
 addtask srcrev_update after do_fetch
