@@ -20,7 +20,7 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
-SRC_URI +="\
+SRC_URI += "\
     file://0001-Allow-qtwaylandscanner-to-be-built-without-dependenc.patch \
 "
 
