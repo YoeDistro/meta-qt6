@@ -24,21 +24,22 @@ Following table shows the Yocto releases which are used to test each
 Qt version (x) and any additional Yocto releases that are stated in
 the LAYERSERIES_COMPAT (c).
 
-| Yocto \ Qt | dev | 6.8  | 6.7  | 6.6 | 6.5 | 6.4 | 6.3 | 6.2 |
-|:---------- |:---:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|
-| walnascar  |  x  |  x   |      |     |     |     |     |     |
-| styhead    |  x  |  x   |  x   |     |     |     |     |     |
-| scarthgap  |  x  |  x   |  x   |  c  |  x  |     |     |     |
-| nanbield   |  c  |  c   |  x   |  c  |  c  |     |     |     |
-| mickledore |  c  |  c   |  c   |  c  |  c  |  c  |     |     |
-| langdale   |  c  |  c   |  c   |  c  |  c  |  c  |     |     |
-| kirkstone  |  x  |  x   |  x   |  c  |  x  |  c  |  c  |  c  |
-| honister   |     |      |      |  c  |  c  |  c  |  c  |  c  |
-| hardknott  |     |      |      |  c  |  c  |  c  |  c  |  c  |
-| gatesgarth |     |      |      |  c  |  c  |  c  |  c  |  c  |
-| dunfell    |     |      |      |  c  |  x  |  c  |  c  |  c  |
-|            |     |      |      |     |     |     |     |     |
-|            | dev |stable|stable| EOL | LTS | EOL | EOL | EOL |
+| Yocto \ Qt | 6.8 | 6.7 | 6.6 | 6.5 | 6.4 | 6.3 | 6.2 |
+|:---------- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| whinlatter |  x  |     |     |     |     |     |     |
+| walnascar  |  x  |     |     |     |     |     |     |
+| styhead    |  x  |  c  |     |     |     |     |     |
+| scarthgap  |  x  |  c  |  c  |  x  |     |     |     |
+| nanbield   |  c  |  c  |  c  |  c  |     |     |     |
+| mickledore |  c  |  c  |  c  |  c  |  c  |     |     |
+| langdale   |  c  |  c  |  c  |  c  |  c  |     |     |
+| kirkstone  |  x  |  c  |  c  |  x  |  c  |  c  |  c  |
+| honister   |     |     |  c  |  c  |  c  |  c  |  c  |
+| hardknott  |     |     |  c  |  c  |  c  |  c  |  c  |
+| gatesgarth |     |     |  c  |  c  |  c  |  c  |  c  |
+| dunfell    |     |     |  c  |  x  |  c  |  c  |  c  |
+|            |     |     |     |     |     |     |     |
+|            | LTS | EOL | EOL | LTS | EOL | EOL | EOL |
 
 Detailed status of supported Qt versions can be found from
 https://doc.qt.io/qt-6/supported-platforms.html#supported-qt-versions
