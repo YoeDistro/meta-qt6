@@ -1,0 +1,27 @@
+From 905d44f145b0db83ac6020086f60d026a2fc56d7 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Mon, 7 Apr 2025 11:36:44 -0700
+Subject: [PATCH] openxr: Recognise riscv32 platform
+
+define XR_ARCH_ABI for rv32 machines
+
+Change-Id: If23217772a5f23fb4217c3a51b9eca13c48eed63
+
+Upstream-Status: Submitted [https://codereview.qt-project.org/c/qt/qtquick3d/+/637939]
+---
+ src/3rdparty/openxr/src/common/platform_utils.hpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/3rdparty/openxr/src/common/platform_utils.hpp b/src/3rdparty/openxr/src/common/platform_utils.hpp
+index 59b5bf2fe..34479eb40 100644
+--- a/src/3rdparty/openxr/src/common/platform_utils.hpp
++++ b/src/3rdparty/openxr/src/common/platform_utils.hpp
+@@ -69,6 +69,8 @@
+ #define XR_ARCH_ABI "m68k"
+ #elif defined(__riscv_xlen) && (__riscv_xlen == 64)
+ #define XR_ARCH_ABI "riscv64"
++#elif defined(__riscv_xlen) && (__riscv_xlen == 32)
++#define XR_ARCH_ABI "riscv32"
+ #elif defined(__sparc__) && defined(__arch64__)
+ #define XR_ARCH_ABI "sparc64"
+ #elif defined(__loongarch64)
