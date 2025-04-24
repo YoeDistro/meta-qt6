@@ -87,7 +87,10 @@ do_install() {
     fi
 
     install -d ${D}${sysconfdir}/profile.d
-    echo "export SQUISH_PREFIX=/opt/squish" > ${D}${sysconfdir}/profile.d/squish.sh
+    cat > ${D}${sysconfdir}/profile.d/squish.sh <<EOF
+export SQUISH_PREFIX=/opt/squish
+export PATH="\$PATH:/opt/squish/bin"
+EOF
 }
 
 FILES:${PN} += "\
