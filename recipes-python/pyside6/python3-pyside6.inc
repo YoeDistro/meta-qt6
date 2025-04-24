@@ -22,7 +22,6 @@ include recipes-qt/qt6/qt6-lts.inc
 
 QT_GIT_PROJECT = "pyside"
 QT_MODULE = "pyside-setup"
-QT_MODULE_BRANCH = "dev"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/pyside6:"
 
