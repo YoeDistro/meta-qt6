@@ -10,8 +10,8 @@ LIC_FILES_CHKSUM = " \
 "
 
 python() {
-    if 'clang-layer' not in d.getVar('BBFILE_COLLECTIONS').split():
-        raise bb.parse.SkipRecipe('Requires meta-clang to be present.')
+    if not bb.utils.to_boolean(d.getVar('CAN_USE_PYSIDE6')):
+        raise bb.parse.SkipRecipe('clang is not available.')
 }
 
 inherit setuptools3
