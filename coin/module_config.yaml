@@ -168,7 +168,10 @@ instructions:
       bitbake-layers add-layer ${SOURCE_DIR}
 
       # build toolchain which should include all supported recipes
-      bitbake meta-toolchain-qt6 nativesdk-packagegroup-qt6-toolchain-host packagegroup-qt6-modules
+      bitbake meta-toolchain-qt6 \
+          nativesdk-packagegroup-qt6-toolchain-host \
+          packagegroup-qt6-modules \
+          packagegroup-qt6-examples
     filename: "{{.BuildDir}}/start-build"
     fileMode: 420
   - type: ExecuteCommand

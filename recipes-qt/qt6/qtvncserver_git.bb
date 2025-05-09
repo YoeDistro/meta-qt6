@@ -14,5 +14,4 @@ include recipes-qt/qt6/qt6-commercial.inc
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
 PACKAGECONFIG ?= "libtomcrypt"
-PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtwayland"
 PACKAGECONFIG[libtomcrypt] = ",,libtomcrypt"

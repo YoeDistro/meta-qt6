@@ -1,4 +1,4 @@
-From 221aefe4d8777f45955cb100dfc4c7204c885a19 Mon Sep 17 00:00:00 2001
+From d9c6e7d8dff9081be48bd796f78dd5827cb8a0d3 Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Tue, 31 Aug 2021 18:27:48 +0300
 Subject: [PATCH] Enable examples
@@ -8,16 +8,19 @@ The bug mentioned does not affect bitbake builds.
 Change-Id: I076763d9241061f9cdb4d46bcd88e46bd4f783aa
 Upstream-Status: Inappropriate [OE Specific]
 ---
- examples/CMakeLists.txt | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ examples/CMakeLists.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/examples/CMakeLists.txt b/examples/CMakeLists.txt
-index ccad90e11..32cd6d69d 100644
+index e863dafaf..c9ed56c4e 100644
 --- a/examples/CMakeLists.txt
 +++ b/examples/CMakeLists.txt
-@@ -1,7 +1,7 @@
+@@ -3,8 +3,10 @@
+ 
  cmake_minimum_required(VERSION 3.16)
  
++find_package(Qt6 ${PROJECT_VERSION} CONFIG QUIET OPTIONAL_COMPONENTS Pdf PdfWidgets)
++
  qt_examples_build_begin(EXTERNAL_BUILD)
 -if(NOT CMAKE_CROSSCOMPILING) #QTBUG-86533
 +if(TRUE) #QTBUG-86533

@@ -16,7 +16,6 @@ include recipes-qt/qt6/qt6.inc
 DEPENDS += "qtbase"
 
 PACKAGECONFIG ?= "qml"
-PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtwebsockets"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
 FILES:${PN} += "\

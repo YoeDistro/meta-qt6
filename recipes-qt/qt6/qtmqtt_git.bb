@@ -12,6 +12,3 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase"
-
-PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtdeclarative qtdeclarative-native qtwebsockets"
-

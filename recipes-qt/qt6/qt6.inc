@@ -1,10 +1,8 @@
 include recipes-qt/qt6/qt6-ptest.inc
 
-PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,"
 PACKAGECONFIG[tests] = "-DQT_BUILD_TESTS=ON,-DQT_BUILD_TESTS=OFF,"
 
 # For qmake projects
-EXTRA_QMAKEVARS_PRE += "${@bb.utils.contains('PACKAGECONFIG', 'examples', 'QT_BUILD_PARTS+=examples', 'QT_BUILD_PARTS-=examples', d)}"
 EXTRA_QMAKEVARS_PRE += "${@bb.utils.contains('PACKAGECONFIG', 'tests', 'QT_BUILD_PARTS+=tests', 'QT_BUILD_PARTS-=tests', d)}"
 
 # If Qt6 (qtbase) is machine specific, then everything will be,
@@ -30,14 +28,9 @@ python __anonymous() {
         d.appendVar("DEPENDS", " qmlcompilerplus-native")
 }
 
-# Many examples come with libraries installed outside of standard libdir,
-# suppress QA check complaining
-INSANE_SKIP:${PN}-dbg += "libdir"
-INSANE_SKIP:${PN}-examples += "libdir dev-so"
-
 SYSROOT_DIRS += "${QT6_INSTALL_BINDIR} ${QT6_INSTALL_LIBEXECDIR}"
 
-PACKAGE_BEFORE_PN = "${PN}-qmlplugins ${PN}-tools ${PN}-plugins ${PN}-examples"
+PACKAGE_BEFORE_PN = "${PN}-qmlplugins ${PN}-tools ${PN}-plugins"
 
 ALLOW_EMPTY:${PN} = "1"
 ALLOW_EMPTY:${PN}-plugins = "1"
@@ -120,8 +113,3 @@ FILES:${PN}-staticdev += " \
     ${QT6_INSTALL_QMLDIR}/*/*/*/objects*/ \
     ${QT6_INSTALL_QMLDIR}/*/*/*/*/objects*/ \
 "
-
-FILES:${PN}-examples = " \
-    ${QT6_INSTALL_EXAMPLESDIR} \
-"
-RDEPENDS:${PN}-examples = "${PN}"

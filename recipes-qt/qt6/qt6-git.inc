@@ -6,7 +6,7 @@ inherit srcrev-update
 QT_MODULE ?= "${BPN}"
 QT_MODULE_BRANCH ?= "dev"
 QT_MODULE_BRANCH_PARAM ?= "branch=${QT_MODULE_BRANCH};nobranch=1"
-QT_MODULE_REPO ?= "${QT_MODULE}.git"
+QT_MODULE_REPO ?= "${QT_MODULE}"
 
 # for compatibility with Yocto releases before whinlatter
 BB_GIT_DEFAULT_DESTSUFFIX ?= "${BP}"
@@ -17,7 +17,7 @@ CVE_PRODUCT ?= "qt:${BPN} qt:qt"
 
 PV = "${QT_VERSION}"
 
-SRCREV = "${SRCREV_${QT_MODULE}}"
+SRCREV = "${SRCREV_${QT_MODULE_REPO}}"
 
 SRCREV_tqtc-qmlcompilerplus = "a866049a9696f872700df3f9208f0a1773c6f3a0"
 SRCREV_tqtc-qtinsighttracker = "7e09d09e9ef2545f1436039484bb8dabe0daf4b1"

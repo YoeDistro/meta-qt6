@@ -25,7 +25,6 @@ PACKAGECONFIG ?= "\
     gstreamer pulseaudio qml spatialaudio spatialaudio_quick3d"
 
 PACKAGECONFIG[alsa] = "-DFEATURE_alsa=ON,-DFEATURE_alsa=OFF,alsa-lib"
-PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtsvg"
 PACKAGECONFIG[ffmpeg] = "-DFEATURE_ffmpeg=ON,-DFEATURE_ffmpeg=OFF,ffmpeg"
 PACKAGECONFIG[gstreamer] = "-DFEATURE_gstreamer=ON,-DFEATURE_gstreamer=OFF,gstreamer1.0 gstreamer1.0-plugins-base gstreamer1.0-plugins-bad"
 PACKAGECONFIG[pulseaudio] = "-DFEATURE_pulseaudio=ON,-DFEATURE_pulseaudio=OFF,pulseaudio"

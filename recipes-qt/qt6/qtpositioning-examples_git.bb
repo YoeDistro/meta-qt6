@@ -1,0 +1,19 @@
+LICENSE = "(The-Qt-Company-Commercial | BSD-3-Clause) & Apache-2.0 & OFL-1.1"
+LIC_FILES_CHKSUM = " \
+    file://LICENSES/Apache-2.0.txt;md5=3b83ef96387f14655fc854ddc3c6bd57 \
+    file://LICENSES/BSD-3-Clause.txt;md5=cb40fa7520502d8c7a3aea47cae1316c \
+    file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
+    file://LICENSES/OFL-1.1.txt;md5=ff1fb0cdd81129f9f0c335a58802172f \
+"
+
+inherit qt6-cmake
+
+QT_MODULE = "qtpositioning"
+
+include recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-examples.inc
+
+DEPENDS += "\
+    qtdeclarative-native \
+    qtpositioning \
+"

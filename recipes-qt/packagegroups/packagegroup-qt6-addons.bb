@@ -16,7 +16,6 @@ RDEPENDS:${PN} += " \
     qtconnectivity \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtdatavis3d', '', d)} \
     qtdeviceutilities \
-    qtdoc \
     qtgraphs \
     qtgrpc \
     qthttpserver \
