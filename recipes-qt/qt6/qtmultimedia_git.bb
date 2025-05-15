@@ -37,3 +37,5 @@ PACKAGECONFIG[vaapi] = "-DFEATURE_vaapi=ON,-DFEATURE_vaapi=OFF,libva"
 
 QT_DEFAULT_MEDIA_BACKEND ?= "${@bb.utils.contains('PACKAGECONFIG', 'gstreamer', 'gstreamer', 'ffmpeg', d)}"
 EXTRA_OECMAKE += "-DQT_DEFAULT_MEDIA_BACKEND=${QT_DEFAULT_MEDIA_BACKEND}"
+
+INSANE_SKIP:${PN}-ptest += "buildpaths"
