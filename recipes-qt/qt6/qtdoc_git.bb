@@ -27,6 +27,8 @@ DEPENDS += "\
     qtsensors \
     qtshadertools-native \
     qtsvg \
+    qttools \
+    qttools-native \
     qtwebsockets \
 "
 DEPENDS:append:aarch64 = " ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtpdf', '', d)} qtquick3dphysics"
