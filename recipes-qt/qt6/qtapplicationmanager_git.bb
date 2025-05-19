@@ -25,6 +25,7 @@ PACKAGECONFIG ?= "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'multi-proc
 
 PACKAGECONFIG[tools-only] = "-DFEATURE_am_tools_only=ON, -DFEATURE_am_tools_only=OFF"
 PACKAGECONFIG[multi-process] = "-DFEATURE_am_multi_process=ON, -DFEATURE_am_multi_process=OFF, qtwayland qtwayland-native"
+PACKAGECONFIG[bubblewrap] = "-DFEATURE_am_bubblewrap_container=ON,-DFEATURE_am_bubblewrap_container=OFF,,bubblewrap"
 
 PACKAGECONFIG:class-native ??= "tools-only"
 PACKAGECONFIG:class-nativesdk ??= "${PACKAGECONFIG:class-native}"
