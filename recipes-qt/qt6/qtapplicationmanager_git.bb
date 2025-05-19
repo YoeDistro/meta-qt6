@@ -15,6 +15,7 @@ include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtdeclarative libyaml libarchive qtapplicationmanager-native"
+DEPENDS:append:class-target = " qthttpserver"
 DEPENDS:append:libc-musl = " libexecinfo"
 RDEPENDS:${PN}:class-target = "libcrypto ${PN}-tools"
 
@@ -29,8 +30,8 @@ PACKAGECONFIG:class-native ??= "tools-only"
 PACKAGECONFIG:class-nativesdk ??= "${PACKAGECONFIG:class-native}"
 
 FILES:${PN}-tools = "\
+    ${QT6_INSTALL_BINDIR}/appman-package-server* \
     ${QT6_INSTALL_BINDIR}/appman-packager* \
-    ${QT6_INSTALL_BINDIR}/appman-dumpqmltypes* \
     ${QT6_INSTALL_BINDIR}/appman-qmltestrunner* \
 "
 
