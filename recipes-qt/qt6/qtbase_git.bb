@@ -1,4 +1,5 @@
-LICENSE = "(The-Qt-Company-Commercial | (GPL-3.0-only & Qt-GPL-exception-1.0) & (LGPL-3.0-only | GPL-2.0-only | GPL-3.0-only) & GFDL-1.3-no-invariants-only) & Apache-2.0 & BSD-3-Clause & BSL-1.0 & MIT"
+LICENSE = "(The-Qt-Company-Commercial | (GPL-3.0-only & Qt-GPL-exception-1.0) & (LGPL-3.0-only | GPL-2.0-only | GPL-3.0-only) \
+    & GFDL-1.3-no-invariants-only) & Apache-2.0 & BSD-3-Clause & BSL-1.0 & LGPL-2.1-or-later & HPND & MIT"
 LIC_FILES_CHKSUM = " \
     file://LICENSES/Apache-2.0.txt;md5=b4c615f64dff32f71eeed614d13dfd4c \
     file://LICENSES/BSD-3-Clause.txt;md5=cb40fa7520502d8c7a3aea47cae1316c \
@@ -6,6 +7,8 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/GFDL-1.3-no-invariants-only.txt;md5=a22d0be1ce2284b67950a4d1673dd1b0 \
     file://LICENSES/GPL-2.0-only.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
     file://LICENSES/GPL-3.0-only.txt;md5=d32239bcb673463ab874e80d47fae504 \
+    file://LICENSES/HPND.txt;md5=72f417bf093b8008321cb594117034ec \
+    file://LICENSES/LGPL-2.1-or-later.txt;md5=2a4f4fd2128ea2f65047ee63fbca9f68 \
     file://LICENSES/LGPL-3.0-only.txt;md5=e6a600fd5e1d9cbde2d983680233ad02 \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/MIT.txt;md5=3605d54ecceddcd50962eb89318779ec \
@@ -39,6 +42,7 @@ RRECOMMENDS:${PN}-ptest:append = " tzdata"
 
 PACKAGECONFIG:class-native ?= "\
     gui widgets jpeg png dbus no-opengl openssl zlib zstd \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwaylandscanner', '', d)} \
 "
 PACKAGECONFIG:class-nativesdk ?= "${PACKAGECONFIG:class-native}"
 PACKAGECONFIG ?= "\
@@ -84,6 +88,7 @@ PACKAGECONFIG_DEFAULT ?= "\
     zlib \
     zstd \
     ${@bb.utils.contains('SELECTED_OPTIMIZATION', '-Os', 'optimize-size ltcg', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwaylandscanner', '', d)} \
 "
 
 PACKAGECONFIG:remove:mingw32 = "openssl"
@@ -142,6 +147,7 @@ PACKAGECONFIG[png] = "-DFEATURE_system_png=ON,-DFEATURE_png=OFF,libpng"
 PACKAGECONFIG[tslib] = "-DFEATURE_tslib=ON,-DFEATURE_tslib=OFF,tslib"
 PACKAGECONFIG[vulkan] = "-DFEATURE_vulkan=ON,-DFEATURE_vulkan=OFF,vulkan-headers,vulkan-loader"
 PACKAGECONFIG[wayland] = "-DFEATURE_wayland=ON,-DFEATURE_wayland=OFF,wayland wayland-native"
+PACKAGECONFIG[qtwaylandscanner] = "-DFEATURE_qtwaylandscanner=ON,-DFEATURE_qtwaylandscanner=OFF,wayland wayland-native"
 PACKAGECONFIG[xcb] = "-DFEATURE_xcb=ON,-DFEATURE_xcb=OFF,libxcb xcb-util-wm xcb-util-image xcb-util-keysyms xcb-util-renderutil xcb-util-cursor"
 PACKAGECONFIG[xkbcommon] = "-DFEATURE_xkbcommon=ON,-DFEATURE_xkbcommon=OFF,libxkbcommon,xkeyboard-config"
 
@@ -248,6 +254,8 @@ isEmpty(QMAKE_CC): {
     }
 EOF
 }
+
+FILES:${PN}-dev += "${datadir}/qt6/wayland"
 
 INSANE_SKIP:${PN}-ptest += "arch"
 INHIBIT_PACKAGE_STRIP_FILES = "\
