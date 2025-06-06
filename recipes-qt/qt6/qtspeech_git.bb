@@ -15,6 +15,6 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtmultimedia"
 
-PACKAGECONFIG ?= "qml"
+PACKAGECONFIG ?= "qml flite"
 PACKAGECONFIG[flite] = "-DFEATURE_flite=ON,-DFEATURE_flite=OFF,flite"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
