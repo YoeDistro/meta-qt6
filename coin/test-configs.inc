@@ -49,9 +49,6 @@ PACKAGECONFIG:append:pn-qtbase = "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'gtk', '', d)} \
 "
 
-# imageformats mng FIXME
-PACKAGECONFIG:append:pn-qtimageformats = " jasper"
-
 # enable examples for all Qt modules
 PACKAGECONFIG:append:pn-qmlcompilerplus = " examples"
 PACKAGECONFIG:append:pn-qt3d = " examples"

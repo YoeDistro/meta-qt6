@@ -14,7 +14,7 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase"
 
-PACKAGECONFIG ?= "tiff webp"
+PACKAGECONFIG ?= "jasper mng tiff webp"
 PACKAGECONFIG[jasper] = "-DFEATURE_jasper=ON,-DFEATURE_jasper=OFF,jasper"
 PACKAGECONFIG[mng] = "-DFEATURE_mng=ON,-DFEATURE_mng=OFF,libmng"
 PACKAGECONFIG[tiff] = "-DFEATURE_tiff=ON,-DFEATURE_libtiff=OFF,tiff"
