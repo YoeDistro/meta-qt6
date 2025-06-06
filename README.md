@@ -26,10 +26,10 @@ the LAYERSERIES_COMPAT (c).
 | walnascar  |  x  |  x   |  x  |     |     |     |     |     |     |
 | styhead    |  x  |  x   |  x  |  c  |     |     |     |     |     |
 | scarthgap  |  x  |  x   |  x  |  c  |  c  |  x  |     |     |     |
-| nanbield   |  c  |  c   |  c  |  c  |  c  |  c  |     |     |     |
-| mickledore |  c  |  c   |  c  |  c  |  c  |  c  |  c  |     |     |
-| langdale   |  c  |  c   |  c  |  c  |  c  |  c  |  c  |     |     |
-| kirkstone  |  x  |  x   |  x  |  c  |  c  |  x  |  c  |  c  |  c  |
+| nanbield   |     |  c   |  c  |  c  |  c  |  c  |     |     |     |
+| mickledore |     |  c   |  c  |  c  |  c  |  c  |  c  |     |     |
+| langdale   |     |  c   |  c  |  c  |  c  |  c  |  c  |     |     |
+| kirkstone  |     |  x   |  x  |  c  |  c  |  x  |  c  |  c  |  c  |
 | honister   |     |      |     |     |  c  |  c  |  c  |  c  |  c  |
 | hardknott  |     |      |     |     |  c  |  c  |  c  |  c  |  c  |
 | gatesgarth |     |      |     |     |  c  |  c  |  c  |  c  |  c  |
