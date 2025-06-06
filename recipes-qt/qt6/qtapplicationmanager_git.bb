@@ -20,7 +20,10 @@ RDEPENDS:${PN}:class-target = "libcrypto ${PN}-tools"
 
 EXTRA_OECMAKE += "-DQT_APPMAN_SKIP_EXCLUDE_TOOLS_FROM_DEFAULT_TARGET=ON"
 
-PACKAGECONFIG ?= "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'multi-process', '', d)}"
+PACKAGECONFIG ?= "\
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'multi-process', '', d)} \
+    bubblewrap \
+"
 
 PACKAGECONFIG[tools-only] = "-DFEATURE_am_tools_only=ON, -DFEATURE_am_tools_only=OFF"
 PACKAGECONFIG[multi-process] = "-DFEATURE_am_multi_process=ON,-DFEATURE_am_multi_process=OFF,qtwayland"
