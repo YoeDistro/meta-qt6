@@ -18,9 +18,6 @@ DEPENDS += "qtbase qtgrpc-native protobuf protobuf-native"
 PACKAGECONFIG ?= "qml"
 PACKAGECONFIG[qml] = "-DFEATURE_grpcquick=ON,-DFEATURE_grpcquick=OFF,qtdeclarative qtdeclarative-native"
 
-# workaround for missing protobuf support on kirkstone
-ALLOW_EMPTY:${PN}-tools = "1"
-
 BBCLASSEXTEND = "native nativesdk"
 
 INSANE_SKIP:${PN}-ptest += "buildpaths"
