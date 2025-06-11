@@ -19,3 +19,4 @@ PACKAGECONFIG ?= "qml"
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtwebsockets"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
+INSANE_SKIP:${PN}-examples += "buildpaths"
