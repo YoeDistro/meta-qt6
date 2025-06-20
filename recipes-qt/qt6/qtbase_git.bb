@@ -257,4 +257,3 @@ INHIBIT_PACKAGE_STRIP_FILES = "\
 "
 
 BBCLASSEXTEND = "native nativesdk"
-

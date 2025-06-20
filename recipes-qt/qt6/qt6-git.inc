@@ -12,8 +12,6 @@ SRC_URI = "${QT_GIT}/${QT_GIT_PROJECT}/${QT_MODULE_REPO};name=${QT_MODULE};${QT_
 
 CVE_PRODUCT ?= "qt:${BPN} qt:qt"
 
-S = "${WORKDIR}/git"
-
 PV = "${QT_VERSION}"
 
 SRCREV = "${SRCREV_${QT_MODULE}}"
