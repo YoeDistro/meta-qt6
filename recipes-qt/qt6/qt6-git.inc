@@ -8,11 +8,12 @@ QT_MODULE_BRANCH ?= "6.9"
 QT_MODULE_BRANCH_PARAM ?= "branch=${QT_MODULE_BRANCH};nobranch=1"
 QT_MODULE_REPO ?= "${QT_MODULE}.git"
 
-SRC_URI = "${QT_GIT}/${QT_GIT_PROJECT}/${QT_MODULE_REPO};name=${QT_MODULE};${QT_MODULE_BRANCH_PARAM};protocol=${QT_GIT_PROTOCOL}"
+# for compatibility with Yocto releases before whinlatter
+BB_GIT_DEFAULT_DESTSUFFIX ?= "${BP}"
+
+SRC_URI = "${QT_GIT}/${QT_GIT_PROJECT}/${QT_MODULE_REPO};name=${QT_MODULE};${QT_MODULE_BRANCH_PARAM};protocol=${QT_GIT_PROTOCOL};destsuffix=${BB_GIT_DEFAULT_DESTSUFFIX}"
 
 CVE_PRODUCT ?= "qt:${BPN} qt:qt"
-
-S = "${WORKDIR}/git"
 
 PV = "${QT_VERSION}"
 

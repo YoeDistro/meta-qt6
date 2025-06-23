@@ -34,7 +34,7 @@ QT_MODULE_BRANCH_CHROMIUM = "130-based"
 FILESEXTRAPATHS:prepend := "${THISDIR}/qtwebengine:"
 
 SRC_URI += " \
-    ${QT_GIT}/${QT_GIT_PROJECT}/qtwebengine-chromium.git;name=qtwebengine-chromium;branch=${QT_MODULE_BRANCH_CHROMIUM};protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty \
+    ${QT_GIT}/${QT_GIT_PROJECT}/qtwebengine-chromium.git;name=qtwebengine-chromium;branch=${QT_MODULE_BRANCH_CHROMIUM};protocol=${QT_GIT_PROTOCOL};destsuffix=${BB_GIT_DEFAULT_DESTSUFFIX}/src/3rdparty \
     file://0001-CMake-use-generated-yocto-toolchains.patch \
     file://0002-Enable-examples.patch \
 "
