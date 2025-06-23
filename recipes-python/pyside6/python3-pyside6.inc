@@ -26,8 +26,6 @@ QT_MODULE_REPO = "tqtc-pyside-setup"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/pyside6:"
 
-S = "${WORKDIR}/git"
-
 EXTRA_OECMAKE += "\
     -DBUILD_TESTS=FALSE \
     -DQFP_PYTHON_SITE_PACKAGES=${PYTHON_SITEPACKAGES_DIR} \
