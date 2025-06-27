@@ -13,6 +13,8 @@ RDEPENDS:${PN} += " \
     nativesdk-qtapplicationmanager-tools \
     nativesdk-qtgrpc-dev \
     nativesdk-qtgrpc-tools \
+    nativesdk-qtlottie-dev \
+    nativesdk-qtlottie-tools \
     nativesdk-qtquick3d-dev \
     nativesdk-qtquick3d-tools \
     nativesdk-qtopcua-dev \
