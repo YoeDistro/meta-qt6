@@ -255,7 +255,10 @@ isEmpty(QMAKE_CC): {
 EOF
 }
 
-FILES:${PN}-dev += "${datadir}/qt6/wayland"
+FILES:${PN}-dev += "\
+    ${datadir}/qt6/wayland \
+    ${datadir}/qt6/json_schema \
+"
 
 INSANE_SKIP:${PN}-ptest += "arch"
 INHIBIT_PACKAGE_STRIP_FILES = "\
