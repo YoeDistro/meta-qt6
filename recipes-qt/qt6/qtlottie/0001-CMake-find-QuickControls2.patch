@@ -1,4 +1,4 @@
-From 97e1ec9fcad94d88613d78d2a9394a644de4bf91 Mon Sep 17 00:00:00 2001
+From c89beb45b21d1b7baa37494a0c8ff30305c7996f Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Fri, 27 Jun 2025 06:49:13 +0300
 Subject: [PATCH] CMake: find QuickControls2
@@ -9,20 +9,19 @@ Pick-to: 6.10
 Change-Id: I94dee8823ad53cdc2e323cfdd2a554d03f9c6d7a
 Upstream-Status: Submitted
 ---
- CMakeLists.txt | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index a99147f..d941c66 100644
+index a2e4561..e21d818 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -18,7 +18,8 @@ find_package(Qt6 ${PROJECT_VERSION} CONFIG REQUIRED COMPONENTS BuildInternals)
- qt_internal_project_setup()
+@@ -19,7 +19,7 @@ qt_internal_project_setup()
  
  find_package(Qt6 ${PROJECT_VERSION} CONFIG REQUIRED COMPONENTS Core)
--find_package(Qt6 ${PROJECT_VERSION} QUIET CONFIG OPTIONAL_COMPONENTS Gui Qml Quick QuickTest)
-+find_package(Qt6 ${PROJECT_VERSION} QUIET CONFIG OPTIONAL_COMPONENTS Gui Qml Quick QuickTest
-+QuickControls2)
+ find_package(Qt6 ${PROJECT_VERSION} QUIET CONFIG OPTIONAL_COMPONENTS Gui Qml Quick QuickTest
+-QuickVectorImageGeneratorPrivate)
++QuickVectorImageGeneratorPrivate QuickControls2)
  
  if(NOT TARGET Qt6::Gui)
      message(NOTICE "Skipping the build as Qt6::Gui cannot be found.")
