@@ -66,6 +66,7 @@ PACKAGECONFIG_SYSTEM ?= ""
 PACKAGECONFIG_DISTRO ?= ""
 PACKAGECONFIG_DEFAULT ?= "\
     accessibility \
+    ${@bb.utils.contains_any('DISTRO_FEATURES', 'x11 wayland', 'accessibility-atspi-bridge', '', d)} \
     dbus \
     fontconfig \
     glib \
@@ -97,9 +98,6 @@ OPENSSL_LINKING_MODE ?= "runtime"
 QT_QPA_DEFAULT_PLATFORM ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', \
     bb.utils.contains('PACKAGECONFIG', 'gles2', 'eglfs', 'linuxfb', d), d)}"
 
-# at-spi bridge is used by XCB and wayland
-ACCESSIBILITY_DEPENDS = "${@bb.utils.contains_any("DISTRO_FEATURES", "x11 wayland", "at-spi2-core", "", d)}"
-
 PACKAGECONFIG[ltcg] = "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON,-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF"
 PACKAGECONFIG[optimize-size] = "-DFEATURE_optimize_size=ON,-DFEATURE_optimize_size=OFF"
 PACKAGECONFIG[static] = "-DBUILD_SHARED_LIBS=OFF,-DBUILD_SHARED_LIBS=ON"
@@ -123,7 +121,8 @@ PACKAGECONFIG[ctf] = "-DFEATURE_ctf=ON,-DFEATURE_ctf=OFF"
 
 # gui
 PACKAGECONFIG[gui] = "-DFEATURE_gui=ON,-DFEATURE_gui=OFF"
-PACKAGECONFIG[accessibility] = "-DFEATURE_accessibility=ON,-DFEATURE_accessibility=OFF,${ACCESSIBILITY_DEPENDS}"
+PACKAGECONFIG[accessibility] = "-DFEATURE_accessibility=ON,-DFEATURE_accessibility=OFF"
+PACKAGECONFIG[accessibility-atspi-bridge] = "-DFEATURE_accessibility_atspi_bridge=ON,-DFEATURE_accessibility_atspi_bridge=OFF,at-spi2-core"
 PACKAGECONFIG[directfb] = "-DFEATURE_directfb=ON,-DFEATURE_directfb=OFF,directfb"
 PACKAGECONFIG[fontconfig] = "-DFEATURE_fontconfig=ON,-DFEATURE_fontconfig=OFF,fontconfig"
 PACKAGECONFIG[gbm] = "-DFEATURE_gbm=ON,-DFEATURE_gbm=OFF,virtual/libgbm"
