@@ -53,6 +53,14 @@ EOF
             cp -r ${S}/tests/$tests ${D}${PTEST_PATH}/tests
         fi
     done
+
+    if [ -e "${B_PTEST}/${baselib}" ]; then
+        find ${B_PTEST}/${baselib} \
+            ! -type d -a \( -executable -o -name qmldir \) \
+            -exec sh -c '\
+                install -D "$1" "${D}${PTEST_PATH}${1#${B_PTEST}/${baselib}}" \
+            ' _ {} \;
+    fi
 }
 
 fakeroot python do_create_ptest_list() {
@@ -93,7 +101,7 @@ INSANE_SKIP:${PN}-ptest += "file-rdeps"
 
 PACKAGESPLITFUNCS =+ "remove_ptest_debug"
 remove_ptest_debug() {
-    if [ -e ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests ]; then
-        find ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest/tests -depth -type d -name .debug -exec rm -rf '{}' \;
+    if [ -e ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest ]; then
+        find ${PKGD}${QT6_INSTALL_LIBDIR}/${BPN}/ptest -depth -type d -name .debug -exec rm -rf '{}' \;
     fi
 }
