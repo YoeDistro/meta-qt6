@@ -18,14 +18,11 @@ SQUISH_INSTALLER = "squish-${PV}-qt68x-linux64.run"
 
 SRC_URI = "\
     ${SQUISH_MIRROR}/${SQUISH_INSTALLER};name=squish \
-    ${SQUISH_MIRROR}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded \
+    ${SQUISH_MIRROR}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded;subdir=${BP};striplevel=1 \
 "
 
 SRC_URI[squish.sha256sum] = "e697cbe7928594138237e827f6bd58eb495367baf857613ddbc674bb6bca5685"
 SRC_URI[qt-squish-embedded.sha256sum] = "91201fcd038e48d7fefc68a3ad25dc6814999129679600e130e5451cd1a37d4f"
-
-S = "${WORKDIR}/squish-${PV}-qt-embedded-src"
-B = "${WORKDIR}/build"
 
 DEPENDS += "\
     qtbase \
