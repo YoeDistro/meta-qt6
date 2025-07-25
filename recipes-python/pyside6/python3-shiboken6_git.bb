@@ -4,7 +4,9 @@ DEPENDS += "qtbase clang-native python3-shiboken6-native"
 
 OECMAKE_SOURCEPATH = "${S}/sources/shiboken6"
 
-EXTRA_OECMAKE += "-DSHIBOKEN_BUILD_LIBS=ON"
+EXTRA_OECMAKE += "-DSHIBOKEN_BUILD_LIBS=ON \
+                  -DPython_SOABI='cpython-${@ d.getVar('PYTHON_BASEVERSION').replace('.', '')}' \
+                 "
 
 do_install:append() {
     # shiboken6.pc in package python3-shiboken6-dev contains reference to TMPDIR [buildpaths]
