@@ -73,3 +73,5 @@ RDEPENDS:${PN}:append:x86-64 = "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtpdf', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
 "
+
+RDEPENDS:${PN}:remove:libc-musl = "qtpdf qtwebengine qtwebview"
