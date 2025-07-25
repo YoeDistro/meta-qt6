@@ -72,6 +72,8 @@ RDEPENDS:${PN}:append:x86-64 = "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine-examples qtwebview-examples', '', d)} \
 "
 
+RDEPENDS:${PN}:remove:libc-musl = "qtpdf-examples qtwebengine-examples qtwebview-examples"
+
 COMMERCIAL_EXAMPLES = " \
     qtinsighttracker-examples \
     qtvncserver-examples \

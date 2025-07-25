@@ -14,6 +14,7 @@ inherit features_check
 REQUIRED_DISTRO_FEATURES = "opengl"
 
 COMPATIBLE_MACHINE = "(-)"
+COMPATIBLE_MACHINE:libc-musl = "(-)"
 COMPATIBLE_MACHINE:aarch64 = "(.*)"
 COMPATIBLE_MACHINE:armv6 = "(.*)"
 COMPATIBLE_MACHINE:armv7a = "(.*)"
