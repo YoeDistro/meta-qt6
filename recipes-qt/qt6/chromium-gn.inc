@@ -4,6 +4,7 @@ inherit linuxloader
 inherit qemu
 
 COMPATIBLE_MACHINE = "(-)"
+COMPATIBLE_MACHINE:libc-musl = "(-)"
 COMPATIBLE_MACHINE:aarch64 = "(.*)"
 COMPATIBLE_MACHINE:armv6 = "(.*)"
 COMPATIBLE_MACHINE:armv7a = "(.*)"

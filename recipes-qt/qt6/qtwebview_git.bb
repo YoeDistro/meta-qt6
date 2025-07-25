@@ -16,6 +16,7 @@ include recipes-qt/qt6/qt6.inc
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native qtwebengine"
 
 COMPATIBLE_MACHINE = "(-)"
+COMPATIBLE_MACHINE:libc-musl = "(-)"
 COMPATIBLE_MACHINE:aarch64 = "(.*)"
 COMPATIBLE_MACHINE:armv6 = "(.*)"
 COMPATIBLE_MACHINE:armv7a = "(.*)"
