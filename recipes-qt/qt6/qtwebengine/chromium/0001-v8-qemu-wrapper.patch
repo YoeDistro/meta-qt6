@@ -1,4 +1,4 @@
-From 03c0f7089ee4f54883073f9df23d379da35c9f35 Mon Sep 17 00:00:00 2001
+From f9ba9160e01ea1448b92d27101db37d0ee5317dd Mon Sep 17 00:00:00 2001
 From: Raphael Kubo da Costa <raphael.kubo.da.costa@intel.com>
 Date: Tue, 7 Nov 2017 15:24:32 +0100
 Subject: [PATCH] v8: qemu wrapper
@@ -16,22 +16,22 @@ Signed-off-by: Maksim Sisov <msisov@igalia.com>
  2 files changed, 5 insertions(+)
 
 diff --git a/chromium/tools/v8_context_snapshot/BUILD.gn b/chromium/tools/v8_context_snapshot/BUILD.gn
-index 35c8c606a22..d3097e55e56 100644
+index ab4286508f4..5144e631f6a 100644
 --- a/chromium/tools/v8_context_snapshot/BUILD.gn
 +++ b/chromium/tools/v8_context_snapshot/BUILD.gn
-@@ -46,6 +46,7 @@ if (use_v8_context_snapshot) {
-       output_path = rebase_path(output_file, root_build_dir)
+@@ -50,6 +50,7 @@ if (use_v8_context_snapshot) {
+     output_path = rebase_path(output_file, root_build_dir)
  
-       args = [
-+        "../../../../v8-qemu-wrapper.sh",
-         "./" + rebase_path(get_label_info(":v8_context_snapshot_generator",
-                                           "root_out_dir") +
-                                "/v8_context_snapshot_generator",
+     args = [
++      "../../../../v8-qemu-wrapper.sh",
+       "./" + rebase_path(
+               get_label_info(
+                       ":v8_context_snapshot_generator($v8_snapshot_toolchain)",
 diff --git a/chromium/v8/BUILD.gn b/chromium/v8/BUILD.gn
-index dcc3acbf8b3..c1fc540971a 100644
+index 2a367403ecd..b0c7df4ca42 100644
 --- a/chromium/v8/BUILD.gn
 +++ b/chromium/v8/BUILD.gn
-@@ -2240,6 +2240,7 @@ template("run_torque") {
+@@ -2181,6 +2181,7 @@ template("run_torque") {
      }
  
      args = [
@@ -39,7 +39,7 @@ index dcc3acbf8b3..c1fc540971a 100644
        "./" + rebase_path(
                get_label_info(":torque($toolchain)", "root_out_dir") + "/torque",
                root_build_dir),
-@@ -2403,6 +2404,7 @@ action("generate_bytecode_builtins_list") {
+@@ -2344,6 +2345,7 @@ action("generate_bytecode_builtins_list") {
    outputs = [ "$target_gen_dir/builtins-generated/bytecodes-builtins-list.h" ]
    deps = [ ":bytecode_builtins_list_generator($v8_generator_toolchain)" ]
    args = [
@@ -47,7 +47,7 @@ index dcc3acbf8b3..c1fc540971a 100644
      "./" + rebase_path(
              get_label_info(
                      ":bytecode_builtins_list_generator($v8_generator_toolchain)",
-@@ -2475,6 +2477,7 @@ template("run_mksnapshot") {
+@@ -2416,6 +2418,7 @@ template("run_mksnapshot") {
      }
  
      args += [
@@ -55,7 +55,7 @@ index dcc3acbf8b3..c1fc540971a 100644
        "./" + rebase_path(get_label_info(":mksnapshot($v8_snapshot_toolchain)",
                                          "root_out_dir") + "/mksnapshot",
                           root_build_dir),
-@@ -7515,6 +7518,7 @@ if (v8_enable_i18n_support) {
+@@ -7438,6 +7441,7 @@ if (v8_enable_i18n_support) {
      outputs = [ output_file ]
  
      args = [
