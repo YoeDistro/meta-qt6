@@ -19,4 +19,8 @@ PACKAGECONFIG ?= "qml"
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtwebsockets"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 
+FILES:${PN} += "\
+    ${datadir}/qt6/webchannel/qwebchannel.js \
+"
+
 INSANE_SKIP:${PN}-examples += "buildpaths"
