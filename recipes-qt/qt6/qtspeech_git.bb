@@ -15,6 +15,9 @@ include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtmultimedia"
 
-PACKAGECONFIG ?= "qml flite"
+PACKAGECONFIG ?= "\
+    qml \
+    ${@bb.utils.contains('BBFILE_COLLECTIONS', 'multimedia-layer', 'flite', '', d)} \
+"
 PACKAGECONFIG[flite] = "-DFEATURE_flite=ON,-DFEATURE_flite=OFF,flite"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
