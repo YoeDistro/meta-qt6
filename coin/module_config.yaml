@@ -145,15 +145,27 @@ instructions:
       ./repo sync
 
       source ./poky/oe-init-build-env
+
+      for conf in ${TEST_CONFIGS}; do
+        echo "require ${SOURCE_DIR}/coin/test-${conf}.inc" >> conf/local.conf
+      done
+
+      # check compatibility agaist current Yocto master
+      if [ ${MANIFEST} == "master.xml" ]; then
+        yocto-check-layer ${SOURCE_DIR} \
+          --dependency \
+            ../meta-openembedded/meta-oe \
+            ../meta-openembedded/meta-python \
+          --additional-layer \
+            ../meta-mingw \
+          --no-auto-dependency
+      fi
+
       bitbake-layers add-layer ../meta-openembedded/meta-oe
       bitbake-layers add-layer ../meta-openembedded/meta-python
       bitbake-layers add-layer ../meta-openembedded/meta-multimedia
       bitbake-layers add-layer ../meta-mingw
       bitbake-layers add-layer ${SOURCE_DIR}
-
-      for conf in ${TEST_CONFIGS}; do
-        echo "require ${SOURCE_DIR}/coin/test-${conf}.inc" >> conf/local.conf
-      done
 
       # build toolchain which should include all supported recipes
       bitbake meta-toolchain-qt6 nativesdk-packagegroup-qt6-toolchain-host packagegroup-qt6-modules
