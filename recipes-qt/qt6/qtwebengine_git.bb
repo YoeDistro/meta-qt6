@@ -18,6 +18,8 @@ EXTRA_OECMAKE += "\
     -DFEATURE_qtpdf_build=OFF \
 "
 
+export NINJAFLAGS = "${PARALLEL_MAKE}"
+
 # chromium/third_party/openh264/BUILD.gn add -Wno-format to cflags
 # causing following error, because -Wformat-security cannot be used together with -Wno-format
 # cc1plus: error: -Wformat-security ignored without -Wformat [-Werror=format-security]
