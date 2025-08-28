@@ -1,10 +1,5 @@
 include recipes-qt/qt6/qt6-ptest.inc
 
-PACKAGECONFIG[tests] = "-DQT_BUILD_TESTS=ON,-DQT_BUILD_TESTS=OFF,"
-
-# For qmake projects
-EXTRA_QMAKEVARS_PRE += "${@bb.utils.contains('PACKAGECONFIG', 'tests', 'QT_BUILD_PARTS+=tests', 'QT_BUILD_PARTS-=tests', d)}"
-
 # If Qt6 (qtbase) is machine specific, then everything will be,
 # because the (initial) qtbase configuration becomes part of Qt5/qmake
 python __anonymous() {
