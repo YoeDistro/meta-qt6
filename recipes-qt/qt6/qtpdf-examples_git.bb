@@ -14,10 +14,6 @@ QT_MODULE = "qtwebengine"
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6-examples.inc
 
-SRC_URI += "\
-    file://0002-Enable-examples.patch \
-"
-
 DEPENDS += "\
     qtdeclarative-native \
     qtpdf \
