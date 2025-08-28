@@ -104,7 +104,7 @@ QT_QPA_DEFAULT_PLATFORM ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb'
 PACKAGECONFIG[ltcg] = "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON,-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF"
 PACKAGECONFIG[optimize-size] = "-DFEATURE_optimize_size=ON,-DFEATURE_optimize_size=OFF"
 PACKAGECONFIG[static] = "-DBUILD_SHARED_LIBS=OFF,-DBUILD_SHARED_LIBS=ON"
-PACKAGECONFIG[developer-build] = "-DFEATURE_developer_build=ON -DQT_BUILD_TESTS=OFF,-DFEATURE_developer_build=OFF"
+PACKAGECONFIG[developer-build] = "-DFEATURE_developer_build=ON -DQT_BUILD_TESTS=OFF -DWARNINGS_ARE_ERRORS=OFF,-DFEATURE_developer_build=OFF"
 PACKAGECONFIG[use-gold-linker] = "-DFEATURE_use_gold_linker=ON"
 PACKAGECONFIG[use-bfd-linker] = "-DFEATURE_use_bfd_linker=ON"
 PACKAGECONFIG[use-lld-linker] = "-DFEATURE_use_lld_linker=ON"
