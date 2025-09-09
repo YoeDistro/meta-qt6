@@ -48,7 +48,6 @@ PACKAGECONFIG:class-nativesdk ?= "${PACKAGECONFIG:class-native}"
 PACKAGECONFIG ?= "\
     ${PACKAGECONFIG_DEFAULT} \
     ${PACKAGECONFIG_GRAPHICS} \
-    ${PACKAGECONFIG_X11} \
     ${PACKAGECONFIG_FONTS} \
     ${PACKAGECONFIG_SYSTEM} \
     ${PACKAGECONFIG_DISTRO} \
@@ -58,11 +57,13 @@ PACKAGECONFIG_GRAPHICS ?= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'vulkan', d)} \
     ${@bb.utils.filter('DISTRO_FEATURES', 'wayland', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', \
-        bb.utils.contains('DISTRO_FEATURES', 'x11', 'gl', 'kms gbm gles2 eglfs', d), 'no-opengl', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'directfb', 'directfb', '', d)} \
+        bb.utils.contains('DISTRO_FEATURES', 'wayland', 'kms gbm gles2 eglfs', \
+            bb.utils.contains('DISTRO_FEATURES', 'x11', 'gl', \
+                'kms gbm gles2 eglfs', d), d), \
+        'no-opengl', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', '', d)} \
     linuxfb \
 "
-PACKAGECONFIG_X11 ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', '', d)}"
 PACKAGECONFIG_FONTS ?= ""
 PACKAGECONFIG_SYSTEM ?= ""
 PACKAGECONFIG_DISTRO ?= ""
@@ -98,8 +99,12 @@ BUILD_TYPE ?= "Release"
 OPENSSL_LINKING_MODE ?= "runtime"
 
 # Default platform plugin
-QT_QPA_DEFAULT_PLATFORM ?= "${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', \
-    bb.utils.contains('PACKAGECONFIG', 'gles2', 'eglfs', 'linuxfb', d), d)}"
+QT_QPA_DEFAULT_PLATFORM ?= "\
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'wayland-egl', \
+        bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', \
+            bb.utils.contains('PACKAGECONFIG', 'eglfs', 'eglfs', \
+                'linuxfb', d), d), d)} \
+"
 
 PACKAGECONFIG[ltcg] = "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON,-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF"
 PACKAGECONFIG[optimize-size] = "-DFEATURE_optimize_size=ON,-DFEATURE_optimize_size=OFF"
