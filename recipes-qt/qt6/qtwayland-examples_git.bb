@@ -5,6 +5,9 @@ LIC_FILES_CHKSUM = " \
 "
 
 inherit qt6-cmake
+inherit features_check
+
+REQUIRED_DISTRO_FEATURES = "wayland"
 
 QT_MODULE = "qtwayland"
 

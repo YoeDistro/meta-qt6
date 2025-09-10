@@ -8,6 +8,9 @@ LIC_FILES_CHKSUM = " \
 NO_GENERIC_LICENSE[LicenseRef-MIRAMAR] = "LICENSES/LicenseRef-MIRAMAR.txt"
 
 inherit qt6-cmake
+inherit features_check
+
+REQUIRED_DISTRO_FEATURES = "opengl"
 
 QT_MODULE = "qt3d"
 

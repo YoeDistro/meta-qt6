@@ -15,5 +15,5 @@ include recipes-qt/qt6/qt6-commercial.inc
 DEPENDS += "\
     qtdeclarative-native \
     qtvncserver \
-    qtwayland \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland', '', d)} \
 "
