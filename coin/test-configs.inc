@@ -40,13 +40,16 @@ PREFERRED_ARM_INSTRUCTION_SET              ?= "thumb"
 ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
 
 # enable webengine with commercial/proprietary features
-DISTRO_FEATURES:append = " webengine"
 PACKAGECONFIG:append:pn-qtwebengine = " proprietary-codecs"
 
 PACKAGECONFIG:append:pn-qtbase = "\
-    tslib kms gbm zstd libproxy gssapi vulkan mtdev cups \
+    tslib zstd libproxy gssapi mtdev cups \
     sql-mysql sql-odbc sql-psql sql-sqlite journald brotli \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'gtk', '', d)} \
 "
 
 RDEPENDS:${PN}:append:pn-packagegroup-qt6-modules = " packagegroup-qt6-examples"
+
+# remove all main features, added back in different builds
+POKY_DEFAULT_DISTRO_FEATURES:remove = "opengl wayland vulkan"
+DISTRO_FEATURES_DEFAULT:remove = "x11"

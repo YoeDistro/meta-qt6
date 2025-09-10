@@ -7,7 +7,7 @@ accept_configuration:
       equals_value: Yocto
     - condition: property
       property: target.arch
-      in_values: [TARGET1, TARGET2, TARGET3, TARGET4, TARGET5]
+      in_values: [TARGET1, TARGET2, TARGET3, TARGET4, TARGET5, TARGET6]
 
 machine_type:
   Build:
@@ -15,12 +15,14 @@ machine_type:
 
 # Target build matrix:
 #
-#           [target1]       [target2]   [target3]       [target4]       [target5]
-# [machine] qemuarm64       qemux86-64  qemuarm         qemux86         qemuarm64
-# [yocto]   master          walnascar   scarthgap       styhead         scarthgap
-# [wayland] yes             no          no              yes             yes
-# [mingw]   no              no          yes             no              no
-# [static]  no              no          no              no              yes
+#           [target1] [target2]  [target3] [target4] [target5] [target6]
+# [machine] qemuarm64 qemux86-64 qemuarm   qemux86   qemuarm64 qemuarm64
+# [yocto]   master    walnascar  scarthgap styhead   scarthgap master
+# [wayland] yes       no         yes       yes       yes       no
+# [x11]     no        yes        yes       no        no        yes
+# [opengl]  yes       yes        yes       yes       yes       no
+# [mingw]   no        no         yes       no        no        no
+# [static]  no        no         no        no        yes       no
 #
 
 target1: &target1
@@ -34,7 +36,7 @@ target1: &target1
       variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland
+      variableValue: ci configs wayland opengl
   enable_if:
       condition: property
       property: target.arch
@@ -50,7 +52,7 @@ target2: &target2
       variableValue: walnascar.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs
+      variableValue: ci configs x11 opengl
   enable_if:
       condition: property
       property: target.arch
@@ -66,7 +68,7 @@ target3: &target3
       variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs mingw
+      variableValue: ci configs mingw wayland x11 opengl
   enable_if:
       condition: property
       property: target.arch
@@ -82,7 +84,7 @@ target4: &target4
       variableValue: styhead.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland no-webengine
+      variableValue: ci configs wayland opengl
   enable_if:
       condition: property
       property: target.arch
@@ -98,11 +100,27 @@ target5: &target5
       variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland static no-webengine
+      variableValue: ci configs wayland opengl static
   enable_if:
       condition: property
       property: target.arch
       equals_value: TARGET5
+target6: &target6
+  type: Group
+  instructions:
+    - type: EnvironmentVariable
+      variableName: MACHINE
+      variableValue: qemuarm64
+    - type: EnvironmentVariable
+      variableName: MANIFEST
+      variableValue: master.xml
+    - type: EnvironmentVariable
+      variableName: TEST_CONFIGS
+      variableValue: ci configs x11
+  enable_if:
+      condition: property
+      property: target.arch
+      equals_value: TARGET6
 
 instructions:
   Build:
@@ -111,6 +129,7 @@ instructions:
   - *target3
   - *target4
   - *target5
+  - *target6
   - type: EnvironmentVariable
     variableName: DL_DIR
     variableValue: "/mnt/yocto-cache/downloads"
