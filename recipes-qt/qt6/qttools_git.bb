@@ -24,15 +24,15 @@ SRC_URI += " \
 
 DEPENDS += "qtbase qtdeclarative qttools-native"
 
-CAN_USE_CLANG = "${@True if bb.utils.vercmp_string_op(d.getVar('LLVMVERSION') or '', '17', '>') or \
-    os.path.exists(os.path.join(d.getVar('COREBASE'),'meta/recipes-devtools/clang')) else False}"
+CAN_USE_CLANG = "${@True if bb.utils.vercmp_string_op(d.getVar('LLVMVERSION') or '', '17', '>') and \
+    bb.utils.vercmp_string_op(d.getVar('LLVMVERSION') or '', '21', '<') else False}"
 CAN_USE_CLANG:mingw32 = "False"
 
 QTTOOLS_USE_CLANG ?= "${@ 'clang' if bb.utils.to_boolean(d.getVar('CAN_USE_CLANG')) else ''}"
 PACKAGECONFIG:class-native = "${QTTOOLS_USE_CLANG}"
 PACKAGECONFIG:class-nativesdk = "${QTTOOLS_USE_CLANG}"
 
-PACKAGECONFIG[clang] = "-DFEATURE_clang=ON,-DFEATURE_clang=OFF,clang"
+PACKAGECONFIG[clang] = ",-DFEATURE_clang=OFF,clang"
 
 FILES:${PN}-tools += "${QT6_INSTALL_DATADIR}/phrasebooks"
 
