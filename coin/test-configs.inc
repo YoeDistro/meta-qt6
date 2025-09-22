@@ -43,7 +43,7 @@ ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
 PACKAGECONFIG:append:pn-qtwebengine = " proprietary-codecs"
 
 PACKAGECONFIG:append:pn-qtbase = "\
-    tslib zstd libproxy gssapi mtdev cups \
+    tslib libproxy gssapi mtdev cups ctf \
     sql-mysql sql-odbc sql-psql sql-sqlite journald brotli \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'gtk', '', d)} \
 "
