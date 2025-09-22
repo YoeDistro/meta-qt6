@@ -6,6 +6,12 @@ LIC_FILES_CHKSUM = " \
 
 inherit qt6-cmake
 
+COMPATIBLE_MACHINE = "(-)"
+COMPATIBLE_MACHINE:aarch64 = "(.*)"
+COMPATIBLE_MACHINE:arm = "(.*)"
+COMPATIBLE_MACHINE:x86 = "(.*)"
+COMPATIBLE_MACHINE:x86-64 = "(.*)"
+
 QT_MODULE = "qtquick3dphysics"
 
 include recipes-qt/qt6/qt6-git.inc

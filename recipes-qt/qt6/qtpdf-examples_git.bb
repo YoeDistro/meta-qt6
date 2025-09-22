@@ -9,6 +9,13 @@ inherit features_check
 
 REQUIRED_DISTRO_FEATURES = "opengl"
 
+COMPATIBLE_MACHINE = "(-)"
+COMPATIBLE_MACHINE:aarch64 = "(.*)"
+COMPATIBLE_MACHINE:armv6 = "(.*)"
+COMPATIBLE_MACHINE:armv7a = "(.*)"
+COMPATIBLE_MACHINE:armv7ve = "(.*)"
+COMPATIBLE_MACHINE:x86-64 = "(.*)"
+
 QT_MODULE = "qtwebengine"
 
 include recipes-qt/qt6/qt6-git.inc
