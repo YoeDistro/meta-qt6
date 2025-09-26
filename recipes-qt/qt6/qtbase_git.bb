@@ -94,9 +94,6 @@ PACKAGECONFIG_DEFAULT ?= "\
 
 PACKAGECONFIG:remove:mingw32 = "openssl"
 
-# QTBUG-140443
-PACKAGECONFIG:remove = "ctf"
-
 # Build type: Debug, Release, MinSizeRel, RelWithDebInfo
 BUILD_TYPE ?= "Release"
 # OpenSSL linking mode: runtime, linked
