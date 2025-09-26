@@ -17,12 +17,12 @@ python __anonymous() {
 SQUISH_INSTALLER = "squish-${PV}-qt68x-linux64.run"
 
 SRC_URI = "\
-    ${SQUISH_MIRROR}/${SQUISH_INSTALLER};name=squish \
-    ${SQUISH_MIRROR}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded;subdir=${BP};striplevel=1 \
+    ${SQUISH_MIRROR}/${PV}/${SQUISH_INSTALLER};name=squish \
+    ${SQUISH_MIRROR}/${PV}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded;subdir=${BP};striplevel=1 \
 "
 
-SRC_URI[squish.sha256sum] = "e697cbe7928594138237e827f6bd58eb495367baf857613ddbc674bb6bca5685"
-SRC_URI[qt-squish-embedded.sha256sum] = "91201fcd038e48d7fefc68a3ad25dc6814999129679600e130e5451cd1a37d4f"
+SRC_URI[squish.sha256sum] = "9c7ba9c304fb65225a8cf84538ac5252bf6ad507bdd2ece8c21ade7fabbda2d6"
+SRC_URI[qt-squish-embedded.sha256sum] = "7e224ecaf4cad9ae65dbf0028814dfccbd181b8c789a9d7bd3a6de3f461e8cb5"
 
 DEPENDS += "\
     qtbase \
@@ -49,6 +49,7 @@ do_install_squish() {
         SQUISH_INSTALLER=${WORKDIR}/${SQUISH_INSTALLER}
     fi
     chmod +x $SQUISH_INSTALLER
+    mkdir -p ${WORKDIR}/tmp
     TMPDIR=${WORKDIR}/tmp XDG_RUNTIME_DIR=${WORKDIR}/tmp $SQUISH_INSTALLER \
         -platform minimal unattended=1 targetdir=${WORKDIR}/squish ide=0 \
         licensekey=${SQUISH_LICENSE_KEY}
