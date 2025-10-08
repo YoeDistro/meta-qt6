@@ -12,13 +12,14 @@ LIC_FILES_CHKSUM = " \
 inherit qt6-cmake
 
 include recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
 # To enabled Nuance T9 Write support, you need to provide the licensed components
 # and enable "t9write" in PACKAGECONFIG. This can be done in a separate .bbappend file.
 # for example:
 #T9WRITEPACKAGE = "${HOME}/Downloads/zzEval_QT_T9Write_Alpha_v750_20150916.zip"
-#SRC_URI += "file://${T9WRITEPACKAGE};subdir=git/src/virtualkeyboard/3rdparty/t9write"
+#SRC_URI += "file://${T9WRITEPACKAGE};subdir=${BB_GIT_DEFAULT_DESTSUFFIX}/src/virtualkeyboard/3rdparty/t9write"
 #PACKAGECONFIG = "t9write"
 
 VKB_LANGUAGES ?= "\

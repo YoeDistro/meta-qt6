@@ -10,24 +10,26 @@ LIC_FILES_CHKSUM = " \
 "
 
 python() {
-    if 'clang-layer' not in d.getVar('BBFILE_COLLECTIONS').split():
-        raise bb.parse.SkipRecipe('Requires meta-clang to be present.')
+    if not bb.utils.to_boolean(d.getVar('CAN_USE_PYSIDE6')):
+        raise bb.parse.SkipRecipe('clang is not available.')
 }
 
 inherit setuptools3
 inherit qt6-cmake
 
 require recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-lts.inc
 
 QT_GIT_PROJECT = "pyside"
-QT_MODULE = "pyside-setup"
-QT_MODULE_BRANCH = "dev"
+QT_MODULE = "tqtc-pyside-setup"
+QT_MODULE_REPO = "tqtc-pyside-setup"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/pyside6:"
 
-S = "${WORKDIR}/git"
-
-EXTRA_OECMAKE += "-DBUILD_TESTS=FALSE"
+EXTRA_OECMAKE += "\
+    -DBUILD_TESTS=FALSE \
+    -DQFP_PYTHON_SITE_PACKAGES=${PYTHON_SITEPACKAGES_DIR} \
+"
 EXTRA_OECMAKE:append:class-target = " -DQFP_SHIBOKEN_HOST_PATH=${STAGING_EXECPREFIXDIR} -DQFP_PYTHON_HOST_PATH=${PYTHON}"
 
 INSANE_SKIP:${PN} += "already-stripped"

@@ -17,12 +17,13 @@ LIC_FILES_CHKSUM = " \
 inherit qt6-cmake
 
 include recipes-qt/qt6/qt6-git.inc
+include recipes-qt/qt6/qt6-lts.inc
 include recipes-qt/qt6/qt6.inc
 
 ASSIMP_BRANCH = "qt6_assimp"
 
 SRC_URI += " \
-    ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=qtquick3d-assimp;branch=${ASSIMP_BRANCH};protocol=${QT_GIT_PROTOCOL};destsuffix=git/src/3rdparty/assimp/src \
+    ${QT_GIT}/${QT_GIT_PROJECT}/qtquick3d-assimp.git;name=qtquick3d-assimp;branch=${ASSIMP_BRANCH};protocol=${QT_GIT_PROTOCOL};destsuffix=${BB_GIT_DEFAULT_DESTSUFFIX}/src/3rdparty/assimp/src \
     file://0001-Skip-embree-on-mingw.patch \
 "
 
