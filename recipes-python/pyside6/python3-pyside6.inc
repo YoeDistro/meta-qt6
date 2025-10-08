@@ -21,8 +21,7 @@ require recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6-lts.inc
 
 QT_GIT_PROJECT = "pyside"
-QT_MODULE = "tqtc-pyside-setup"
-QT_MODULE_REPO = "tqtc-pyside-setup"
+QT_MODULE = "pyside-setup"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/pyside6:"
 
