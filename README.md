@@ -26,7 +26,7 @@ the LAYERSERIES_COMPAT (c).
 
 | Yocto \ Qt | 6.8 | 6.7 | 6.6 | 6.5 | 6.4 | 6.3 | 6.2 |
 |:---------- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| whinlatter |  x  |     |     |     |     |     |     |
+| whinlatter |  c  |     |     |     |     |     |     |
 | walnascar  |  x  |     |     |     |     |     |     |
 | styhead    |  x  |  c  |     |     |     |     |     |
 | scarthgap  |  x  |  c  |  c  |  x  |     |     |     |
