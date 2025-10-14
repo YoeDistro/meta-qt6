@@ -12,13 +12,12 @@ OE_QMAKE_PATH_DOCS = "${QT6_INSTALL_DOCDIR}"
 OE_QMAKE_PATH_SETTINGS = "${sysconfdir}"
 OE_QMAKE_PATH_EXAMPLES = "${QT6_INSTALL_EXAMPLESDIR}"
 OE_QMAKE_PATH_TESTS = "${QT6_INSTALL_TESTSDIR}"
-OE_QMAKE_PATH_HOST_PREFIX = ""
-OE_QMAKE_PATH_HOST_PREFIX:class-target = "${STAGING_DIR_NATIVE}"
-OE_QMAKE_PATH_HOST_BINS = "${QT6_INSTALL_BINDIR}"
-OE_QMAKE_PATH_HOST_DATA = "${QMAKE_MKSPEC_PATH_TARGET}"
-OE_QMAKE_PATH_HOST_LIBS = "${STAGING_LIBDIR}"
-OE_QMAKE_PATH_HOST_LIBEXECS = "${QT6_INSTALL_LIBEXECDIR}"
-OE_QMAKE_PATH_EXTERNAL_HOST_BINS = "${@os.path.normpath(os.path.join(d.getVar('STAGING_BINDIR_NATIVE'),os.path.relpath(d.getVar('OE_QMAKE_PATH_HOST_BINS'),d.getVar('bindir'))))}"
+
+OE_QMAKE_PATH_HOST_PREFIX = "${STAGING_DIR_NATIVE}${prefix_native}"
+OE_QMAKE_PATH_HOST_BINS = "${@os.path.normpath(os.path.join(d.getVar('STAGING_BINDIR_NATIVE'),os.path.relpath(d.getVar('QT6_INSTALL_BINDIR'),d.getVar('bindir'))))}"
+OE_QMAKE_PATH_HOST_DATA = "${@os.path.normpath(os.path.join(d.getVar('STAGING_LIBDIR'),os.path.relpath(d.getVar('QT6_INSTALL_ARCHDATADIR'),d.getVar('libdir'))))}"
+OE_QMAKE_PATH_HOST_LIBS = "${@os.path.normpath(os.path.join(d.getVar('STAGING_LIBDIR_NATIVE'),os.path.relpath(d.getVar('QT6_INSTALL_LIBDIR'),d.getVar('libdir'))))}"
+OE_QMAKE_PATH_HOST_LIBEXECS = "${@os.path.normpath(os.path.join(d.getVar('STAGING_LIBEXECDIR_NATIVE'),os.path.relpath(d.getVar('QT6_INSTALL_LIBEXECDIR'),d.getVar('libexecdir'))))}"
 
 # This is useful for target recipes to reference native mkspecs
 QMAKE_MKSPEC_PATH_NATIVE = "${STAGING_LIBDIR_NATIVE}"
@@ -63,7 +62,7 @@ EXTRA_OEMAKE = " \
     OE_QMAKE_INCDIR_QT='${STAGING_DIR_TARGET}/${OE_QMAKE_PATH_HEADERS}' \
 "
 
-OE_QMAKE_QMAKE = "${OE_QMAKE_PATH_EXTERNAL_HOST_BINS}/qmake"
+OE_QMAKE_QMAKE = "${OE_QMAKE_PATH_HOST_BINS}/qmake"
 export OE_QMAKE_CC = "${CC}"
 export OE_QMAKE_CFLAGS = "${CFLAGS}"
 export OE_QMAKE_CXX = "${CXX}"
@@ -80,40 +79,7 @@ export OE_QMAKE_QTCONF_PATH = "${WORKDIR}/qt.conf"
 
 inherit qt6-paths remove-libtool
 
-generate_target_qt_config_file() {
-    qtconf="$1"
-    cat > "$qtconf" <<EOF
-[Paths]
-Prefix = ${OE_QMAKE_PATH_PREFIX}
-Headers = ${OE_QMAKE_PATH_HEADERS}
-Libraries = ${OE_QMAKE_PATH_LIBS}
-ArchData = ${OE_QMAKE_PATH_ARCHDATA}
-Data = ${OE_QMAKE_PATH_DATA}
-Binaries = ${OE_QMAKE_PATH_BINS}
-LibraryExecutables = ${OE_QMAKE_PATH_LIBEXECS}
-Plugins = ${OE_QMAKE_PATH_PLUGINS}
-QmlImports = ${OE_QMAKE_PATH_QML}
-Translations = ${OE_QMAKE_PATH_TRANSLATIONS}
-Documentation = ${OE_QMAKE_PATH_DOCS}
-Settings = ${OE_QMAKE_PATH_SETTINGS}
-Examples = ${OE_QMAKE_PATH_EXAMPLES}
-Tests = ${OE_QMAKE_PATH_TESTS}
-HostBinaries = ${OE_QMAKE_PATH_BINS}
-HostData = ${OE_QMAKE_PATH_ARCHDATA}
-HostLibraries = ${OE_QMAKE_PATH_LIBS}
-HostSpec = ${OE_QMAKE_PLATFORM}
-TargetSpec = ${OE_QMAKE_PLATFORM}
-ExternalHostBinaries = ${OE_QMAKE_PATH_BINS}
-Sysroot =
-EOF
-}
-
 do_generate_qt_config_file() {
-    generate_qt_config_file_paths
-    generate_qt_config_file_effective_paths
-}
-
-generate_qt_config_file_paths() {
     cat > ${OE_QMAKE_QTCONF_PATH} <<EOF
 [Paths]
 Prefix = ${OE_QMAKE_PATH_PREFIX}
@@ -130,28 +96,18 @@ Documentation = ${OE_QMAKE_PATH_DOCS}
 Settings = ${OE_QMAKE_PATH_SETTINGS}
 Examples = ${OE_QMAKE_PATH_EXAMPLES}
 Tests = ${OE_QMAKE_PATH_TESTS}
+HostPrefix = ${OE_QMAKE_PATH_HOST_PREFIX}
 HostBinaries = ${OE_QMAKE_PATH_HOST_BINS}
 HostData = ${OE_QMAKE_PATH_HOST_DATA}
 HostLibraries = ${OE_QMAKE_PATH_HOST_LIBS}
 HostLibraryExecutables = ${OE_QMAKE_PATH_HOST_LIBEXECS}
 HostSpec = ${OE_QMAKE_PLATFORM_NATIVE}
 TargetSpec = ${OE_QMAKE_PLATFORM}
-ExternalHostBinaries = ${OE_QMAKE_PATH_EXTERNAL_HOST_BINS}
 Sysroot = ${STAGING_DIR_TARGET}
 SysrootifyPrefix=true
 EOF
 }
 
-generate_qt_config_file_effective_paths() {
-    cat >> ${OE_QMAKE_QTCONF_PATH} <<EOF
-[EffectivePaths]
-HostBinaries = ${OE_QMAKE_PATH_EXTERNAL_HOST_BINS}
-HostLibraries = ${STAGING_LIBDIR_NATIVE}
-HostData = ${OE_QMAKE_PATH_HOST_DATA}
-HostPrefix = ${STAGING_DIR_NATIVE}
-HostLibraryExecutables = ${STAGING_DIR_NATIVE}${OE_QMAKE_PATH_HOST_LIBEXECS}
-EOF
-}
 #
 # Allows to override following values (as in version 5.0.1)
 # Prefix The default prefix for all paths.
@@ -175,7 +131,6 @@ EOF
 # HostPrefix The prefix for host tools when cross compiling (building tools for both systems)
 # HostBinaries The location where to install host tools
 # HostData The location where to install host data
-# ExternalHostBinaries The location where we already have host tools (when cross compiling, but reusing existing tools)
 # TargetSpec The location where to install target mkspec
 # HostSpec The location where to install host mkspec
 
