@@ -32,7 +32,7 @@ PYSIDE_QT_MODULES ?= "\
     qtsvg \
     qttools \
     qtwebchannel \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)} \
     qtwebsockets \
 "
