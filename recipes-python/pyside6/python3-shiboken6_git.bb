@@ -13,4 +13,8 @@ do_install:append() {
         -e 's|${RECIPE_SYSROOT}||'
 }
 
+FILES:${PN}-dev += "${prefix}/shiboken6/include"
+
+SYSROOT_DIRS += "${prefix}/shiboken6/include"
+
 BBCLASSEXTEND = "native nativesdk"

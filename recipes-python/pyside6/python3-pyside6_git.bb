@@ -68,4 +68,7 @@ FILES:${PN} += "\
 "
 FILES:${PN}-dev += "\
     ${datadir}/PySide6 \
+    ${prefix}/PySide6/include \
 "
+
+SYSROOT_DIRS += "${prefix}/PySide6/include"
