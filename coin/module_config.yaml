@@ -17,7 +17,7 @@ machine_type:
 #
 #           [target1]       [target2]   [target3]       [target4]       [target5]
 # [machine] qemuarm64       qemux86     qemuarm         qemux86-64      qemuarm64
-# [yocto]   scarthgap       scarthgap   scarthgap       dunfell         kirkstone
+# [yocto]   scarthgap       scarthgap   scarthgap       kirkstone       kirkstone
 # [X11]     no              no          yes             yes             no
 # [mingw]   no              yes         no              no              no
 # [static]  no              no          no              no              yes
@@ -79,10 +79,10 @@ target4: &target4
       variableValue: qemux86-64
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: dunfell.xml
+      variableValue: kirkstone.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs dunfell no-webengine lts
+      variableValue: ci configs no-webengine lts
   enable_if:
       condition: property
       property: target.arch
