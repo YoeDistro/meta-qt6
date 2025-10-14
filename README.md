@@ -30,7 +30,7 @@ the LAYERSERIES_COMPAT (c).
 | honister   |  c  |  c  |  c  |  c  |
 | hardknott  |  c  |  c  |  c  |  c  |
 | gatesgarth |  c  |  c  |  c  |  c  |
-| dunfell    |  x  |  c  |  c  |  c  |
+| dunfell    |  c  |  c  |  c  |  c  |
 |            |     |     |     |     |
 |            | LTS | EOL | EOL | EOL |
 
