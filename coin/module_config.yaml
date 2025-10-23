@@ -82,7 +82,7 @@ target4: &target4
       variableValue: kirkstone.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs no-webengine lts
+      variableValue: ci configs no-webengine kirkstone lts
   enable_if:
       condition: property
       property: target.arch
@@ -98,7 +98,7 @@ target5: &target5
       variableValue: kirkstone.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland static no-webengine lts
+      variableValue: ci configs wayland static no-webengine kirkstone lts
   enable_if:
       condition: property
       property: target.arch
