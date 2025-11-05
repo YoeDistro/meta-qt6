@@ -69,7 +69,6 @@ def write_toolchain_file(d, file_path):
         '    current_cpu = "${current_cpu}"\n'
         '    current_os = "linux"\n'
         '    is_clang = false\n'
-        '    use_gold = false\n'
         '  }\n'
         '}\n'
     )
