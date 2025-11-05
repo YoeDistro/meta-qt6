@@ -40,6 +40,7 @@ RDEPENDS:${PN} += " \
     qtshadertools \
     qtspeech \
     qtsvg \
+    qttasktree \
     qttranslations \
     qtvirtualkeyboard \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland', '', d)} \
