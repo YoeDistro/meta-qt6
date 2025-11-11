@@ -1,3 +1,4 @@
+DISTRO = "poky"
 # use systemd
 INIT_MANAGER:forcevariable = "systemd"
 

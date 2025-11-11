@@ -166,7 +166,7 @@ instructions:
           --reference /mnt/yocto-cache/mirror
       ./repo sync
 
-      source ./poky/oe-init-build-env
+      source ./openembedded-core/oe-init-build-env
 
       # check compatibility agaist current Yocto master
       if [ -n "${CHECK_COMPATIBILITY}" ]; then
@@ -179,6 +179,7 @@ instructions:
           --no-auto-dependency
       fi
 
+      bitbake-layers add-layer ../meta-yocto/meta-poky
       bitbake-layers add-layer ../meta-openembedded/meta-oe
       bitbake-layers add-layer ../meta-openembedded/meta-python
       bitbake-layers add-layer ../meta-openembedded/meta-multimedia
