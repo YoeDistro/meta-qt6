@@ -1,4 +1,4 @@
-LICENSE = "Squish-Commercial-License-Agreement"
+LICENSE = "The-Qt-Company-Commercial"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=a25acc1c5f693af9921102a049958aa8"
 
 EXCLUDE_FROM_WORLD = "1"
@@ -21,8 +21,8 @@ SRC_URI = "\
     ${SQUISH_MIRROR}/${PV}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded;subdir=${BP};striplevel=1 \
 "
 
-SRC_URI[squish.sha256sum] = "9c7ba9c304fb65225a8cf84538ac5252bf6ad507bdd2ece8c21ade7fabbda2d6"
-SRC_URI[qt-squish-embedded.sha256sum] = "7e224ecaf4cad9ae65dbf0028814dfccbd181b8c789a9d7bd3a6de3f461e8cb5"
+SRC_URI[squish.sha256sum] = "a207445fd2d0b733e67637ef35b4c59e1220f8f68614e3e88adb0da7a603c1a5"
+SRC_URI[qt-squish-embedded.sha256sum] = "897b184d1df549353995a284ffddf044ddd3c6f6a306546d61dc6a4db6fd5910"
 
 DEPENDS += "\
     qtbase \
@@ -34,7 +34,7 @@ PACKAGECONFIG ?= "\
     qml \
     ${@bb.utils.filter('DISTRO_FEATURES', 'wayland', d)} \
 "
-PACKAGECONFIG[appman] = ",,qtapplicationmanager"
+PACKAGECONFIG[appman] = "--enable-qt-appman,--disable-qt-appman,qtapplicationmanager"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 PACKAGECONFIG[wayland] = "--enable-wayland,--disable-wayland,qtwayland qtwayland-native wayland wayland-native"
 
