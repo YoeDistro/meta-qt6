@@ -39,6 +39,11 @@ INSANE_SKIP:append:pn-nativesdk-clang = " buildpaths"
 PREFERRED_ARM_INSTRUCTION_SET              ?= "thumb"
 ARM_INSTRUCTION_SET = "${PREFERRED_ARM_INSTRUCTION_SET}"
 
+# build squish
+USE_SQUISH = "1"
+SQUISH_MIRROR = "https://ci-files01-hki.ci.qt.io/input/squish/releasepackages"
+SQUISH_LICENSE_KEY = "qt-srv-19.intra.qt.io:49345"
+
 # enable webengine with commercial/proprietary features
 DISTRO_FEATURES:append = " webengine"
 PACKAGECONFIG:append:pn-qtwebengine = " proprietary-codecs"
