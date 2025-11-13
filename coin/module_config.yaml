@@ -7,7 +7,7 @@ accept_configuration:
       equals_value: Yocto
     - condition: property
       property: target.arch
-      in_values: [TARGET1, TARGET2, TARGET3, TARGET4, TARGET5, TARGET6]
+      in_values: [TARGET1, TARGET2, TARGET3, TARGET4, TARGET5, TARGET6, TARGET7]
 
 machine_type:
   Build:
@@ -15,15 +15,15 @@ machine_type:
 
 # Target build matrix:
 #
-#           [target1] [target2]  [target3] [target4]  [target5] [target6]
-# [machine] qemuarm64 qemux86-64 qemuarm   qemux86    qemuarm64 qemuarm64
-# [yocto]   master    walnascar  scarthgap whinlatter scarthgap master
-# [wayland] yes       no         yes       yes        yes       no
-# [x11]     no        yes        yes       no         no        yes
-# [opengl]  yes       yes        yes       yes        yes       no
-# [mingw]   no        no         yes       no         no        no
-# [static]  no        no         no        no         yes       no
-#
+#             [target1] [target2]  [target3] [target4]  [target5] [target6] [target7]
+# [machine]   qemuarm64 qemux86-64 qemuarm   qemux86    qemuarm64 qemuarm64 qemuarm64
+# [yocto]     master    walnascar  scarthgap whinlatter scarthgap master    master
+# [wayland]   yes       no         yes       yes        yes       no        yes
+# [x11]       no        yes        yes       no         no        yes       yes
+# [opengl]    yes       yes        yes       yes        yes       no        yes
+# [mingw]     no        no         yes       no         no        no        no
+# [static]    no        no         no        no         yes       no        no
+# [toolchain] gcc       gcc        gcc       gcc        gcc       gcc       clang
 
 target1: &target1
   type: Group
@@ -124,6 +124,22 @@ target6: &target6
       condition: property
       property: target.arch
       equals_value: TARGET6
+target7: &target7
+  type: Group
+  instructions:
+    - type: EnvironmentVariable
+      variableName: MACHINE
+      variableValue: qemuarm64
+    - type: EnvironmentVariable
+      variableName: MANIFEST
+      variableValue: master.xml
+    - type: EnvironmentVariable
+      variableName: TEST_CONFIGS
+      variableValue: ci configs wayland x11 opengl clang
+  enable_if:
+      condition: property
+      property: target.arch
+      equals_value: TARGET7
 
 instructions:
   Build:
@@ -133,6 +149,7 @@ instructions:
   - *target4
   - *target5
   - *target6
+  - *target7
   - type: EnvironmentVariable
     variableName: DL_DIR
     variableValue: "/mnt/yocto-cache/downloads"
