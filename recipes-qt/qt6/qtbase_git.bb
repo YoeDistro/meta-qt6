@@ -22,6 +22,7 @@ include recipes-qt/qt6/qt6.inc
 
 SRC_URI += "\
     file://0001-Add-linux-oe-g-platform.patch \
+    file://0003-Add-OE-specific-specs-for-clang-compiler.patch \
     file://0004-Fix-qt.toolchain.cmake-for-SDK-use.patch \
     file://0005-testlib-don-t-track-the-build-or-source-directories.patch \
     file://0006-qnumeric-disable-use-of-stdckdint.h.patch \
