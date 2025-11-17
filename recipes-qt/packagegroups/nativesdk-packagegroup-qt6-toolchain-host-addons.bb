@@ -11,6 +11,8 @@ PACKAGEGROUP_DISABLE_COMPLEMENTARY = "1"
 RDEPENDS:${PN} += " \
     nativesdk-qtapplicationmanager-dev \
     nativesdk-qtapplicationmanager-tools \
+    nativesdk-qtcanvaspainter-dev \
+    nativesdk-qtcanvaspainter-tools \
     nativesdk-qtgrpc-dev \
     nativesdk-qtgrpc-tools \
     nativesdk-qtlottie-dev \

@@ -11,6 +11,7 @@ RDEPENDS:${PN} += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qt3d', '', d)} \
     qt5compat \
     qtapplicationmanager \
+    qtcanvaspainter \
     qtcharts \
     qtcoap \
     qtconnectivity \
