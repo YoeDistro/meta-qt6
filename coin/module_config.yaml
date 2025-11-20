@@ -15,14 +15,14 @@ machine_type:
 
 # Target build matrix:
 #
-#           [target1] [target2]  [target3] [target4] [target5] [target6]
-# [machine] qemuarm64 qemux86-64 qemuarm   qemux86   qemuarm64 qemuarm64
-# [yocto]   master    walnascar  scarthgap styhead   scarthgap master
-# [wayland] yes       no         yes       yes       yes       no
-# [x11]     no        yes        yes       no        no        yes
-# [opengl]  yes       yes        yes       yes       yes       no
-# [mingw]   no        no         yes       no        no        no
-# [static]  no        no         no        no        yes       no
+#           [target1] [target2]  [target3] [target4]  [target5] [target6]
+# [machine] qemuarm64 qemux86-64 qemuarm   qemux86    qemuarm64 qemuarm64
+# [yocto]   master    walnascar  scarthgap whinlatter scarthgap master
+# [wayland] yes       no         yes       yes        yes       no
+# [x11]     no        yes        yes       no         no        yes
+# [opengl]  yes       yes        yes       yes        yes       no
+# [mingw]   no        no         yes       no         no        no
+# [static]  no        no         no        no         yes       no
 #
 
 target1: &target1
@@ -84,7 +84,7 @@ target4: &target4
       variableValue: qemux86
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: styhead.xml
+      variableValue: whinlatter.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
       variableValue: ci configs wayland opengl

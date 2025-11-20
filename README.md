@@ -22,20 +22,21 @@ the LAYERSERIES_COMPAT (c).
 
 | Yocto \ Qt | dev | 6.10 | 6.9  | 6.8 | 6.7 | 6.6 | 6.5 | 6.4 | 6.3 | 6.2 |
 |:---------- |:---:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| whinlatter |  x  |  x   |  x   |  x  |     |     |     |     |     |     |
-| walnascar  |  x  |  x   |  x   |  x  |     |     |     |     |     |     |
-| styhead    |  x  |  x   |  x   |  x  |  c  |     |     |     |     |     |
-| scarthgap  |  x  |  x   |  x   |  x  |  c  |  c  |  x  |     |     |     |
+| wrynose    |  x  |      |      |  x  |     |     |     |     |     |     |
+| whinlatter |  x  |  x   |  c   |  x  |     |     |     |     |     |     |
+| walnascar  |  x  |  x   |  c   |  x  |     |     |     |     |     |     |
+| styhead    |  c  |  c   |  c   |  c  |  c  |     |     |     |     |     |
+| scarthgap  |  x  |  x   |  c   |  x  |  c  |  c  |  x  |     |     |     |
 | nanbield   |     |  c   |  c   |  c  |  c  |  c  |  c  |     |     |     |
 | mickledore |     |  c   |  c   |  c  |  c  |  c  |  c  |  c  |     |     |
 | langdale   |     |  c   |  c   |  c  |  c  |  c  |  c  |  c  |     |     |
-| kirkstone  |     |  x   |  x   |  x  |  c  |  c  |  x  |  c  |  c  |  c  |
+| kirkstone  |     |  x   |  c   |  x  |  c  |  c  |  x  |  c  |  c  |  c  |
 | honister   |     |      |      |     |     |  c  |  c  |  c  |  c  |  c  |
 | hardknott  |     |      |      |     |     |  c  |  c  |  c  |  c  |  c  |
 | gatesgarth |     |      |      |     |     |  c  |  c  |  c  |  c  |  c  |
 | dunfell    |     |      |      |     |     |  c  |  x  |  c  |  c  |  c  |
 |            |     |      |      |     |     |     |     |     |     |     |
-|            | dev |stable|stable| LTS | EOL | EOL | LTS | EOL | EOL | EOL |
+|            | dev |stable|closed| LTS | EOL | EOL | LTS | EOL | EOL | EOL |
 
 Detailed status of supported Qt versions can be found from
 https://doc.qt.io/qt-6/supported-platforms.html#supported-qt-versions
