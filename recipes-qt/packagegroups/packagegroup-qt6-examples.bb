@@ -10,6 +10,7 @@ RDEPENDS:${PN} += " \
     qt5compat-examples \
     qtapplicationmanager-examples \
     qtbase-examples \
+    qtcanvaspainter-examples \
     qtcharts-examples \
     qtcoap-examples \
     qtconnectivity-examples \
