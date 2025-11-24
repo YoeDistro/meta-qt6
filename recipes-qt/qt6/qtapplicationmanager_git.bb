@@ -14,7 +14,6 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
 DEPENDS += "qtbase qtdeclarative libyaml libarchive qtapplicationmanager-native"
-DEPENDS:append:class-target = " qthttpserver"
 DEPENDS:append:libc-musl = " libexecinfo"
 RDEPENDS:${PN}:class-target = "libcrypto ${PN}-tools"
 
