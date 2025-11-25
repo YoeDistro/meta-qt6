@@ -34,6 +34,7 @@ RDEPENDS:${PN} += " \
     qtserialbus-examples \
     qtserialport-examples \
     qtspeech-examples \
+    qttasktree-examples \
     qttools-examples \
     qtvirtualkeyboard-examples \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland-examples', '', d)} \
