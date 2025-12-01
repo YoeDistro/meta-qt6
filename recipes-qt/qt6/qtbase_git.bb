@@ -101,10 +101,10 @@ OPENSSL_LINKING_MODE ?= "runtime"
 
 # Default platform plugin
 QT_QPA_DEFAULT_PLATFORM ?= "\
-    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'wayland-egl', \
-        bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', \
-            bb.utils.contains('PACKAGECONFIG', 'eglfs', 'eglfs', \
-                'linuxfb', d), d), d)} \
+${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'wayland-egl', \
+    bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', \
+        bb.utils.contains('PACKAGECONFIG', 'eglfs', 'eglfs', \
+         'linuxfb', d), d), d)}\
 "
 
 PACKAGECONFIG[ltcg] = "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON,-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF"
