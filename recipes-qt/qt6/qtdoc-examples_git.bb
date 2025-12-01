@@ -20,6 +20,7 @@ DEPENDS += "\
     qtcharts \
     qtdeclarative \
     qtdeclarative-native \
+    qtdoc \
     qtgraphs \
     qtlocation \
     qtmultimedia \
