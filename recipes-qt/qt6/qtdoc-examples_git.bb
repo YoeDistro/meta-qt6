@@ -27,6 +27,7 @@ DEPENDS += "\
     qtpositioning \
     qtquick3d \
     qtquick3d-native \
+    qtquickdesigner-components \
     qtsensors \
     qtshadertools-native \
     qtsvg \
