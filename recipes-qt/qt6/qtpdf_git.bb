@@ -8,7 +8,7 @@ DEPENDS += " \
     bison-native \
     nss nss-native \
     qtbase qtdeclarative qtdeclarative-native \
-    gn-native \
+    qt-gn-native \
     libxkbcommon \
     python3-html5lib-native \
 "
