@@ -1,6 +1,6 @@
 python __anonymous () {
     modules = [
-        'gn', 'qt3d', 'qt5compat', 'qtapplicationmanager', 'qtbase', 'qtcharts',
+        'qt-gn', 'qt3d', 'qt5compat', 'qtapplicationmanager', 'qtbase', 'qtcharts',
         'qtcoap', 'qtconnectivity', 'qtdatavis3d', 'qtdeclarative', 'qtdeviceutilities', 'qtdoc',
         'qtgraphs', 'qtgrpc', 'qthttpserver', 'qtimageformats', 'qtinterfaceframework', 'qtlanguageserver',
         'qtlocation', 'qtlottie', 'qtmqtt', 'qtmultimedia', 'qtnetworkauth', 'qtopcua', 'qtpdf',
