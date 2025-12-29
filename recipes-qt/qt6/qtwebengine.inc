@@ -30,7 +30,7 @@ def gettext_oeconf(d):
     return ""
 
 QT_MODULE = "qtwebengine"
-QT_MODULE_BRANCH_CHROMIUM = "122-based"
+QT_MODULE_BRANCH_CHROMIUM = "130-based"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/qtwebengine:"
 
