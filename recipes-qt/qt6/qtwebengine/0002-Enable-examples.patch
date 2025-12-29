@@ -1,4 +1,4 @@
-From 221aefe4d8777f45955cb100dfc4c7204c885a19 Mon Sep 17 00:00:00 2001
+From 86d59de8f07cbc28bb0f02501f241a422c779bbf Mon Sep 17 00:00:00 2001
 From: Samuli Piippo <samuli.piippo@qt.io>
 Date: Tue, 31 Aug 2021 18:27:48 +0300
 Subject: [PATCH] Enable examples
@@ -12,10 +12,10 @@ Upstream-Status: Inappropriate [OE Specific]
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/examples/CMakeLists.txt b/examples/CMakeLists.txt
-index ccad90e11..32cd6d69d 100644
+index e863dafaf..45ac59f68 100644
 --- a/examples/CMakeLists.txt
 +++ b/examples/CMakeLists.txt
-@@ -1,7 +1,7 @@
+@@ -4,7 +4,7 @@
  cmake_minimum_required(VERSION 3.16)
  
  qt_examples_build_begin(EXTERNAL_BUILD)
