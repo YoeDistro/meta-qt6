@@ -8,8 +8,10 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/Qt-GPL-exception-1.0.txt;md5=9a13522cd91a88fba784baf16ea66af8 \
     file://src/3rdparty/resonance-audio/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57 \
-    file://src/3rdparty/eigen/COPYING.BSD;md5=bb155c6d1ebb4543dc4b7b5f33fa40ec \
-    file://src/3rdparty/eigen/COPYING.MPL2;md5=815ca599c9df247a0c7f619bab123dad \
+    file://src/3rdparty/eigen/COPYING.APACHE;md5=8de23b8e93c63005353056b2475e9aa5 \
+    file://src/3rdparty/eigen/COPYING.BSD;md5=2dd0510ee95e59ca28834b875bc96596 \
+    file://src/3rdparty/eigen/COPYING.MINPACK;md5=71d91b0f75ce79a75d3108a72bef8116 \
+    file://src/3rdparty/eigen/COPYING.MPL2;md5=48a3fe23ed1353e0995dadfda05ffdb6 \
     file://src/3rdparty/pffft/LICENSE;md5=0f39e43e9bc20e7e103e54750e1ec3a2 \
 "
 
