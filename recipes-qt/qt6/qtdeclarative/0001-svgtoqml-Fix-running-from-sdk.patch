@@ -1,0 +1,32 @@
+From 8fe3cb3cdc1b694c3c46cec7aa77e8abd9815b2e Mon Sep 17 00:00:00 2001
+From: Samuli Piippo <samuli.piippo@qt.io>
+Date: Fri, 16 Jan 2026 09:30:33 +0000
+Subject: [PATCH] svgtoqml: Fix running from sdk
+
+When svgtoqml tool is run from the sdk, is fails to load platform
+plugins since qt.conf found from the same folder is configured for
+cross-compilation and all the paths point to device runtime paths.
+This workaround bypasses the qt.conf, making it use correct path
+for the host plugins directory.
+
+Upstream-Status: Inappropriate [OE Specific]
+Fixes: QTBUG-143433
+Change-Id: I6403100b86249c5e530f46977f10a6b81930153b
+---
+ tools/svgtoqml/main.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/tools/svgtoqml/main.cpp b/tools/svgtoqml/main.cpp
+index 323429d155..da9da8dffa 100644
+--- a/tools/svgtoqml/main.cpp
++++ b/tools/svgtoqml/main.cpp
+@@ -95,7 +95,9 @@ int main(int argc, char *argv[])
+     const auto outFileName = args.size() > 1 ? args.at(1) : QString{};
+ 
+     const bool needsGui = outFileName.isEmpty() || parser.isSet(guiOption);
++    const QStringList platforms = QPlatformIntegrationFactory::keys();
+     const bool useMinimalPlugin = qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")
++                                  && platforms.contains("minimal")
+                                   && !needsGui;
+     if (useMinimalPlugin)
+         qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("minimal"));

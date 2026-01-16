@@ -1,0 +1,32 @@
+From b244e1d77e78c44e3e3a1c6e287cd9650e42311f Mon Sep 17 00:00:00 2001
+From: Samuli Piippo <samuli.piippo@qt.io>
+Date: Fri, 16 Jan 2026 09:30:33 +0000
+Subject: [PATCH] lottietoqml: Fix running from sdk
+
+When lottietoqml tool is run from the sdk, is fails to load platform
+plugins since qt.conf found from the same folder is configured for
+cross-compilation and all the paths point to device runtime paths.
+This workaround bypasses the qt.conf, making it use correct path
+for the host plugins directory.
+
+Upstream-Status: Inappropriate [OE Specific]
+Fixes: QTBUG-143433
+Change-Id: I6e4d0af0417113f4566af8caa03f533a65a708f7
+---
+ tools/lottietoqml/main.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/tools/lottietoqml/main.cpp b/tools/lottietoqml/main.cpp
+index 2a6a5fa..0943a58 100644
+--- a/tools/lottietoqml/main.cpp
++++ b/tools/lottietoqml/main.cpp
+@@ -85,7 +85,9 @@ int main(int argc, char *argv[])
+     const auto outFileName = args.size() > 1 ? args.at(1) : QString{};
+ 
+     const bool needsGui = outFileName.isEmpty() || parser.isSet(guiOption);
++    const QStringList platforms = QPlatformIntegrationFactory::keys();
+     const bool useMinimalPlugin = qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")
++                                  && platforms.contains("minimal")
+                                   && !needsGui;
+     if (useMinimalPlugin)
+         qputenv("QT_QPA_PLATFORM", QByteArrayLiteral("minimal"));
