@@ -34,5 +34,4 @@ do_install:append() {
     # remove conflicting files with QtWebEngine
     rm -f ${D}${libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebEngineTestsConfig.cmake
     rm -f ${D}${libdir}/cmake/Qt6/Find*.cmake
-    rm -f ${D}${libdir}/sbom/qtwebengine*
 }
