@@ -37,6 +37,7 @@ EXTRA_OECMAKE += "\
     -DINSTALL_TESTSDIR:PATH=${@os.path.relpath(d.getVar('QT6_INSTALL_TESTSDIR'), d.getVar('prefix') + '/')} \
     -DINSTALL_TRANSLATIONSDIR:PATH=${@os.path.relpath(d.getVar('QT6_INSTALL_TRANSLATIONSDIR'), d.getVar('prefix') + '/')} \
     -DINSTALL_MKSPECSDIR:PATH=${@os.path.relpath(d.getVar('QT6_INSTALL_MKSPECSDIR'), d.getVar('prefix') + '/')} \
+    -DINSTALL_SBOMDIR:PATH=${@os.path.relpath(d.getVar('QT6_INSTALL_SBOMDIR'), d.getVar('prefix') + '/')} \
 "
 
 do_install:append() {
@@ -50,8 +51,8 @@ do_install:append() {
 
     # Remove buildpaths from SBOM files
     # QTBUG-130557
-    if [ -e ${D}${QT6_INSTALL_LIBDIR}/sbom ]; then
-        sed -i ${D}${QT6_INSTALL_LIBDIR}/sbom/*.spdx \
+    if [ -e ${D}${QT6_INSTALL_SBOMDIR} ]; then
+        sed -i ${D}${QT6_INSTALL_SBOMDIR}/*.spdx \
             -e 's|${STAGING_DIR_NATIVE}||' \
             -e 's|${S}||g' \
             -e 's|${B}||'
