@@ -34,6 +34,7 @@ EOF
         -DCMAKE_SKIP_RPATH=ON \
         -DQT_DISABLE_NO_DEFAULT_PATH_IN_QT_PACKAGES=ON \
         -DQT_FORCE_BUILTIN_TESTDATA=ON \
+        -DQT_GENERATE_SBOM=OFF \
         ${S} \
         -Wno-dev
     ${CMAKE_VERBOSE} cmake --build ${B_PTEST} --target all

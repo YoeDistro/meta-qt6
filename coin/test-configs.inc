@@ -51,6 +51,8 @@ PACKAGECONFIG:append:pn-qtbase = "\
 
 RDEPENDS:${PN}:append:pn-packagegroup-qt6-modules = " packagegroup-qt6-examples"
 
+QT_ENABLE_SBOM_SPDX_JSON = "${@'1' if bb.utils.vercmp_string_op(d.getVar('DISTRO_VERSION'), '5.1', '>') else '0'}"
+
 # remove all main features, added back in different builds
 POKY_DEFAULT_DISTRO_FEATURES:remove = "opengl wayland vulkan"
 DISTRO_FEATURES_DEFAULT:remove = "x11"
