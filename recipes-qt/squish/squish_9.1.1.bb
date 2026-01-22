@@ -51,7 +51,7 @@ do_install_squish() {
     fi
     chmod +x $SQUISH_INSTALLER
     mkdir -p ${WORKDIR}/tmp
-    TMPDIR=${WORKDIR}/tmp XDG_RUNTIME_DIR=${WORKDIR}/tmp $SQUISH_INSTALLER \
+    TMPDIR=${WORKDIR}/tmp XDG_CACHE_HOME=${WORKDIR}/tmp XDG_RUNTIME_DIR=${WORKDIR}/tmp $SQUISH_INSTALLER \
         -platform minimal unattended=1 targetdir=${WORKDIR}/squish ide=0 \
         licensekey=${SQUISH_LICENSE_KEY}
 }
