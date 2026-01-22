@@ -1,5 +1,16 @@
 include recipes-qt/qt6/qt6-ptest.inc
 
+PACKAGECONFIG[sbom] = "-DQT_GENERATE_SBOM=ON ,-DQT_GENERATE_SBOM=OFF,"
+PACKAGECONFIG[sbom-spdx-json] = "\
+    -DQT_SBOM_REQUIRE_GENERATE_SPDX_V2_JSON=ON -DQT_SBOM_VERIFY_SPDX_V2=ON -DQT_SBOM_PYTHON_INTERP=${@os.path.dirname(d.getVar('PYTHON'))},\
+    -DQT_SBOM_GENERATE_SPDX_V2_JSON=OFF,\
+    python3-spdx-tools-native python3-booleanpy-native \
+"
+PACKAGECONFIG:append:class-target = "\
+    sbom \
+    ${@'sbom-spdx-json' if bb.utils.to_boolean(d.getVar('QT_ENABLE_SBOM_SPDX_JSON')) else ''} \
+"
+
 # If Qt6 (qtbase) is machine specific, then everything will be,
 # because the (initial) qtbase configuration becomes part of Qt5/qmake
 python __anonymous() {

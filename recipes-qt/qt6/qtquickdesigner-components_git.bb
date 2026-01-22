@@ -13,3 +13,5 @@ QT_MODULE_BRANCH = "dev"
 
 DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
+# QDS-16228
+QT_ENABLE_SBOM_SPDX_JSON = "0"
