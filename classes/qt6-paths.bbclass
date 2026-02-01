@@ -31,3 +31,5 @@ QT6_INSTALL_TESTSDIR ?= "${prefix}/tests"
 QT6_INSTALL_DESCRIPTIONSDIR ?= "${libdir}/modules"
 # Mkspecs files [PREFIX/mkspecs]
 QT6_INSTALL_MKSPECSDIR ?= "${libdir}/mkspecs"
+# SBOM [ARCHDATADIR/sbom]
+QT6_INSTALL_SBOMDIR ?= "${libdir}/sbom"
