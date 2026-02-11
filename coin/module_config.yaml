@@ -143,6 +143,7 @@ target7: &target7
 
 instructions:
   Build:
+  - !include "{{yocto/meta-qt6}}/enable_swap_file.yaml"
   - *target1
   - *target2
   - *target3
