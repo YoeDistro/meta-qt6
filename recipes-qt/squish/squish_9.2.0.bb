@@ -1,3 +1,4 @@
+HOMEPAGE = "https://www.qt.io/quality-assurance/squish"
 LICENSE = "The-Qt-Company-Commercial"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=a25acc1c5f693af9921102a049958aa8"
 
@@ -21,8 +22,8 @@ SRC_URI = "\
     ${SQUISH_MIRROR}/${PV}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded;subdir=${BP};striplevel=1 \
 "
 
-SRC_URI[squish.sha256sum] = "a207445fd2d0b733e67637ef35b4c59e1220f8f68614e3e88adb0da7a603c1a5"
-SRC_URI[qt-squish-embedded.sha256sum] = "897b184d1df549353995a284ffddf044ddd3c6f6a306546d61dc6a4db6fd5910"
+SRC_URI[squish.sha256sum] = "5cce83e0608f65e40bab0a0d3a6e26e82fad63c751f75c1781e1ae72075687ac"
+SRC_URI[qt-squish-embedded.sha256sum] = "1ad26af9aca99b5142bcf2111ce154b3f4b70ede54c959f8742e376547a7c3da"
 
 DEPENDS += "\
     qtbase \
