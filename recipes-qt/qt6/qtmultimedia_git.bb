@@ -21,7 +21,8 @@ DEPENDS += "qtbase qtshadertools qtshadertools-native"
 
 PACKAGECONFIG ?= "\
     ${@bb.utils.contains_any('LICENSE_FLAGS_ACCEPTED','commercial commercial_ffmpeg','ffmpeg','',d)} \
-    gstreamer pulseaudio qml spatialaudio spatialaudio_quick3d"
+    ${@bb.utils.contains('DISTRO_FEATURES','pulseaudio','pulseaudio','alsa',d)} \
+    gstreamer qml spatialaudio spatialaudio_quick3d"
 
 PACKAGECONFIG[alsa] = "-DFEATURE_alsa=ON,-DFEATURE_alsa=OFF,alsa-lib"
 PACKAGECONFIG[examples] = "-DQT_BUILD_EXAMPLES=ON,-DQT_BUILD_EXAMPLES=OFF,qtsvg"
