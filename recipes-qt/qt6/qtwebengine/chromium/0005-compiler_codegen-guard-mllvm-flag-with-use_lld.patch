@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yoe Distro <yoe@yoedistro>
+Date: Sun, 23 Feb 2026 00:00:00 +0000
+Subject: [PATCH] compiler_codegen: guard -mllvm linker flag with use_lld
+
+The -Wl,-mllvm,-enable-machine-outliner=never flag is only understood by
+lld. When using GNU ld, clang passes -mllvm to ld which interprets -m as
+the emulation mode flag, failing with:
+  ld: unrecognised emulation mode: llvm
+
+Guard this flag behind use_lld || use_mold so it is only passed when
+using a linker that understands -mllvm.
+
+Upstream-Status: Not submitted
+Signed-off-by: Yoe Distro <yoe@yoedistro>
+---
+ chromium/build/config/compiler/BUILD.gn | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/chromium/build/config/compiler/BUILD.gn b/chromium/build/config/compiler/BUILD.gn
+index 49dba769dda..abcdef12345 100644
+--- a/chromium/build/config/compiler/BUILD.gn
++++ b/chromium/build/config/compiler/BUILD.gn
+@@ -1597,8 +1597,10 @@ config("compiler_codegen") {
+     # This can be removed once https://bugs.llvm.org/show_bug.cgi?id=40348
+     # has been resolved, and -mno-outline is obeyed by the linker during
+     # ThinLTO.
+-    ldflags += [ "-Wl,-mllvm,-enable-machine-outliner=never" ]
+-  }
++    if (use_lld || use_mold) {
++      ldflags += [ "-Wl,-mllvm,-enable-machine-outliner=never" ]
++    }
++   }
+
+   asmflags = cflags
+ }

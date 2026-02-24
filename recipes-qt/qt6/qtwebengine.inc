@@ -43,5 +43,8 @@ SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
     file://chromium/0002-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
     file://chromium/0003-Don-t-return-an-enum-from-EnumSizeTraits-Count.patch;patchdir=src/3rdparty \
+    file://chromium/0004-thin_archive-add-symbol-table-when-not-using-lld.patch;patchdir=src/3rdparty \
+    file://chromium/0005-compiler_codegen-guard-mllvm-flag-with-use_lld.patch;patchdir=src/3rdparty \
 "
+
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
