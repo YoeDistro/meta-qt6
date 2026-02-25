@@ -1,0 +1,35 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Cliff Brake <cbrake@bec-systems.com>
+Date: Sun, 23 Feb 2026 00:00:00 +0000
+Subject: [PATCH] thin_archive: add symbol table when not using lld on linux
+
+When using clang with GNU ld (not lld), the linker requires archives to
+have a symbol table index. The thin_archive config was only adding the
+symbol table (-s) for the !is_clang case (GCC), but GNU ld needs it
+regardless of which compiler created the archive.
+
+Without this fix, GNU ld fails with:
+  error adding symbols: archive has no index; run ranlib to add one
+
+Extend the condition to also include the is_clang && !use_lld case on
+Linux, ensuring GNU ld always gets archives with a symbol table.
+
+Upstream-Status: Not submitted
+Signed-off-by: Cliff Brake <cbrake@bec-systems.com>
+---
+ chromium/build/config/compiler/BUILD.gn | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/chromium/build/config/compiler/BUILD.gn b/chromium/build/config/compiler/BUILD.gn
+index 08139710824..49dba769dda 100644
+--- a/chromium/build/config/compiler/BUILD.gn
++++ b/chromium/build/config/compiler/BUILD.gn
+@@ -2536,7 +2536,7 @@ config("export_dynamic") {
+ # 2. Remove the thin_archive config, so that the .a file actually contains all
+ #    .o files, instead of just references to .o files in the build directoy
+ config("thin_archive") {
+-  if ((is_apple && use_lld) || (is_linux && !is_clang)) {
++  if ((is_apple && use_lld) || (is_linux && (!is_clang || !use_lld))) {
+     # The macOS and iOS linker ld64.ldd doesn't support thin archive without
+     # symbol table, gcc on linux also throws the error `archive has no index`.
+     arflags = [
