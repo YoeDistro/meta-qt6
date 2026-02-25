@@ -21,5 +21,3 @@ PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 FILES:${PN} += "\
     ${datadir}/qt6/webchannel/qwebchannel.js \
 "
-
-INSANE_SKIP:${PN}-examples += "buildpaths"
