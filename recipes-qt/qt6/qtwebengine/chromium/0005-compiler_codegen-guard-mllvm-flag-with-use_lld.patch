@@ -11,7 +11,7 @@ the emulation mode flag, failing with:
 Guard this flag behind use_lld || use_mold so it is only passed when
 using a linker that understands -mllvm.
 
-Upstream-Status: Not submitted
+Upstream-Status: Pending
 Signed-off-by: Yoe Distro <yoe@yoedistro>
 ---
  chromium/build/config/compiler/BUILD.gn | 6 ++++--

@@ -14,7 +14,7 @@ Without this fix, GNU ld fails with:
 Extend the condition to also include the is_clang && !use_lld case on
 Linux, ensuring GNU ld always gets archives with a symbol table.
 
-Upstream-Status: Not submitted
+Upstream-Status: Pending
 Signed-off-by: Cliff Brake <cbrake@bec-systems.com>
 ---
  chromium/build/config/compiler/BUILD.gn | 2 +-
