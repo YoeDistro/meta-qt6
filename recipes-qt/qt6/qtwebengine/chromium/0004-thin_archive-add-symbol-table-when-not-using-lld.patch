@@ -20,16 +20,15 @@ Signed-off-by: Cliff Brake <cbrake@bec-systems.com>
  chromium/build/config/compiler/BUILD.gn | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/chromium/build/config/compiler/BUILD.gn b/chromium/build/config/compiler/BUILD.gn
-index 08139710824..49dba769dda 100644
 --- a/chromium/build/config/compiler/BUILD.gn
 +++ b/chromium/build/config/compiler/BUILD.gn
-@@ -2536,7 +2536,7 @@ config("export_dynamic") {
+@@ -2516,7 +2516,8 @@ config("export_dynamic") {
  # 2. Remove the thin_archive config, so that the .a file actually contains all
  #    .o files, instead of just references to .o files in the build directoy
  config("thin_archive") {
--  if ((is_apple && use_lld) || (is_linux && !is_clang)) {
-+  if ((is_apple && use_lld) || (is_linux && (!is_clang || !use_lld))) {
+-  if ((is_apple && use_lld) || (is_linux && !use_lld && !use_mold)) {
++  if ((is_apple && use_lld) || (is_linux && (!is_clang || !use_lld) && !use_mold)) {
++
      # The macOS and iOS linker ld64.ldd doesn't support thin archive without
      # symbol table, gcc on linux also throws the error `archive has no index`.
      arflags = [
