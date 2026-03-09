@@ -17,7 +17,7 @@ machine_type:
 #
 #           [target1]       [target2]   [target3]       [target4]       [target5]
 # [machine] qemuarm64       qemux86     qemuarm         qemux86-64      qemuarm64
-# [yocto]   scarthgap       scarthgap   scarthgap       kirkstone       kirkstone
+# [yocto]   scarthgap       scarthgap   scarthgap       scarthgap       scarthgap
 # [X11]     no              no          yes             yes             no
 # [mingw]   no              yes         no              no              no
 # [static]  no              no          no              no              yes
@@ -79,10 +79,10 @@ target4: &target4
       variableValue: qemux86-64
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: kirkstone.xml
+      variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs no-webengine kirkstone
+      variableValue: ci configs
   enable_if:
       condition: property
       property: target.arch
@@ -95,10 +95,10 @@ target5: &target5
       variableValue: qemuarm64
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: kirkstone.xml
+      variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs wayland static no-webengine kirkstone
+      variableValue: ci configs wayland static no-webengine
   enable_if:
       condition: property
       property: target.arch

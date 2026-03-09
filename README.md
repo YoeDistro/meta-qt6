@@ -26,13 +26,13 @@ the LAYERSERIES_COMPAT (c).
 | nanbield   |  c  |     |     |     |
 | mickledore |  c  |  c  |     |     |
 | langdale   |  c  |  c  |     |     |
-| kirkstone  |  x  |  c  |  c  |  c  |
+| kirkstone  |  c  |  c  |  c  |  c  |
 | honister   |  c  |  c  |  c  |  c  |
 | hardknott  |  c  |  c  |  c  |  c  |
 | gatesgarth |  c  |  c  |  c  |  c  |
 | dunfell    |  c  |  c  |  c  |  c  |
 |            |     |     |     |     |
-|            | LTS | EOL | EOL | EOL |
+|            | ESM | EOL | EOL | EOL |
 
 
 Commercial Qt
