@@ -17,7 +17,10 @@ DEPENDS += "qtbase qtdeclarative libyaml libarchive qtapplicationmanager-native"
 DEPENDS:append:libc-musl = " libexecinfo"
 RDEPENDS:${PN}:class-target = "libcrypto ${PN}-tools"
 
-EXTRA_OECMAKE += "-DQT_APPMAN_SKIP_EXCLUDE_TOOLS_FROM_DEFAULT_TARGET=ON"
+EXTRA_OECMAKE += "\
+    -DQT_APPMAN_SKIP_EXCLUDE_TOOLS_FROM_DEFAULT_TARGET=ON \
+    -DFEATURE_am_reproducible_build=ON \
+"
 
 PACKAGECONFIG ?= "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'multi-process bubblewrap', '', d)}"
 
