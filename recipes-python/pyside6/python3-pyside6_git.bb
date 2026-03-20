@@ -2,7 +2,7 @@ require python3-pyside6.inc
 
 DEPENDS += "\
     python3-shiboken6 \
-    python3-shiboken6-native \
+    python3-shiboken6-generator-native \
     ${PYSIDE_QT_MODULES} \
 "
 PYSIDE_QT_MODULES ?= "\
