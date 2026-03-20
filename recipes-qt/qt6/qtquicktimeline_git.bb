@@ -12,3 +12,5 @@ include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
 DEPENDS = "qtbase qtdeclarative qtdeclarative-native"
+
+BBCLASSEXTEND = "native nativesdk"

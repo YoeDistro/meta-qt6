@@ -17,6 +17,8 @@ DEPENDS += "\
     qtdeclarative \
     qtdeclarative-native \
     qtlottie-native \
+    qtquicktimeline \
+    qtquicktimeline-native \
 "
 
 BBCLASSEXTEND = "native nativesdk"
