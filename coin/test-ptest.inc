@@ -23,8 +23,10 @@ IMAGE_INSTALL:append = "\
     qtmultimedia-ptest \
     qtnetworkauth-ptest \
     qtopcua-ptest \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtpdf-ptest', '', d)}
     qtpositioning-ptest \
     qtquick3d-ptest \
+    ${@bb.utils.contains('QTQUICK3DPHYSICS_SUPPORTED', '1', 'qtquick3dphysics-ptest', '', d)}
     qtquickdesigner-components-ptest \
     qtquicktimeline-ptest \
     qtremoteobjects-ptest \
@@ -39,10 +41,9 @@ IMAGE_INSTALL:append = "\
     qtvirtualkeyboard-ptest \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland-ptest', '', d)} \
     qtwebchannel-ptest \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtwebengine-ptest', '', d)}
     qtwebsockets-ptest \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf-ptest', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine-ptest', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebview-ptest', '', d)} \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtwebview-ptest', '', d)}
     ${@bb.utils.contains('QT_COMMERCIAL_MODULES', '1', '\
         qmlcompilerplus-ptest \
         qtinsighttracker-ptest \
