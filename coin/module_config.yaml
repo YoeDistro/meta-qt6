@@ -103,7 +103,7 @@ target5: &target5
       variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs scarthgap wayland opengl static
+      variableValue: ci configs scarthgap wayland opengl static no-webengine
   enable_if:
       condition: property
       property: target.arch

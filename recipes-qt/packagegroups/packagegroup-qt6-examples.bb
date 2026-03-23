@@ -26,9 +26,11 @@ RDEPENDS:${PN} += " \
     qtmqtt-examples \
     qtmultimedia-examples \
     qtnetworkauth-examples \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtpdf-examples', '', d)} \
     qtopcua-examples \
     qtpositioning-examples \
     qtquick3d-examples \
+    ${@bb.utils.contains('QTQUICK3DPHYSICS_SUPPORTED', '1', 'qtquick3dphysics-examples', '', d)} \
     qtremoteobjects-examples \
     qtscxml-examples \
     qtsensors-examples \
@@ -40,39 +42,10 @@ RDEPENDS:${PN} += " \
     qtvirtualkeyboard-examples \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland-examples', '', d)} \
     qtwebchannel-examples \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtwebengine-examples', '', d)} \
     qtwebsockets-examples \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtwebview-examples', '', d)} \
 "
-
-RDEPENDS:${PN}:append:aarch64 = "\
-    qtquick3dphysics-examples \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtpdf-examples', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine-examples qtwebview-examples', '', d)} \
-"
-RDEPENDS:${PN}:append:arm = "\
-    qtquick3dphysics-examples \
-"
-RDEPENDS:${PN}:append:armv6 = "\
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtpdf-examples', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine-examples qtwebview-examples', '', d)} \
-"
-RDEPENDS:${PN}:append:armv7a = "\
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtpdf-examples', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine-examples qtwebview-examples', '', d)} \
-"
-RDEPENDS:${PN}:append:armv7ve = "\
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtpdf-examples', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine-examples qtwebview-examples', '', d)} \
-"
-RDEPENDS:${PN}:append:x86 = "\
-    qtquick3dphysics-examples \
-"
-RDEPENDS:${PN}:append:x86-64 = "\
-    qtquick3dphysics-examples \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtpdf-examples', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine-examples qtwebview-examples', '', d)} \
-"
-
-RDEPENDS:${PN}:remove:libc-musl = "qtpdf-examples qtwebengine-examples qtwebview-examples"
 
 COMMERCIAL_EXAMPLES = " \
     qtinsighttracker-examples \
