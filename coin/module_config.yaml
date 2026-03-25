@@ -159,6 +159,7 @@ instructions:
       for conf in ${TEST_CONFIGS}; do
         echo "require ${SOURCE_DIR}/coin/test-${conf}.inc" >> conf/local.conf
       done
+      echo "MACHINE = \"${MACHINE}\"" >> conf/local.conf
 
       # build toolchain which should include all supported recipes
       bitbake meta-toolchain-qt6 nativesdk-packagegroup-qt6-toolchain-host packagegroup-qt6-modules
