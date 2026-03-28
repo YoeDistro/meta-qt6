@@ -1,0 +1,35 @@
+Fix build errors seen with clang
+
+Fixes
+
+../../../../../sources/qtwebengine-6.10.3/src/3rdparty/chromium/third_party/minigbm/src/i915.c:403:2: error: use of unknown builtin '__builtin_ia32_mfence' [-Wimplicit-function-declaration]
+  403 |         __builtin_ia32_mfence();
+      |         ^
+../../../../../sources/qtwebengine-6.10.3/src/3rdparty/chromium/third_party/minigbm/src/i915.c:405:3: error: use of unknown builtin '__builtin_ia32_clflush' [-Wimplicit-function-declaration]
+  405 |                 __builtin_ia32_clflush(p);
+      |                 ^
+2 errors generated.
+
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+
+--- a/chromium/third_party/minigbm/src/i915.c
++++ b/chromium/third_party/minigbm/src/i915.c
+@@ -399,12 +399,15 @@ static void i915_clflush(void *start, si
+ {
+ 	void *p = (void *)(((uintptr_t)start) & ~I915_CACHELINE_MASK);
+ 	void *end = (void *)((uintptr_t)start + size);
+-
++#if defined(__x86_64__) || defined(__i386__)
+ 	__builtin_ia32_mfence();
+ 	while (p < end) {
+ 		__builtin_ia32_clflush(p);
+ 		p = (void *)((uintptr_t)p + I915_CACHELINE_SIZE);
+ 	}
++#else
++  __sync_synchronize();
++#endif
+ }
+
+ static int i915_init(struct driver *drv)
