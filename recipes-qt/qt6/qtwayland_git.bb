@@ -25,5 +25,3 @@ DEPENDS += "\
     wayland \
     wayland-native \
 "
-
-INSANE_SKIP:${PN}-dev += "buildpaths"
