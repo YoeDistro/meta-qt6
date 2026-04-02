@@ -26,15 +26,15 @@ COMPATIBLE_MACHINE:x86-64 = "(.*)"
 #    binary anyway. Since our compiler flags are passed after GN's, -g0 does
 #    not cause any issues if DEBUG_BUILD is set, as -g1 will be passed later.
 DEBUG_FLAGS:remove:arm = "-g"
-DEBUG_FLAGS:append:arm = "-g1"
+DEBUG_FLAGS:append:arm = " -g1"
 DEBUG_FLAGS:remove:x86 = "-g"
-DEBUG_FLAGS:append:x86 = "-g1"
+DEBUG_FLAGS:append:x86 = " -g1"
 
 # As of Chromium 62.0.3202.94 and Yocto Rocko (GCC 7, binutils 2.29), passing
 # -g to the compiler results in many linker errors on aarch64, such as:
 # obj/third_party/WebKit/Source/modules/payments/libpayments.a(PaymentEventDataConversion.o)(.debug_loc+0x4e25): error: relocation overflow in R_AARCH64_ABS32
 DEBUG_FLAGS:remove:aarch64 = "-g"
-DEBUG_FLAGS:append:aarch64 = "-g1"
+DEBUG_FLAGS:append:aarch64 = " -g1"
 
 # As of Chromium 60.0.3112.101 and Yocto Pyro (GCC 6, binutils 2.28), passing
 # -g to the compiler results in many linker errors on x86_64, such as:
@@ -42,7 +42,7 @@ DEBUG_FLAGS:append:aarch64 = "-g1"
 # obj/third_party/WebKit/Source/core/libcore_generated.a(ScriptModule.o)(.debug_loc+0x253c): error: relocation overflow: reference to local symbol 31 in obj/third_party/WebKit/Source/core/libcore_generated.a(ScriptModule.o)
 # so we have to use the same hack described above.
 DEBUG_FLAGS:remove:x86-64 = "-g"
-DEBUG_FLAGS:append:x86-64 = "-g1"
+DEBUG_FLAGS:append:x86-64 = " -g1"
 
 # The default debug level flag has moved from DEBUG_FLAGS to a new
 # variable starting with Yocto 'styhead' (5.1) release
