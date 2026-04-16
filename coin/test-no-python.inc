@@ -1,0 +1,2 @@
+CAN_USE_PYSIDE6 = ""
+
