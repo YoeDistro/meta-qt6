@@ -1,0 +1,37 @@
+From 773520a78e223fe98b76d3e8e17f0679612bca1c Mon Sep 17 00:00:00 2001
+From: Devon Loehr <dloehr@google.com>
+Date: Fri, 15 Aug 2025 14:31:27 +0000
+Subject: [PATCH 1/2] Change use of removed intrinsic
+
+A recent LLVM change removed the __builtin_ia32_vcvtph2ps256 intrinsic
+because it can be implemented using __builtin_shufflevector and/or
+__builtin_convertvector. This CL changes skia to use convertvector as
+to match.
+
+Upstream-Status: Backport [https://skia-review.googlesource.com/c/skcms/+/1038217]
+Bug: chromium:438445382
+Change-Id: I2ed16cd507d7feeafba4c082b3840cbdd6368dd9
+Reviewed-on: https://skia-review.googlesource.com/c/skcms/+/1038217
+Reviewed-by: Ben Wagner <bungeman@google.com>
+Commit-Queue: Ben Wagner <bungeman@google.com>
+Auto-Submit: Devon Loehr <dloehr@google.com>
+Signed-off-by: Khem Raj <khem.raj@oss.qualcomm.com>
+---
+ chromium/third_party/skia/modules/skcms/src/Transform_inl.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/chromium/third_party/skia/modules/skcms/src/Transform_inl.h b/chromium/third_party/skia/modules/skcms/src/Transform_inl.h
+index 7bea9b9cf29..31aaedbf202 100644
+--- a/chromium/third_party/skia/modules/skcms/src/Transform_inl.h
++++ b/chromium/third_party/skia/modules/skcms/src/Transform_inl.h
+@@ -161,8 +161,8 @@ SI F F_from_Half(U16 half) {
+ #elif defined(USING_AVX512F)
+     return (F)_mm512_cvtph_ps((__m256i)half);
+ #elif defined(USING_AVX_F16C)
+-    typedef int16_t __attribute__((vector_size(16))) I16;
+-    return __builtin_ia32_vcvtph2ps256((I16)half);
++    typedef _Float16 __attribute__((vector_size(16))) F16;
++    return __builtin_convertvector((F16)half, F);
+ #else
+     U32 wide = cast<U32>(half);
+     // A half is 1-5-10 sign-exponent-mantissa, with 15 exponent bias.

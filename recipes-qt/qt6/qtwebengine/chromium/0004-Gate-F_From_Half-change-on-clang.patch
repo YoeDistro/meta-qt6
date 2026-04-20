@@ -1,0 +1,40 @@
+From 606c0db08d77f71022424238d13889f40c630bf8 Mon Sep 17 00:00:00 2001
+From: Devon Loehr <dloehr@google.com>
+Date: Mon, 18 Aug 2025 15:35:45 +0000
+Subject: [PATCH 2/2] Gate F_From_Half change on clang
+
+It seems like gcc doesn't support the _Float16 type, which clang
+needs to use to make casting work, so only use
+__builtin_convertvector when building with clang.
+
+Upstream-Status: Backport [https://skia-review.googlesource.com/c/skcms/+/1040717]
+Bug: chromium:438445382
+Change-Id: I8e21289e2a275f7a1273e59ba8988df2dec9e4f3
+Reviewed-on: https://skia-review.googlesource.com/c/skcms/+/1040717
+Reviewed-by: Florin Malita <fmalita@google.com>
+Commit-Queue: Devon Loehr <dloehr@google.com>
+Commit-Queue: Florin Malita <fmalita@google.com>
+Auto-Submit: Devon Loehr <dloehr@google.com>
+Signed-off-by: Khem Raj <khem.raj@oss.qualcomm.com>
+---
+ chromium/third_party/skia/modules/skcms/src/Transform_inl.h | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/chromium/third_party/skia/modules/skcms/src/Transform_inl.h b/chromium/third_party/skia/modules/skcms/src/Transform_inl.h
+index 31aaedbf202..6169442630a 100644
+--- a/chromium/third_party/skia/modules/skcms/src/Transform_inl.h
++++ b/chromium/third_party/skia/modules/skcms/src/Transform_inl.h
+@@ -161,8 +161,13 @@ SI F F_from_Half(U16 half) {
+ #elif defined(USING_AVX512F)
+     return (F)_mm512_cvtph_ps((__m256i)half);
+ #elif defined(USING_AVX_F16C)
++#if defined(__clang__)
+     typedef _Float16 __attribute__((vector_size(16))) F16;
+     return __builtin_convertvector((F16)half, F);
++#else
++    typedef int16_t __attribute__((vector_size(16))) I16;
++    return __builtin_ia32_vcvtph2ps256((I16)half);
++#endif // defined(__clang))
+ #else
+     U32 wide = cast<U32>(half);
+     // A half is 1-5-10 sign-exponent-mantissa, with 15 exponent bias.

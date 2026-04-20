@@ -41,5 +41,7 @@ SRC_URI += " \
 SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
     file://chromium/0002-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
+    file://chromium/0003-Change-use-of-removed-intrinsic.patch;patchdir=src/3rdparty \
+    file://chromium/0004-Gate-F_From_Half-change-on-clang.patch;patchdir=src/3rdparty \
 "
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
