@@ -8,6 +8,8 @@ DEPENDS += "\
 PYSIDE_QT_MODULES ?= "\
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qt3d', '', d)} \
     qtbase \
+    qtcanvaspainter \
+    qtcanvaspainter-native \
     qtcharts \
     qtconnectivity \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', 'qtdatavis3d', '', d)} \
@@ -32,8 +34,6 @@ PYSIDE_QT_MODULES ?= "\
     qtsvg \
     qttools \
     qtwebchannel \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtwebengine qtwebview', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'webengine', 'qtpdf', '', d)} \
     qtwebsockets \
 "
 
