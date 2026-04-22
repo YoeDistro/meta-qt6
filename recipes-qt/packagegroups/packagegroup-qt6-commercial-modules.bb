@@ -12,4 +12,5 @@ RDEPENDS:${PN} += " \
     qmlcompilerplus \
     qtinsighttracker \
     qtvncserver \
+    ${@'squish' if bb.utils.to_boolean(d.getVar('USE_SQUISH')) else ''} \
 "
