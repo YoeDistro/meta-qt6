@@ -22,8 +22,8 @@ SRC_URI = "\
     ${SQUISH_MIRROR}/${PV}/squish-${PV}-qt-embedded-src.tar.gz;name=qt-squish-embedded;subdir=${BP};striplevel=1 \
 "
 
-SRC_URI[squish.sha256sum] = "5cce83e0608f65e40bab0a0d3a6e26e82fad63c751f75c1781e1ae72075687ac"
-SRC_URI[qt-squish-embedded.sha256sum] = "1ad26af9aca99b5142bcf2111ce154b3f4b70ede54c959f8742e376547a7c3da"
+SRC_URI[squish.sha256sum] = "c27d445cb52f1f73f120f9a9a3f260640f361ded2dd0bc679d95e8ef36c912ee"
+SRC_URI[qt-squish-embedded.sha256sum] = "2c915b1aee97c33f8407c1451389ea5a7ad85e26051a4d24301cd95c4f47721a"
 
 DEPENDS += "\
     qtbase \
