@@ -20,6 +20,7 @@ PYSIDE_QT_MODULES ?= "\
     qtlocation \
     qtmultimedia \
     qtnetworkauth \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtpdf ', '', d)} \
     qtpositioning \
     qtquick3d \
     qtquick3d-native \
@@ -34,7 +35,9 @@ PYSIDE_QT_MODULES ?= "\
     qtsvg \
     qttools \
     qtwebchannel \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtwebengine', '', d)} \
     qtwebsockets \
+    ${@bb.utils.contains('QTWEBENGINE_SUPPORTED', '1', 'qtwebview', '', d)} \
 "
 
 OECMAKE_SOURCEPATH = "${S}/sources/pyside6"
