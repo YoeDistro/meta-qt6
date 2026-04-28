@@ -10,7 +10,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/Qt-GPL-exception-1.0.txt;md5=9a13522cd91a88fba784baf16ea66af8 \
     file://src/3rdparty/assimp/LICENSE;md5=78dabdafb167945fef55b5c37ac94df3 \
     file://src/3rdparty/embree/LICENSE.txt;md5=3b83ef96387f14655fc854ddc3c6bd57 \
-    file://src/3rdparty/tinyexr/LICENSE;md5=27559be3d3cfab88d56b352c10fb9476 \
+    file://src/3rdparty/tinyexr/LICENSE;md5=bf9ef47ec3eef9a2b4b2dc3b3d266ba0 \
     file://src/3rdparty/xatlas/LICENSE;md5=8605e91c32ad7d58bd62c310eb2c3bf6 \
 "
 
