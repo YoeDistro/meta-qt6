@@ -6,9 +6,17 @@ PACKAGECONFIG[sbom-spdx-json] = "\
     -DQT_SBOM_GENERATE_SPDX_V2_JSON=OFF,\
     python3-spdx-tools-native python3-booleanpy-native \
 "
+PACKAGECONFIG[sbom-cyclonedx] = "\
+    -DQT_SBOM_REQUIRE_GENERATE_CYDX_V1_6=ON -DQT_SBOM_VERIFY_CYDX_V1_6=ON -DQT_SBOM_PYTHON_INTERP=${@os.path.dirname(d.getVar('PYTHON'))},\
+    -DQT_SBOM_GENERATE_CYDX_V1_6=OFF,\
+    python3-cyclonedx-python-lib-native \
+    python3-packageurl-python-native \
+    python3-license-expression-native \
+"
 PACKAGECONFIG:append:class-target = "\
     sbom \
     ${@'sbom-spdx-json' if bb.utils.to_boolean(d.getVar('QT_ENABLE_SBOM_SPDX_JSON')) else ''} \
+    ${@'sbom-cyclonedx' if bb.utils.to_boolean(d.getVar('QT_ENABLE_SBOM_CYCLONEDX')) else ''} \
 "
 
 # If Qt6 (qtbase) is machine specific, then everything will be,

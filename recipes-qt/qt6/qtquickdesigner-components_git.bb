@@ -15,3 +15,4 @@ DEPENDS += "qtbase qtdeclarative qtdeclarative-native"
 
 # QDS-16228
 QT_ENABLE_SBOM_SPDX_JSON = "0"
+QT_ENABLE_SBOM_CYCLONEDX = "0"
