@@ -58,11 +58,12 @@ PACKAGECONFIG_GRAPHICS ?= "\
     ${@bb.utils.filter('DISTRO_FEATURES', 'vulkan', d)} \
     ${@bb.utils.filter('DISTRO_FEATURES', 'wayland', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opengl', \
-        bb.utils.contains('DISTRO_FEATURES', 'wayland', 'kms gbm gles2 eglfs', \
+        bb.utils.contains('DISTRO_FEATURES', 'wayland', 'gbm gles2 eglfs', \
             bb.utils.contains('DISTRO_FEATURES', 'x11', 'gl', \
-                'kms gbm gles2 eglfs', d), d), \
+                'gbm gles2 eglfs', d), d), \
         'no-opengl', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', '', d)} \
+    kms \
     linuxfb \
 "
 PACKAGECONFIG_FONTS ?= ""
