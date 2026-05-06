@@ -17,7 +17,7 @@ machine_type:
 #
 #             [target1] [target2]  [target3] [target4]  [target5] [target6] [target7]
 # [machine]   qemuarm64 qemux86-64 qemuarm   qemux86    qemuarm64 qemuarm64 qemuarm64
-# [yocto]     master    walnascar  scarthgap whinlatter scarthgap master    master
+# [yocto]     master    wrynose    scarthgap whinlatter scarthgap master    master
 # [wayland]   yes       no         yes       yes        yes       no        yes
 # [x11]       no        yes        yes       no         no        yes       yes
 # [opengl]    yes       yes        yes       yes        yes       no        yes
@@ -52,10 +52,10 @@ target2: &target2
       variableValue: qemux86-64
     - type: EnvironmentVariable
       variableName: MANIFEST
-      variableValue: walnascar.xml
+      variableValue: wrynose.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs walnascar x11 opengl
+      variableValue: ci configs master x11 opengl
   enable_if:
       condition: property
       property: target.arch
