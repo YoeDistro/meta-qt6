@@ -1,1 +1,1 @@
-DISTRO_FEATURES:append = " opengl vulkan"
+TEST_DISTRO_FEATURES:remove = "opengl vulkan"
