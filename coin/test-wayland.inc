@@ -1,1 +1,1 @@
-DISTRO_FEATURES:append = " wayland"
+TEST_DISTRO_FEATURES:remove = "wayland"

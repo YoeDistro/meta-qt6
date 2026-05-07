@@ -36,7 +36,7 @@ target1: &target1
       variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs master wayland opengl
+      variableValue: ci configs wayland opengl
     - type: EnvironmentVariable
       variableName: CHECK_COMPATIBILITY
       variableValue: 1
@@ -55,7 +55,7 @@ target2: &target2
       variableValue: wrynose.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs master x11 opengl
+      variableValue: ci configs x11 opengl
   enable_if:
       condition: property
       property: target.arch
@@ -71,7 +71,7 @@ target3: &target3
       variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs scarthgap mingw wayland x11 opengl
+      variableValue: ci configs mingw wayland x11 opengl
   enable_if:
       condition: property
       property: target.arch
@@ -87,7 +87,7 @@ target4: &target4
       variableValue: whinlatter.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs whinlatter wayland opengl
+      variableValue: ci configs wayland opengl
   enable_if:
       condition: property
       property: target.arch
@@ -103,7 +103,7 @@ target5: &target5
       variableValue: scarthgap.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs scarthgap wayland opengl static no-webengine
+      variableValue: ci configs wayland opengl static no-webengine
   enable_if:
       condition: property
       property: target.arch
@@ -119,7 +119,7 @@ target6: &target6
       variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs master x11
+      variableValue: ci configs x11
   enable_if:
       condition: property
       property: target.arch
@@ -135,7 +135,7 @@ target7: &target7
       variableValue: master.xml
     - type: EnvironmentVariable
       variableName: TEST_CONFIGS
-      variableValue: ci configs master wayland x11 opengl clang
+      variableValue: ci configs wayland x11 opengl clang
   enable_if:
       condition: property
       property: target.arch

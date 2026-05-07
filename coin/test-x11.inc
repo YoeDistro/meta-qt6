@@ -1,1 +1,1 @@
-DISTRO_FEATURES:append = " x11"
+TEST_DISTRO_FEATURES:remove = "x11"
