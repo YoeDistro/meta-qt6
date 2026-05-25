@@ -201,7 +201,10 @@ EOF
 
     RELPATH="${@os.path.relpath(d.getVar('bindir'), d.getVar('QT6_INSTALL_BINDIR'))}"
     sed -i ${D}${QT6_INSTALL_BINDIR}/* \
-        -i ${D}${QT6_INSTALL_LIBEXECDIR}/* \
+        -e "s|cmake_path=${RECIPE_SYSROOT_NATIVE}.*cmake|cmake_path=%script_dir_path%/$RELPATH/cmake.exe|" \
+        -e "s|${RECIPE_SYSROOT_NATIVE}.*cmake|\$script_dir_path/$RELPATH/cmake|"
+    RELPATH="${@os.path.relpath(d.getVar('bindir'), d.getVar('QT6_INSTALL_LIBEXECDIR'))}"
+    sed -i ${D}${QT6_INSTALL_LIBEXECDIR}/* \
         -e "s|cmake_path=${RECIPE_SYSROOT_NATIVE}.*cmake|cmake_path=%script_dir_path%/$RELPATH/cmake.exe|" \
         -e "s|${RECIPE_SYSROOT_NATIVE}.*cmake|\$script_dir_path/$RELPATH/cmake|"
 

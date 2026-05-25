@@ -23,7 +23,7 @@ def gettext_oeconf(d):
     return ""
 
 QT_MODULE = "qtwebengine"
-QT_MODULE_BRANCH_CHROMIUM = "118-based"
+QT_MODULE_BRANCH_CHROMIUM = "122-based"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/qtwebengine:"
 
@@ -35,5 +35,6 @@ SRC_URI += " \
 
 SRC_URI += " \
     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
+    file://chromium/0003-Do-not-build-webnn-with-xnnpack.patch;patchdir=src/3rdparty \
 "
 SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
