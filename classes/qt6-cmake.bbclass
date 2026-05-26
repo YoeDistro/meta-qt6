@@ -48,15 +48,6 @@ do_install:append() {
                -e 's|${STAGING_DIR_HOST}|$$[QT_SYSROOT]|g' \
                -e '/QMAKE_PRL_BUILD_DIR/d' \
                -e '\|${WORKDIR}|d' {} \;
-
-    # Remove buildpaths from SBOM files
-    # QTBUG-130557
-    if [ -e ${D}${QT6_INSTALL_SBOMDIR} ]; then
-        sed -i ${D}${QT6_INSTALL_SBOMDIR}/*.spdx \
-            -e 's|${STAGING_DIR_NATIVE}||' \
-            -e 's|${S}||g' \
-            -e 's|${B}||'
-    fi
 }
 
 export QT_DISABLE_SHADER_DISK_CACHE = "1"
