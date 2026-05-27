@@ -96,5 +96,5 @@ Report bugs on [Qt Bug Tracker](https://bugreports.qt.io) using
 Layer maintainers
 -----------------
 
- - Samuli Piippo <samuli.piippo@qt.io>
+ - Qt Embedded Linux team <metaqt6@qt.io>
 
