@@ -52,7 +52,7 @@ PACKAGECONFIG:append:pn-qtbase = "\
 RDEPENDS:${PN}:append:pn-packagegroup-qt6-modules = " packagegroup-qt6-examples"
 
 QT_ENABLE_SBOM_SPDX_JSON = "${@'1' if bb.utils.vercmp_string_op(d.getVar('DISTRO_VERSION'), '5.1', '>') else '0'}"
-QT_ENABLE_SBOM_CYCLONEDX = "${@'1' if bb.utils.vercmp_string_op(d.getVar('DISTRO_VERSION'), '6.0', '>') else '0'}"
+QT_ENABLE_SBOM_CYCLONEDX = "${@'1' if bb.utils.vercmp_string_op(d.getVar('DISTRO_VERSION'), '6.1', '>=') else '0'}"
 
 # remove all main features, added back in different builds
 TEST_DISTRO_FEATURES = "opengl vulkan wayland x11"
