@@ -193,7 +193,8 @@ instructions:
             ../meta-openembedded/meta-python \
           --additional-layer \
             ../meta-mingw \
-          --no-auto-dependency
+          --no-auto-dependency \
+          --without-software-layer-signature-check
       fi
 
       bitbake-layers add-layer ../meta-yocto/meta-poky
