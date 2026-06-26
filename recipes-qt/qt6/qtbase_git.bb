@@ -257,5 +257,8 @@ INHIBIT_PACKAGE_STRIP_FILES = "\
     ${PKGD}${PTEST_PATH}/tests/auto/corelib/plugin/qpluginloader/elftest/debugobj.so \
 "
 
+INSANE_SKIP:${PN}-src += "buildpaths"
+INSANE_SKIP:${PN}-ptest += "buildpaths"
+
 BBCLASSEXTEND = "native nativesdk"
 

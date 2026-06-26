@@ -20,4 +20,5 @@ DEPENDS += "qtbase qtshadertools qtshadertools-native qtdeclarative-native qtlan
 
 BBCLASSEXTEND = "native nativesdk"
 
+INSANE_SKIP:${PN}-src += "buildpaths"
 INSANE_SKIP:${PN}-ptest += "buildpaths"
