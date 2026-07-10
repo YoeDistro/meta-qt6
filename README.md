@@ -36,7 +36,7 @@ the LAYERSERIES_COMPAT (c).
 | nanbield   |  c  |  c  |  c  |  c  |     |     |     |
 | mickledore |  c  |  c  |  c  |  c  |  c  |     |     |
 | langdale   |  c  |  c  |  c  |  c  |  c  |     |     |
-| kirkstone  |  x  |  c  |  c  |  c  |  c  |  c  |  c  |
+| kirkstone  |  c  |  c  |  c  |  c  |  c  |  c  |  c  |
 | honister   |     |     |  c  |  c  |  c  |  c  |  c  |
 | hardknott  |     |     |  c  |  c  |  c  |  c  |  c  |
 | gatesgarth |     |     |  c  |  c  |  c  |  c  |  c  |
