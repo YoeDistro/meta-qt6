@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/MIT.txt;md5=3605d54ecceddcd50962eb89318779ec \
 "
-NO_GENERIC_LICENSE[LicenseRef-Tango-Icons-Public-Domain] = "LICENSES/LicenseRef-Tango-Icons-Public-Domain.txt"
+NO_GENERIC_LICENSE[Tango-Icons-Public-Domain] = "LICENSES/LicenseRef-Tango-Icons-Public-Domain.txt"
 
 inherit qt6-cmake
 inherit features_check
