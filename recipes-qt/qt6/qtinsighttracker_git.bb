@@ -1,4 +1,4 @@
-LICENSE = "The-Qt-Company-Commercial"
+LICENSE = "LicenseRef-The-Qt-Company-Commercial"
 LIC_FILES_CHKSUM = "file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187"
 
 inherit qt6-cmake

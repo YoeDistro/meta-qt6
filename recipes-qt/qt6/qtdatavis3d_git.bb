@@ -1,4 +1,4 @@
-LICENSE = "The-Qt-Company-Commercial | (GPL-3.0-only & Qt-GPL-exception-1.0) & GFDL-1.3-no-invariants-only"
+LICENSE = "GFDL-1.3-no-invariants-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0 OR LicenseRef-The-Qt-Company-Commercial"
 LIC_FILES_CHKSUM = " \
     file://LICENSES/GFDL-1.3-no-invariants-only.txt;md5=a22d0be1ce2284b67950a4d1673dd1b0 \
     file://LICENSES/GPL-3.0-only.txt;md5=d32239bcb673463ab874e80d47fae504 \
