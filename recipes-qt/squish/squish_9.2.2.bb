@@ -1,5 +1,5 @@
 HOMEPAGE = "https://www.qt.io/quality-assurance/squish"
-LICENSE = "The-Qt-Company-Commercial"
+LICENSE = "LicenseRef-The-Qt-Company-Commercial"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=a25acc1c5f693af9921102a049958aa8"
 
 EXCLUDE_FROM_WORLD = "1"

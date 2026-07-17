@@ -1,4 +1,4 @@
-LICENSE = "The-Qt-Company-Commercial | (GPL-3.0-only & Qt-GPL-exception-1.0)"
+LICENSE = "LicenseRef-The-Qt-Company-Commercial OR GPL-3.0-only WITH Qt-GPL-exception-1.0"
 LIC_FILES_CHKSUM = " \
     file://LICENSES/GPL-3.0-only.txt;md5=d32239bcb673463ab874e80d47fae504 \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
