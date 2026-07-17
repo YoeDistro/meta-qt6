@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/LicenseRef-MIRAMAR.txt;md5=6dd50bdc58b03a7976544fb939d5647b \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
 "
-NO_GENERIC_LICENSE[LicenseRef-MIRAMAR] = "LICENSES/LicenseRef-MIRAMAR.txt"
+NO_GENERIC_LICENSE[MIRAMAR] = "LICENSES/LicenseRef-MIRAMAR.txt"
 
 inherit qt6-cmake
 inherit features_check
