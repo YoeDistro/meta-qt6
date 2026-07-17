@@ -1,4 +1,4 @@
-LICENSE = "The-Qt-Company-Commercial | BSD-3-Clause & (LGPL-3.0-only | GPL-2.0-only | GPL-3.0-only)"
+LICENSE = "BSD-3-Clause AND (GPL-2.0-only OR GPL-3.0-only OR LGPL-3.0-only) OR LicenseRef-The-Qt-Company-Commercial"
 LIC_FILES_CHKSUM = " \
     file://LICENSES/BSD-3-Clause.txt;md5=cb40fa7520502d8c7a3aea47cae1316c \
     file://LICENSES/GPL-2.0-only.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
