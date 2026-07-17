@@ -1,4 +1,4 @@
-LICENSE = "The-Qt-Company-Commercial | BSD-3-Clause"
+LICENSE = "BSD-3-Clause OR LicenseRef-The-Qt-Company-Commercial"
 LIC_FILES_CHKSUM = " \
     file://LICENSES/BSD-3-Clause.txt;md5=cb40fa7520502d8c7a3aea47cae1316c \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
