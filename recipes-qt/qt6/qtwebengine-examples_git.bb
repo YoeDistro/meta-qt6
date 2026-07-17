@@ -1,4 +1,4 @@
-LICENSE = "(The-Qt-Company-Commercial | BSD-3-Clause) & Apache-2.0 & LicenseRef-Tango-Icons-Public-Domain & MIT"
+LICENSE = "Apache-2.0 AND MIT AND LicenseRef-Tango-Icons-Public-Domain AND (BSD-3-Clause OR LicenseRef-The-Qt-Company-Commercial)"
 LIC_FILES_CHKSUM = " \
     file://LICENSES/Apache-2.0.txt;md5=b4c615f64dff32f71eeed614d13dfd4c \
     file://LICENSES/BSD-3-Clause.txt;md5=cb40fa7520502d8c7a3aea47cae1316c \
