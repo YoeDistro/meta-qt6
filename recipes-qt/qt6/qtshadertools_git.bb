@@ -1,4 +1,4 @@
-LICENSE = "(The-Qt-Company-Commercial | (GPL-3.0-only & Qt-GPL-exception-1.0) & GFDL-1.3-no-invariants-only) & (Apache-2.0 | MIT) & BSD-3-Clause & BSD-2-Clause & Apache-2.0 & GPL-3-with-bison-exception"
+LICENSE = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND (GFDL-1.3-no-invariants-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0 OR LicenseRef-The-Qt-Company-Commercial) AND (Apache-2.0 OR MIT) AND GPL-3.0-or-later WITH Bison-exception-2.2"
 LIC_FILES_CHKSUM = " \
     file://LICENSES/Apache-2.0.txt;md5=c846ebb396f8b174b10ded4771514fcc \
     file://LICENSES/BSD-3-Clause.txt;md5=cb40fa7520502d8c7a3aea47cae1316c \
