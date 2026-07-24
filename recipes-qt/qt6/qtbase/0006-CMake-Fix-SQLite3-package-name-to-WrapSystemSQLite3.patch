@@ -1,0 +1,38 @@
+From dcc1ccfc2afa61a12bef24e3265b44d94b154fdc Mon Sep 17 00:00:00 2001
+From: Alexandru Croitor <alexandru.croitor@qt.io>
+Date: Fri, 10 Jul 2026 15:39:26 +0200
+Subject: [PATCH] CMake: Fix SQLite3 package name to WrapSystemSQLite3
+
+During merge conflict resolution, the old package name was left, but
+the provided target was renamed, resulting in an error:
+
+CMake Error at src/corelib/Qt6CoreMacros.cmake:2869 (add_library):
+  Target "QSQLiteDriverPlugin" links to target
+  "WrapSystemSQLite3::WrapSystemSQLite3" but the target was not found.
+
+Use the correct package name.
+
+Amends 10551200e48dc74e448382e9ad9d630def697a68
+
+Fixes: QTBUG-148163
+Change-Id: Idc423c3ff10759ba76c6e995a7ed8a76d2cc41af
+Reviewed-by: Joerg Bornemann <joerg.bornemann@qt.io>
+
+Upstream-Status: Backport
+---
+ src/plugins/sqldrivers/configure.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/plugins/sqldrivers/configure.cmake b/src/plugins/sqldrivers/configure.cmake
+index a7696886e2b..09abefe390d 100644
+--- a/src/plugins/sqldrivers/configure.cmake
++++ b/src/plugins/sqldrivers/configure.cmake
+@@ -18,7 +18,7 @@ qt_find_package(MySQL PROVIDED_TARGETS MySQL::MySQL MODULE_NAME sqldrivers QMAKE
+ qt_find_package(PostgreSQL PROVIDED_TARGETS PostgreSQL::PostgreSQL MODULE_NAME sqldrivers QMAKE_LIB psql)
+ qt_find_package(Oracle PROVIDED_TARGETS Oracle::OCI MODULE_NAME sqldrivers QMAKE_LIB oci)
+ qt_find_package(ODBC PROVIDED_TARGETS ODBC::ODBC MODULE_NAME sqldrivers QMAKE_LIB odbc)
+-qt_find_package(SQLite3 PROVIDED_TARGETS WrapSystemSQLite3::WrapSystemSQLite3
++qt_find_package(WrapSystemSQLite3 PROVIDED_TARGETS WrapSystemSQLite3::WrapSystemSQLite3
+     MODULE_NAME sqldrivers QMAKE_LIB sqlite3)
+ qt_find_package(Interbase PROVIDED_TARGETS Interbase::Interbase MODULE_NAME sqldrivers QMAKE_LIB ibase) # special case
+ qt_find_package(Mimer PROVIDED_TARGETS MimerSQL::MimerSQL MODULE_NAME sqldrivers QMAKE_LIB mimer)
