@@ -1,0 +1,28 @@
+From 94e7d04160999c5c5edb4df31a0dc53570239583 Mon Sep 17 00:00:00 2001
+From: Kaloyan Chehlarski <kaloyan.chehlarski@qt.io>
+Date: Tue, 21 Jul 2026 10:40:39 +0200
+Subject: [PATCH] [fixup] IWYU adding missing includes
+
+Fixes: QTBUG-148456
+Change-Id: Ibcd5a545f52768ad6d1bc9efb0fb444c12aac6e7
+Reviewed-on: https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/754208
+Reviewed-by: Michal Klocek <michal.klocek@qt.io>
+
+Upstream-Status: Backport [https://codereview.qt-project.org/c/qt/qtwebengine-chromium/+/754208]
+---
+ .../platform/widget/input/prediction/predictor_factory.cc       | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/chromium/third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.cc b/chromium/third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.cc
+index ecb499e2e55..06864b517d3 100644
+--- a/chromium/third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.cc
++++ b/chromium/third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.cc
+@@ -4,6 +4,8 @@
+ 
+ #include "third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.h"
+ 
++#include <climits>
++
+ #include "third_party/blink/public/common/features.h"
+ #include "ui/base/prediction/empty_predictor.h"
+ #include "ui/base/prediction/kalman_predictor.h"

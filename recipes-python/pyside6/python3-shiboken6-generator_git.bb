@@ -25,3 +25,5 @@ do_install:append:class-target() {
 }
 
 BBCLASSEXTEND = "native nativesdk"
+
+OEQA_BUILDPATHS_SKIP = "/home/qt"
