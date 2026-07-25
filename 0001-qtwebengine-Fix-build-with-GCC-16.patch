@@ -1,0 +1,51 @@
+From d59a3a52aa7768cfd2218255e899d5468e0b2c1f Mon Sep 17 00:00:00 2001
+From: Khem Raj <khem.raj@oss.qualcomm.com>
+Date: Tue, 9 Jun 2026 13:33:47 -0700
+Subject: [PATCH] qtwebengine: Fix build with GCC-16
+
+fix build w/ recent gcc-16's libstdc++
+: error: use of undeclared identifier 'UINT_MAX'
+|    61 |   if (predictor_options_ == UINT_MAX) {
+|       |
+
+Change-Id: Iea8f1c5076a797fd8d4bb791ad78353f8f37ce08
+---
+ recipes-qt/qt6/qtwebengine.inc                  |  1 +
+ .../chromium/0003-gcc16-climits.patch           | 17 +++++++++++++++++
+ 2 files changed, 18 insertions(+)
+ create mode 100644 recipes-qt/qt6/qtwebengine/chromium/0003-gcc16-climits.patch
+
+diff --git a/recipes-qt/qt6/qtwebengine.inc b/recipes-qt/qt6/qtwebengine.inc
+index 2f35bb65..123cf952 100644
+--- a/recipes-qt/qt6/qtwebengine.inc
++++ b/recipes-qt/qt6/qtwebengine.inc
+@@ -41,5 +41,6 @@ SRC_URI += " \
+ SRC_URI += " \
+     file://chromium/0001-v8-qemu-wrapper.patch;patchdir=src/3rdparty \
+     file://chromium/0002-Remove-the-GN-settings-done-for-clang-that-conflict-.patch;patchdir=src/3rdparty \
++    file://chromium/0003-gcc16-climits.patch;patchdir=src/3rdparty \
+ "
+ SRCREV_FORMAT = "qtwebengine_qtwebengine-chromium"
+diff --git a/recipes-qt/qt6/qtwebengine/chromium/0003-gcc16-climits.patch b/recipes-qt/qt6/qtwebengine/chromium/0003-gcc16-climits.patch
+new file mode 100644
+index 00000000..d71fbfe4
+--- /dev/null
++++ b/recipes-qt/qt6/qtwebengine/chromium/0003-gcc16-climits.patch
+@@ -0,0 +1,17 @@
++Fix build w/ recent gcc-16's libstdc++
++
++Same issue as https://bugs.gentoo.org/971287 which only happens with gcc-16 libstdc++ snapshots.
++
++Upstream-Status: Pending
++Signed-off-by: Khem Raj <raj.khem@gmail.com>
++--- a/chromium/third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.cc
+++++ b/chromium/third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.cc
++@@ -2,6 +2,8 @@
++ // Use of this source code is governed by a BSD-style license that can be
++ // found in the LICENSE file.
++
+++#include <climits>
+++
++ #include "third_party/blink/renderer/platform/widget/input/prediction/predictor_factory.h"
++
++ #include "third_party/blink/public/common/features.h"

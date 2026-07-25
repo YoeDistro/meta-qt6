@@ -19,3 +19,5 @@ do_install:append() {
 FILES:${PN}-dev += "${prefix}/shiboken6/include"
 
 SYSROOT_DIRS += "${prefix}/shiboken6/include"
+
+OEQA_BUILDPATHS_SKIP = "/home/qt"
