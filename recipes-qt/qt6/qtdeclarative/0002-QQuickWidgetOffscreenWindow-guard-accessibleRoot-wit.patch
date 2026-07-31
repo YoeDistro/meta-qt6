@@ -1,0 +1,43 @@
+From bb91136e4b679bdbbbfdbac2d2251e2ba01e20d1 Mon Sep 17 00:00:00 2001
+From: MohammadHossein Qanbari <mohammad.qanbari@qt.io>
+Date: Thu, 30 Jul 2026 12:04:07 +0200
+Subject: [PATCH] QQuickWidgetOffscreenWindow: guard accessibleRoot with
+ QT_CONFIG
+
+Wrap the implementation of accessibleRoot() in the same
+QT_CONFIG(accessibility) guard used in the declaration.
+
+amends 9f13b5971449c7ef8807d457582760ea0dac8c54
+
+Fixes: QTBUG-148578
+Change-Id: I75b41f6e5e694a3be92757cd2932c86e5c9b3dbd
+Reviewed-by: Oliver Eftevaag <oliver.eftevaag@qt.io>
+(cherry picked from commit 002aea0f171efcf24d2045ef1708ca7d62be44ee)
+Reviewed-by: Qt Cherry-pick Bot <cherrypick_bot@qt-project.org>
+(cherry picked from commit 2f9c5fe60834a993962f281d19bbc6de6e5ce4ac)
+
+Upstream-Status: Backport
+---
+ src/quickwidgets/qquickwidget.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/quickwidgets/qquickwidget.cpp b/src/quickwidgets/qquickwidget.cpp
+index be6e8d6935..27159f2f0c 100644
+--- a/src/quickwidgets/qquickwidget.cpp
++++ b/src/quickwidgets/qquickwidget.cpp
+@@ -112,6 +112,7 @@ public:
+     QQuickWidget *m_quickWidget;
+ };
+ 
++#if QT_CONFIG(accessibility)
+ QAccessibleInterface *QQuickWidgetOffscreenWindow::accessibleRoot() const
+ {
+     Q_D(const QQuickWidgetOffscreenWindow);
+@@ -123,6 +124,7 @@ QAccessibleInterface *QQuickWidgetOffscreenWindow::accessibleRoot() const
+     }
+     return nullptr;
+ }
++#endif // QT_CONFIG(accessibility)
+ 
+ QQuickWidgetRenderControl::QQuickWidgetRenderControl(QQuickWidget *quickWidget)
+     : QQuickRenderControl(*(new QQuickWidgetRenderControlPrivate(this, quickWidget)), nullptr)
