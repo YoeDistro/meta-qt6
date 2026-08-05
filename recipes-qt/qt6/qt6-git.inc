@@ -19,7 +19,7 @@ PV = "${QT_VERSION}"
 
 SRCREV = "${SRCREV_${QT_MODULE_REPO}}"
 
-SRCREV_pyside-setup = "d0b77ae5efc4309e58913805124b6cfe9bf4b2f0"
+SRCREV_pyside-setup = "5794b203f9b891943c406276ce0db9cf3ed94c10"
 SRCREV_tqtc-qmlcompilerplus = "4c0d905a33d5bcb0cfdc32980183f5fc61161d0a"
 SRCREV_tqtc-qtinsighttracker = "2e4f4cda35499169a1a55fb2b06177058cd26c46"
 SRCREV_tqtc-qtvncserver = "d44822db783cec7c1f4e122bfe70e7822623b1fe"
