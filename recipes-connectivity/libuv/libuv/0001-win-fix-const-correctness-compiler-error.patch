@@ -1,0 +1,42 @@
+From 6cdf71da80873c7071c3edb3a5fae78feda35da8 Mon Sep 17 00:00:00 2001
+From: apocelipes <seve3r@outlook.com>
+Date: Thu, 12 Mar 2026 04:14:59 +0800
+Subject: [PATCH] win: fix const correctness compiler error (#5049)
+
+libuv 1.52.1 changed uv_cpu_info_s.model from 'char*' to 'const char*'
+in include/uv.h, but src/win/util.c was not updated. uv_cpu_info() takes
+the address of that field and passes it to uv__convert_utf16_to_utf8(),
+which is declared as taking 'char**', so the argument is now
+'const char**' and no longer converts:
+
+  src/win/util.c:630:31: error: passing argument 3 of
+      'uv__convert_utf16_to_utf8' from incompatible pointer type
+      [-Wincompatible-pointer-types]
+
+GCC has treated -Wincompatible-pointer-types as an error by default
+since GCC 14, so this breaks nativesdk-libuv for the mingw32 SDK. Only
+the Windows backend is affected; the unix backends assign to the field
+rather than taking its address.
+
+The fix landed upstream five days after the 1.52.1 release and is not in
+any tag yet - 1.52.1 is still the newest. Drop this patch once oe-core
+carries the fix or ships a libuv newer than 1.52.1.
+
+Upstream-Status: Backport [6cdf71da80873c7071c3edb3a5fae78feda35da8]
+---
+ src/win/util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/win/util.c b/src/win/util.c
+index fec07b269f7..bd9f7a67c13 100644
+--- a/src/win/util.c
++++ b/src/win/util.c
+@@ -627,7 +627,7 @@ int uv_cpu_info(uv_cpu_info_t** cpu_infos_ptr, int* cpu_count_ptr) {
+ 
+     uv__convert_utf16_to_utf8(cpu_brand,
+                               cpu_brand_size / sizeof(WCHAR),
+-                              &(cpu_info->model));
++                              (char**) &(cpu_info->model));
+   }
+ 
+   uv__free(sppi);
