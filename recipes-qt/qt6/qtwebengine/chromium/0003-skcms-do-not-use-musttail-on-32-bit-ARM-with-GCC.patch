@@ -1,0 +1,44 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Juho=20L=C3=A4=C3=A4kk=C3=B6?= <juho.laakko@qt.io>
+Date: Fri, 14 Aug 2026 09:45:00 +0300
+Subject: [PATCH] skcms: do not use musttail on 32-bit ARM with GCC
+
+skcms has two exec_stages() implementations. The musttail one is marked
+SI, i.e. static inline __attribute__((always_inline)); the other is a
+plain static function. SKCMS_HAS_MUSTTAIL selects between them.
+
+The clang branch of that selection deliberately excludes 32-bit ARM,
+because [[clang::musttail]] is known to break there (see the comment
+above it, crbug.com/1504548). The GCC branch was added later and only
+checks for the attribute, with no architecture exclusions at all. Once
+GCC advertises __has_cpp_attribute(clang::musttail) - GCC 16 does - an
+armv7 build therefore takes a code path upstream already knows does not
+work on 32-bit ARM, and the always_inline then cannot be honoured:
+
+  Transform_inl.h:1508:13: error: inlining failed in call to
+      'always_inline' 'void skcms_private::baseline::exec_stages(...)':
+      target specific option mismatch
+
+Apply the same exclusion clang uses. Upstream has been extending this
+branch one architecture at a time - riscv was added for the same class
+of failure, citing gcc.gnu.org/bugzilla/show_bug.cgi?id=121784 - so
+32-bit ARM simply has not been reported yet.
+
+Upstream-Status: Pending
+---
+ chromium/third_party/skia/modules/skcms/src/skcms_internals.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/chromium/third_party/skia/modules/skcms/src/skcms_internals.h b/chromium/third_party/skia/modules/skcms/src/skcms_internals.h
+index c869cd95a4bb..822755576831 100644
+--- a/chromium/third_party/skia/modules/skcms/src/skcms_internals.h
++++ b/chromium/third_party/skia/modules/skcms/src/skcms_internals.h
+@@ -57,7 +57,7 @@
+             #define SKCMS_HAS_MUSTTAIL 1
+         #endif
+     #elif !defined(__clang__) && !defined(SKCMS_HAS_MUSTTAIL)
+-        #if __has_cpp_attribute(clang::musttail)
++        #if __has_cpp_attribute(clang::musttail) && !defined(__arm__)
+             #define SKCMS_HAS_MUSTTAIL 1
+         #else
+             #define SKCMS_HAS_MUSTTAIL 0
