@@ -35,3 +35,5 @@ do_install:append() {
     rm -f ${D}${libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebEngineTestsConfig.cmake
     rm -f ${D}${libdir}/cmake/Qt6/Find*.cmake
 }
+
+INSANE_SKIP:${PN}-dev += "buildpaths"
