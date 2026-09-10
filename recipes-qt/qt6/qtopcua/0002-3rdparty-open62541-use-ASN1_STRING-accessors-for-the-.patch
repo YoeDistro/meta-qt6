@@ -1,0 +1,1114 @@
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 10 Sep 2026 07:25:00 +0000
+Subject: [PATCH] 3rdparty/open62541: use ASN1_STRING accessors for the SAN URI
+
+ASN1_IA5STRING is an alias for the ASN1_STRING type (struct
+asn1_string_st), which became opaque in OpenSSL 4.0 - it is no longer
+defined in any public header - so reading its members directly stops
+compiling:
+
+  open62541.c:122174:56: error: incomplete definition of type 'ASN1_IA5STRING' (aka 'struct asn1_string_st')
+   122174 |              subjectURI.length = (size_t) (value->d.ia5->length);
+  open62541.c:122182:58: error: incomplete definition of type 'ASN1_IA5STRING' (aka 'struct asn1_string_st')
+   122182 |              (void) memcpy (subjectURI.data, value->d.ia5->data, subjectURI.length);
+
+Use ASN1_STRING_length() and ASN1_STRING_get0_data() instead. Both are
+public accessors that OpenSSL has provided since 1.1.0, and they return
+exactly the members being read here, so behaviour is unchanged.
+
+This only breaks the target build, not qtopcua-native: the open62541
+PACKAGECONFIG that pulls this plugin in is empty for the native and
+nativesdk variants.
+
+Upstream-Status: Pending [the same code is still present upstream in
+open62541 itself, plugins/crypto/openssl/certificategroup.c, from which
+this amalgamated source is generated; qtopcua carries it as a vendored
+copy under src/3rdparty/open62541]
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+--- a/src/3rdparty/open62541/open62541.c
++++ b/src/3rdparty/open62541/open62541.c
+@@ -67,7 +67,7 @@
+ 
+ 
+ /*
+- * This file defines five types of data structures: singly-linked lists, 
++ * This file defines five types of data structures: singly-linked lists,
+  * lists, simple queues, tail queues, and circular queues.
+  *
+  *
+@@ -126,7 +126,7 @@
+ struct name {								\
+     struct type *slh_first;	/* first element */			\
+ }
+- 
++
+ #define	SLIST_HEAD_INITIALIZER(head)					\
+     { NULL }
+ 
+@@ -134,7 +134,7 @@ struct name {								\
+ struct {								\
+     struct type *sle_next;	/* next element */			\
+ }
+- 
++
+ /*
+  * Singly-linked List access methods.
+  */
+@@ -426,7 +426,7 @@ struct {								\
+             XSIMPLEQ_XOR(head, &(elm)->field.sqx_next);		\
+ } while (0)
+ 
+-            
++
+ /*
+  * Tail queue definitions.
+  */
+@@ -445,8 +445,8 @@ struct {								\
+     struct type **tqe_prev;	/* address of previous next element */	\
+ }
+ 
+-/* 
+- * tail queue access methods 
++/*
++ * tail queue access methods
+  */
+ #define	TAILQ_FIRST(head)		((head)->tqh_first)
+ #define	TAILQ_END(head)			NULL
+@@ -566,7 +566,7 @@ struct {								\
+ }
+ 
+ /*
+- * Circular queue access methods 
++ * Circular queue access methods
+  */
+ #define	CIRCLEQ_FIRST(head)		((head)->cqh_first)
+ #define	CIRCLEQ_LAST(head)		((head)->cqh_last)
+@@ -1057,21 +1057,21 @@ utf8_length(unsigned codepoint) {
+ 
+ /*
+  * Copyright 2017 Techie Delight
+- * Permission is hereby granted, free of charge, to any person obtaining a copy 
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
+  * of this software and associated documentation files (the "Software"), to deal
+- * in the Software without restriction, including without limitation the rights 
+- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+- * copies of the Software, and to permit persons to whom the Software is 
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
+  * furnished to do so, subject to the following conditions:
+- * 
+- * The above copyright notice and this permission notice shall be included 
++ *
++ * The above copyright notice and this permission notice shall be included
+  * in all copies or substantial portions of the Software.
+- * 
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
++ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  */
+ 
+@@ -1097,7 +1097,7 @@ UA_UInt16 itoaSigned(UA_Int64 value, cha
+ 
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+- * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  *
+  *    Copyright 2018, 2021-2022 (c) Julius Pfrommer
+  */
+@@ -1338,7 +1338,7 @@ extern "C" {
+ size_t parseUInt64(const char *str, size_t size, uint64_t *result);
+ size_t parseInt64(const char *str, size_t size, int64_t *result);
+ size_t parseDouble(const char *str, size_t size, double *result);
+-    
++
+ #ifdef __cplusplus
+ }
+ #endif
+@@ -6083,7 +6083,7 @@ _wseekdir(_WDIR *dirp, long loc)
+ {
+ 	if (!dirp)
+ 		return;
+-	
++
+ 	/* Directory must be open */
+ 	if (dirp->handle == INVALID_HANDLE_VALUE)
+ 		goto exit_failure;
+@@ -6582,7 +6582,7 @@ _UA_END_DECLS
+ //  will be return in `cj5_result` struct, and `num_tokens` will represent the
+ //  actual token count that is parsed. In case of errors, cj_result.error will
+ //  be set to an error code Here's a quick example of the usage.
+-//  
++//
+ //  #include "cj5.h"
+ //
+ //  cj5_token tokens[32];
+@@ -6590,7 +6590,7 @@ _UA_END_DECLS
+ //  if(r.error != CJ5_ERROR_NONE) {
+ //      if(r.error == CJ5_ERROR_OVERFLOW) {
+ //          // you can use r.num_tokens to determine the actual token count and reparse
+-//          printf("Error: line: %d, col: %d\n", r.error_line, r.error_code);    
++//          printf("Error: line: %d, col: %d\n", r.error_line, r.error_code);
+ //      }
+ //  }
+ 
+@@ -6972,7 +6972,7 @@ _UA_END_DECLS
+ /**
+  * PubSub State Machine
+  * --------------------
+- * 
++ *
+  * The following table described the behaviour of components expected during
+  * state changes and also the integration which is expected between the
+  * components.
+@@ -7175,7 +7175,7 @@ typedef struct UA_PubSubConnection {
+     UA_Boolean json; /* Extracted from the TransportProfileUrl */
+ 
+     /* Channels belonging to the PubSubConnection. Send channels belong to
+-     * WriterGroups, recv channels belong to ReaderGroups. We only open channels 
++     * WriterGroups, recv channels belong to ReaderGroups. We only open channels
+      * if there is at least one WriterGroup/ReaderGroup respectively.
+      *
+      * Some channels belong exclusively to just one WriterGroup/ReaderGroup that
+@@ -7433,7 +7433,7 @@ struct UA_ReaderGroup {
+ 
+     UA_Boolean hasReceived; /* Received a message since the last _connect */
+ 
+-    /* The ConnectionManager pointer is stored in the Connection. The channels 
++    /* The ConnectionManager pointer is stored in the Connection. The channels
+      * are either stored here or in the Connection, but never both. */
+     UA_PubSubConnection *linkedConnection;
+     uintptr_t recvChannels[UA_PUBSUB_MAXCHANNELS];
+@@ -32266,7 +32266,7 @@ escapedUri2Index(UA_String uri, UA_UInt1
+                  const UA_NamespaceMapping *nsMapping) {
+     if(!nsMapping)
+         return UA_STATUSCODE_BADDECODINGERROR;
+-    UA_String tmp = uri; 
++    UA_String tmp = uri;
+     status res = UA_String_unescape(&uri, true, UA_ESCAPING_PERCENT);
+     if(res != UA_STATUSCODE_GOOD)
+         return res;
+@@ -32323,7 +32323,7 @@ parse_nodeid(UA_NodeId *id, const u8 *po
+     UA_Byte *begin = (UA_Byte*)(uintptr_t)pos;
+     const u8 *ns = NULL, *nsu = NULL, *body = NULL;
+ 
+-    
++
+ {
+ 	u8 yych;
+ 	yych = YYPEEK();
+@@ -32514,7 +32514,7 @@ parse_expandednodeid(UA_ExpandedNodeId *
+     const u8 *svr = NULL, *sve = NULL, *svu = NULL,
+         *nsu = NULL, *ns = NULL, *body = NULL, *begin = pos;
+ 
+-    
++
+ {
+ 	u8 yych;
+ 	yych = YYPEEK();
+@@ -32888,7 +32888,7 @@ parse_qn(UA_QualifiedName *qn, const u8
+     UA_QualifiedName_init(qn);
+     qn->namespaceIndex = defaultNamespaceIndex;
+ 
+-    
++
+ {
+ 	u8 yych;
+ 	yych = YYPEEK();
+@@ -33207,7 +33207,7 @@ parseAttributeOperand(UA_AttributeOperan
+     /* Initial NodeId before the BrowsePath */
+     LexContext context;
+     memset(&context, 0, sizeof(LexContext));
+-    
++
+ {
+ 	u8 yych;
+ 	yych = YYPEEK();
+@@ -44801,7 +44801,7 @@ UA_BinaryProtocolManager_start(UA_Server
+     UA_BinaryProtocolManager *bpm = (UA_BinaryProtocolManager*)sc;
+ 
+     UA_ServerConfig *config = &server->config;
+-    
++
+     UA_StatusCode retVal =
+         addRepeatedCallback(server, secureChannelHouseKeeping,
+                             bpm, 1000.0, &bpm->houseKeepingCallbackId);
+@@ -54307,7 +54307,7 @@ browseReferencTargetCallback(void *conte
+         UA_ReferenceTypeSet_add(&refs, UA_REFERENCETYPEINDEX_HASTYPEDEFINITION);
+         UA_ReferenceTypeSet_add(&refs, UA_REFERENCETYPEINDEX_HASSUBTYPE);
+     }
+-    
++
+     /* Get the node */
+     const UA_Node *target =
+         UA_NODESTORE_GETFROMREF_SELECTIVE(bc->server, t->targetId,
+@@ -54315,13 +54315,13 @@ browseReferencTargetCallback(void *conte
+                                           refs, direction);
+     if(!target)
+         return NULL;
+-    
++
+     /* The node class has to match */
+     if(!matchClassMask(target, bd->nodeClassMask)) {
+         UA_NODESTORE_RELEASE(bc->server, target);
+         return NULL;
+     }
+-    
++
+     /* Reached maxrefs. Return the "abort" signal. */
+     if(bc->rr.size >= cp->maxReferences) {
+         UA_NODESTORE_RELEASE(bc->server, target);
+@@ -57280,7 +57280,7 @@ readCallbackValueAttribute(UA_Server *se
+     return retval;
+ }
+ 
+-/* OPC UA Part 6: Non-nullable built-in types are Boolean and the 
++/* OPC UA Part 6: Non-nullable built-in types are Boolean and the
+  * numeric types (SByte..Double), StatusCode and Enumerations.
+  * All remaining built-in types are nullable. */
+ static bool
+@@ -58160,7 +58160,7 @@ compatibleValue(UA_Server *server, UA_Se
+        value->arrayLength == 0) {
+         /* There is no way to check type compatibility here. Leave it for the upper layers to
+          * decide, if empty array is okay. */
+-        return true;        
++        return true;
+     }
+ 
+     /* Is the datatype compatible? */
+@@ -59401,7 +59401,7 @@ UA_Server_writeObjectProperty_scalar(UA_
+                                      const UA_QualifiedName propertyName,
+                                      const void *value, const UA_DataType *type) {
+     lockServer(server);
+-    UA_StatusCode retval = 
++    UA_StatusCode retval =
+         writeObjectProperty_scalar(server, objectId, propertyName, value, type);
+     unlockServer(server);
+     return retval;
+@@ -66009,7 +66009,7 @@ static Fp multiply(Fp* a, Fp* b) {
+     uint64_t al_bh = (a->frac & lomask) * (b->frac >> 32);
+     uint64_t al_bl = (a->frac & lomask) * (b->frac & lomask);
+     uint64_t ah_bh = (a->frac >> 32)    * (b->frac >> 32);
+-    uint64_t tmp = (ah_bl & lomask) + (al_bh & lomask) + (al_bl >> 32); 
++    uint64_t tmp = (ah_bl & lomask) + (al_bh & lomask) + (al_bl >> 32);
+     /* round up */
+     tmp += 1U << 31;
+     Fp fp;
+@@ -67003,25 +67003,25 @@ utf8_to_codepoint(const unsigned char *s
+ 
+ /*
+  * Copyright 2017 Techie Delight
+- * Permission is hereby granted, free of charge, to any person obtaining a copy 
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
+  * of this software and associated documentation files (the "Software"), to deal
+- * in the Software without restriction, including without limitation the rights 
+- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+- * copies of the Software, and to permit persons to whom the Software is 
++ * in the Software without restriction, including without limitation the rights
++ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++ * copies of the Software, and to permit persons to whom the Software is
+  * furnished to do so, subject to the following conditions:
+- * 
+- * The above copyright notice and this permission notice shall be included 
++ *
++ * The above copyright notice and this permission notice shall be included
+  * in all copies or substantial portions of the Software.
+- * 
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
+- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
++ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  */
+ 
+-/* Originally released by techiedelight.com 
++/* Originally released by techiedelight.com
+  * (http://www.techiedelight.com/implement-itoa-function-in-c/) under the
+  * MIT license. */
+ 
+@@ -67105,7 +67105,7 @@ UA_UInt16 itoaSigned(UA_Int64 value, cha
+ 
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+- * file, You can obtain one at http://mozilla.org/MPL/2.0/. 
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  *
+  *    Copyright 2021-2022 (c) Julius Pfrommer
+  */
+@@ -67456,7 +67456,7 @@ __ZIP_UNZIP(zip_cmp_cb cmp, unsigned sho
+ /**** amalgamated original file "/deps/parse_num.c" ****/
+ 
+ /* Originally released by the musl project (http://www.musl-libc.org/) under the
+- * MIT license. Taken and adapted from the file src/stdlib/atoi.c 
++ * MIT license. Taken and adapted from the file src/stdlib/atoi.c
+  *
+  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  * of this software and associated documentation files (the "Software"), to deal
+@@ -100922,7 +100922,7 @@ browseDataTypesRecursive(UA_Client *clie
+             break;
+         }
+         *entry = (NodeIdTreeEntry){{NULL, NULL}, rd->nodeId.nodeId, rd->displayName.text};
+-            
++
+         ZIP_INSERT(NodeIdTree, tree, entry);
+         (*treeSize)++;
+ 
+@@ -101461,7 +101461,7 @@ UA_EventFilter_skip(const UA_ByteString
+     *offset = (uintptr_t)(pos - content.data);
+     size_t initial = *offset;
+ 
+-    
++
+ {
+ 	u8 yych;
+ 	yych = YYPEEK();
+@@ -101544,7 +101544,7 @@ UA_EventFilter_lex(const UA_ByteString c
+         /* Store the beginning */
+         b = pos;
+ 
+-        
++
+ {
+ 	u8 yych;
+ 	unsigned int yyaccept = 0;
+@@ -110018,7 +110018,7 @@ static void UA_EventFilterParse(void *yy
+ **                       the minor type might be the name of the identifier.
+ **                       Each non-terminal can have a different minor type.
+ **                       Terminal symbols all have the same minor type, though.
+-**                       This macros defines the minor type for terminal 
++**                       This macros defines the minor type for terminal
+ **                       symbols.
+ **    YYMINORTYPE        is the data type used for all minor types.
+ **                       This is typically a union of many types, one of
+@@ -110053,7 +110053,7 @@ static void UA_EventFilterParse(void *yy
+ #define YYCODETYPE unsigned char
+ #define YYNOCODE 30
+ #define YYACTIONTYPE unsigned char
+-#define UA_EventFilterParseTOKENTYPE  Operand * 
++#define UA_EventFilterParseTOKENTYPE  Operand *
+ typedef union {
+   int yyinit;
+   UA_EventFilterParseTOKENTYPE yy0;
+@@ -110062,8 +110062,8 @@ typedef union {
+ #define YYSTACKDEPTH 100
+ #endif
+ #define UA_EventFilterParseARG_SDECL  EFParseContext *ctx ;
+-#define UA_EventFilterParseARG_PDECL , EFParseContext *ctx 
+-#define UA_EventFilterParseARG_PARAM ,ctx 
++#define UA_EventFilterParseARG_PDECL , EFParseContext *ctx
++#define UA_EventFilterParseARG_PARAM ,ctx
+ #define UA_EventFilterParseARG_FETCH  EFParseContext *ctx =yypParser->ctx ;
+ #define UA_EventFilterParseARG_STORE yypParser->ctx =ctx ;
+ #define UA_EventFilterParseCTX_SDECL
+@@ -110102,7 +110102,7 @@ typedef union {
+ /* Next are the tables used to determine what action to take based on the
+ ** current state and lookahead token.  These tables are used to implement
+ ** functions that take a state number and lookahead value and return an
+-** action integer.  
++** action integer.
+ **
+ ** Suppose the action integer is N.  Then the action is determined as
+ ** follows
+@@ -110200,9 +110200,9 @@ static const YYACTIONTYPE yy_default[] =
+ };
+ /********** End of lemon-generated parsing tables *****************************/
+ 
+-/* The next table maps tokens (terminal symbols) into fallback tokens.  
++/* The next table maps tokens (terminal symbols) into fallback tokens.
+ ** If a construct like the following:
+-** 
++**
+ **      %fallback ID X Y Z.
+ **
+ ** appears in the grammar, then ID becomes a fallback token for X, Y,
+@@ -110275,10 +110275,10 @@ static char *yyTracePrompt = 0;
+ #endif /* NDEBUG */
+ 
+ #ifndef NDEBUG
+-/* 
++/*
+ ** Turn parser tracing on by giving a stream to which to write the trace
+ ** and a prompt to preface each trace message.  Tracing is turned off
+-** by making either argument NULL 
++** by making either argument NULL
+ **
+ ** Inputs:
+ ** <ul>
+@@ -110303,7 +110303,7 @@ void UA_EventFilterParseTrace(FILE *Trac
+ #if defined(YYCOVERAGE) || !defined(NDEBUG)
+ /* For tracing shifts, the names of all terminals and nonterminals
+ ** are required.  The following table supplies these names */
+-static const char *const yyTokenName[] = { 
++static const char *const yyTokenName[] = {
+   /*    0 */ "$",
+   /*    1 */ "OR",
+   /*    2 */ "AND",
+@@ -110400,7 +110400,7 @@ static int yyGrowStack(yyParser *p){
+ #endif
+     p->yystksz = newSize;
+   }
+-  return pNew==0; 
++  return pNew==0;
+ }
+ #endif
+ 
+@@ -110442,7 +110442,7 @@ void UA_EventFilterParseInit(void *yypRa
+ }
+ 
+ #ifndef UA_EventFilterParse_ENGINEALWAYSONSTACK
+-/* 
++/*
+ ** This function allocates a new parser.
+ ** The only argument is a pointer to a function which works like
+ ** malloc.
+@@ -110469,7 +110469,7 @@ void *UA_EventFilterParseAlloc(void *(*m
+ /* The following function deletes the "minor type" or semantic value
+ ** associated with a symbol.  The symbol can be either a terminal
+ ** or nonterminal. "yymajor" is the symbol code, and "yypminor" is
+-** a pointer to the value to be deleted.  The code used to do the 
++** a pointer to the value to be deleted.  The code used to do the
+ ** deletions is derived from the %destructor and/or %token_destructor
+ ** directives of the input grammar.
+ */
+@@ -110484,7 +110484,7 @@ static void yy_destructor(
+     /* Here is inserted the actions which take place when a
+     ** terminal or non-terminal is destroyed.  This can happen
+     ** when the symbol is popped from the stack during a
+-    ** reduce or during error processing or when a parser is 
++    ** reduce or during error processing or when a parser is
+     ** being destroyed before it is finished parsing.
+     **
+     ** Note: during a reduce, the only symbols destroyed are those
+@@ -110513,7 +110513,7 @@ static void yy_destructor(
+     case 18: /* FOR */
+     case 19: /* COLONEQUAL */
+ {
+- (void)ctx; 
++ (void)ctx;
+ }
+       break;
+ /********* End destructor definitions *****************************************/
+@@ -110554,7 +110554,7 @@ void UA_EventFilterParseFinalize(void *p
+ }
+ 
+ #ifndef UA_EventFilterParse_ENGINEALWAYSONSTACK
+-/* 
++/*
+ ** Deallocate and destroy a parser.  Destructors are called for
+ ** all stack elements before shutting the parser down.
+ **
+@@ -110774,7 +110774,7 @@ static void yy_shift(
+     assert( yypParser->yyhwm == (int)(yypParser->yytos - yypParser->yystack) );
+   }
+ #endif
+-#if YYSTACKDEPTH>0 
++#if YYSTACKDEPTH>0
+   if( yypParser->yytos>yypParser->yystackEnd ){
+     yypParser->yytos--;
+     yyStackOverflow(yypParser);
+@@ -111041,7 +111041,7 @@ static void yy_syntax_error(
+   UA_EventFilterParseCTX_FETCH
+ #define TOKEN yyminor
+ /************ Begin %syntax_error code ****************************************/
+- ctx->error = UA_STATUSCODE_BADINTERNALERROR; 
++ ctx->error = UA_STATUSCODE_BADINTERNALERROR;
+ /************ End %syntax_error code ******************************************/
+   UA_EventFilterParseARG_STORE /* Suppress warning about unused %extra_argument variable */
+   UA_EventFilterParseCTX_STORE
+@@ -111162,7 +111162,7 @@ void UA_EventFilterParse(
+                   (int)(yypParser->yytos - yypParser->yystack));
+         }
+ #endif
+-#if YYSTACKDEPTH>0 
++#if YYSTACKDEPTH>0
+         if( yypParser->yytos>=yypParser->yystackEnd ){
+           yyStackOverflow(yypParser);
+           break;
+@@ -111201,7 +111201,7 @@ void UA_EventFilterParse(
+ #ifdef YYERRORSYMBOL
+       /* A syntax error has occurred.
+       ** The response to an error depends upon whether or not the
+-      ** grammar defines an error token "ERROR".  
++      ** grammar defines an error token "ERROR".
+       **
+       ** This is what we do if the grammar does define ERROR:
+       **
+@@ -111508,7 +111508,7 @@ cj5__parse_string(cj5__parser *parser) {
+                 token->end = parser->pos - 1;
+                 token->size = token->end - token->start + 1;
+                 token->parent_id = parser->curr_tok_idx;
+-            } 
++            }
+             return;
+         }
+ 
+@@ -111558,7 +111558,7 @@ cj5__parse_primitive(cj5__parser* parser
+         fourcc += ((unsigned char)json5[start+2] | 32U) << 16;
+         fourcc += ((unsigned char)json5[start+3] | 32U) << 24;
+     }
+-    
++
+     cj5_token_type type;
+     if(fourcc == CJ5__NULL_FOURCC) {
+         type = CJ5_TOKEN_NULL;
+@@ -111581,7 +111581,7 @@ cj5__parse_primitive(cj5__parser* parser
+         for(; parser->pos < len; parser->pos++) {
+             if(!cj5__isnum(json5[parser->pos]) &&
+                !(json5[parser->pos] == '.') &&
+-               !cj5__islowerchar(json5[parser->pos]) && 
++               !cj5__islowerchar(json5[parser->pos]) &&
+                !cj5__isupperchar(json5[parser->pos]) &&
+                !(json5[parser->pos] == '+') && !(json5[parser->pos] == '-')) {
+                 break;
+@@ -118494,7 +118494,7 @@ UA_ExtendedNetworkMessageHeader_decodeBi
+     UA_Byte *endPos = ctx->ctx.pos + promotedFieldsLength;
+     if(endPos > ctx->ctx.end)
+         return UA_STATUSCODE_BADDECODINGERROR;
+-    
++
+     size_t counter = 0;
+     size_t space = 4;
+     UA_Variant *pf = (UA_Variant*)
+@@ -118695,11 +118695,11 @@ UA_NetworkMessage_decodeFooters(PubSubDe
+     if(!nm->securityHeader.securityFooterEnabled ||
+        nm->securityHeader.securityFooterSize == 0)
+         return UA_STATUSCODE_GOOD;
+-    
++
+     UA_StatusCode rv = UA_ByteString_allocBuffer(&nm->securityFooter,
+                                                  nm->securityHeader.securityFooterSize);
+     UA_CHECK_STATUS(rv, return rv);
+-    
++
+     for(UA_UInt16 i = 0; i < nm->securityHeader.securityFooterSize; i++) {
+         rv |= _DECODE_BINARY(&nm->securityFooter.data[i], BYTE);
+     }
+@@ -119330,7 +119330,7 @@ UA_DataSetMessage_keyFrame_encodeBinary(
+         rv = _ENCODE_BINARY(&src->fieldCount, UINT16);
+         UA_CHECK_STATUS(rv, return rv);
+     }
+-    
++
+     for(UA_UInt16 i = 0; i < src->fieldCount; i++) {
+         const UA_DataValue *v = &src->data.keyFrameFields[i];
+         if(src->header.fieldEncoding == UA_FIELDENCODING_VARIANT) {
+@@ -119376,7 +119376,7 @@ UA_DataSetMessage_encodeBinary(PubSubEnc
+                                const UA_DataSetMessage* src) {
+     /* Store the beginning */
+     UA_Byte *begin = ctx->ctx.pos;
+-    
++
+     /* Encode Header */
+     UA_StatusCode rv = UA_DataSetMessageHeader_encodeBinary(ctx, &src->header);
+     UA_CHECK_STATUS(rv, return rv);
+@@ -119797,11 +119797,11 @@ UA_DataSetMessage_calcSizeBinary(PubSubE
+     /* Minimum message size configured.
+      * If the message is larger than the configuredSize, it shall be set to not valid. */
+     if(emd && emd->configuredSize > 0) {
+-        if(emd->configuredSize < size) 
++        if(emd->configuredSize < size)
+             p->header.dataSetMessageValid = false;
+         size = emd->configuredSize;
+     }
+-    
++
+     return size;
+ }
+ 
+@@ -120422,7 +120422,7 @@ PubSubChannelCallback(UA_ConnectionManag
+     /* Message received */
+     if(UA_LIKELY(recv && msg.length > 0))
+         UA_PubSubConnection_process(psm, psc, msg);
+-    
++
+     unlockServer(server);
+ }
+ 
+@@ -120558,7 +120558,7 @@ UA_PubSubConnection_connectETH(UA_PubSub
+     UA_Boolean listen = true;
+     UA_KeyValuePair kvp[7];
+     UA_KeyValueMap kvm = {7, kvp};
+-    
++
+     kvp[0].key = UA_QUALIFIEDNAME(0, "address");
+     UA_Variant_setScalar(&kvp[0].value, &address, &UA_TYPES[UA_TYPES_STRING]);
+     kvp[1].key = UA_QUALIFIEDNAME(0, "listen");
+@@ -120571,7 +120571,7 @@ UA_PubSubConnection_connectETH(UA_PubSub
+     UA_UInt16 ether_type = 0xB62C;
+     kvp[4].key = UA_QUALIFIEDNAME(0, "ethertype");
+     UA_Variant_setScalar(&kvp[4].value, &ether_type, &UA_TYPES[UA_TYPES_UINT16]);
+-    
++
+     kvp[5].key = UA_QUALIFIEDNAME(0,"vid");
+     UA_Variant_setScalar(&kvp[5].value, &vid, &UA_TYPES[UA_TYPES_UINT16]);
+ 
+@@ -122127,7 +122127,7 @@ UA_PubSubDataSetWriter_generateKeyFrameM
+     return UA_STATUSCODE_GOOD;
+ }
+ 
+-/* the input message is already initialized and that the method 
++/* the input message is already initialized and that the method
+  * must not be called twice for the same message */
+ static UA_StatusCode
+ UA_PubSubDataSetWriter_generateDeltaFrameMessage(UA_PubSubManager *psm,
+@@ -123167,7 +123167,7 @@ encodeNetworkMessage(UA_WriterGroup *wg,
+ }
+ 
+ static void
+-sendNetworkMessageBuffer(UA_PubSubManager *psm, UA_WriterGroup *wg, 
++sendNetworkMessageBuffer(UA_PubSubManager *psm, UA_WriterGroup *wg,
+                          UA_PubSubConnection *connection, uintptr_t connectionId,
+                          UA_ByteString *buffer) {
+     UA_StatusCode res = connection->cm->
+@@ -123661,7 +123661,7 @@ WriterGroupChannelCallback(UA_Connection
+ 
+     /* Connection open, set to operational if not already done */
+     UA_WriterGroup_setPubSubState(psm, wg, wg->head.state);
+-    
++
+     /* Send-channels don't receive messages */
+     unlockServer(server);
+ }
+@@ -124794,7 +124794,7 @@ UA_DataSetReader_setPubSubState(UA_PubSu
+         server->config.pubSubConfig.
+             stateChangeCallback(server, dsr->head.identifier,
+                                 dsr->head.state, errorReason);
+-                                
++
+     return res;
+ }
+ 
+@@ -124815,7 +124815,7 @@ DataSetReader_createTargetVariables(UA_P
+ 
+     UA_TargetVariablesDataType newVars;
+     UA_TargetVariablesDataType tmp = {tvsSize, (UA_FieldTargetDataType*)(uintptr_t)tvs};
+-    UA_StatusCode res = UA_TargetVariablesDataType_copy(&tmp, &newVars);   
++    UA_StatusCode res = UA_TargetVariablesDataType_copy(&tmp, &newVars);
+     if(res != UA_STATUSCODE_GOOD)
+         return res;
+ 
+@@ -127654,17 +127654,17 @@ pubSubStateVariableDataSourceRead(UA_Ser
+     UA_PubSubComponentType componentType;
+     void *component = NULL;
+     UA_Boolean isPublishSubscribeObject = false;
+-    
++
+     UA_StatusCode retVal = findPubSubComponentFromStatus(server, &statusObjectId,
+                                                         &componentNodeId, &componentType, &component, &isPublishSubscribeObject);
+     if(retVal != UA_STATUSCODE_GOOD)
+         return retVal;
+ 
+     UA_PubSubState state = UA_PUBSUBSTATE_DISABLED;
+-    
++
+     if(isPublishSubscribeObject) {
+         UA_PubSubManager *psm = (UA_PubSubManager*)component;
+-        state = (psm->sc.state == UA_LIFECYCLESTATE_STARTED) ? 
++        state = (psm->sc.state == UA_LIFECYCLESTATE_STARTED) ?
+                 UA_PUBSUBSTATE_OPERATIONAL : UA_PUBSUBSTATE_DISABLED;
+     } else {
+         switch(componentType) {
+@@ -127711,7 +127711,7 @@ enablePubSubObjectAction(UA_Server *serv
+     UA_PubSubComponentType componentType;
+     void *component = NULL;
+     UA_Boolean isPublishSubscribeObject = false;
+-    
++
+     UA_StatusCode retVal = findPubSubComponentFromStatus(server, objectId,
+                                                         &componentNodeId, &componentType, &component, &isPublishSubscribeObject);
+     if(retVal != UA_STATUSCODE_GOOD)
+@@ -127791,7 +127791,7 @@ disablePubSubObjectAction(UA_Server *ser
+     UA_PubSubComponentType componentType;
+     void *component = NULL;
+     UA_Boolean isPublishSubscribeObject = false;
+-    
++
+     UA_StatusCode retVal = findPubSubComponentFromStatus(server, objectId,
+                                                         &componentNodeId, &componentType, &component, &isPublishSubscribeObject);
+     if(retVal != UA_STATUSCODE_GOOD)
+@@ -128502,7 +128502,7 @@ addPubSubConnectionRepresentation(UA_Ser
+                          UA_NS0ID(PUBSUBCONNECTIONTYPE_ADDREADERGROUP), true);
+         retVal |= addRef(server, connection->head.identifier, UA_NS0ID(HASCOMPONENT),
+                          UA_NS0ID(PUBSUBCONNECTIONTYPE_REMOVEGROUP), true);
+-        
++
+         if(!UA_NodeId_isNull(&statusIdNode)) {
+             retVal |= addRef(server, statusIdNode,
+                             UA_NS0ID(HASCOMPONENT),
+@@ -128700,7 +128700,7 @@ addDataSetReaderRepresentation(UA_Server
+     if(!UA_NodeId_isNull(&stateNodeId)) {
+         UA_DataSource stateDataSource;
+         stateDataSource.read = pubSubStateVariableDataSourceRead;
+-        stateDataSource.write = NULL; 
++        stateDataSource.write = NULL;
+         retVal |= UA_Server_setVariableNode_dataSource(server, stateNodeId, stateDataSource);
+     }
+ 
+@@ -128715,12 +128715,12 @@ addDataSetReaderRepresentation(UA_Server
+     writeValueAttribute(server, dataSetwriterIdNode, &value);
+ 
+     if(server->config.pubSubConfig.enableInformationModelMethods) {
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_ENABLE), true);
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_DISABLE), true);
+     }
+-    
++
+     return retVal;
+ }
+ 
+@@ -129150,14 +129150,14 @@ addWriterGroupRepresentation(UA_Server *
+     UA_NodeId publishingIntervalNode =
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "PublishingInterval"),
+                             UA_NS0ID(HASPROPERTY), writerGroup->head.identifier);
+-    UA_NodeId statusIdNode = 
++    UA_NodeId statusIdNode =
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "Status"),
+                             UA_NS0ID(HASCOMPONENT), writerGroup->head.identifier);
+ 
+     if(UA_NodeId_isNull(&statusIdNode))
+         return UA_STATUSCODE_BADNOTFOUND;
+ 
+-    UA_NodeId stateIdNode = 
++    UA_NodeId stateIdNode =
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "State"),
+                             UA_NS0ID(HASCOMPONENT), statusIdNode);
+ 
+@@ -129260,9 +129260,9 @@ addWriterGroupRepresentation(UA_Server *
+         retVal |= addRef(server, writerGroup->head.identifier,
+                          UA_NS0ID(HASCOMPONENT),
+                          UA_NS0ID(WRITERGROUPTYPE_REMOVEDATASETWRITER), true);
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_ENABLE), true);
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_DISABLE), true);
+     }
+     return retVal;
+@@ -129390,14 +129390,14 @@ addReaderGroupRepresentation(UA_Server *
+                 &object_attr, &UA_TYPES[UA_TYPES_OBJECTATTRIBUTES],
+                 NULL, &readerGroup->head.identifier);
+ 
+-    UA_NodeId statusIdNode = 
++    UA_NodeId statusIdNode =
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "Status"),
+                             UA_NS0ID(HASCOMPONENT), readerGroup->head.identifier);
+ 
+     if(UA_NodeId_isNull(&statusIdNode))
+         return UA_STATUSCODE_BADNOTFOUND;
+ 
+-    UA_NodeId stateIdNode = 
++    UA_NodeId stateIdNode =
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "State"),
+                             UA_NS0ID(HASCOMPONENT), statusIdNode);
+ 
+@@ -129414,9 +129414,9 @@ addReaderGroupRepresentation(UA_Server *
+                          UA_NS0ID(READERGROUPTYPE_ADDDATASETREADER), true);
+         retVal |= addRef(server, readerGroup->head.identifier, UA_NS0ID(HASCOMPONENT),
+                          UA_NS0ID(READERGROUPTYPE_REMOVEDATASETREADER), true);
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_ENABLE), true);
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_DISABLE), true);
+     }
+     return retVal;
+@@ -129487,14 +129487,14 @@ addDataSetWriterRepresentation(UA_Server
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "DataSetFieldContentMask"),
+                             UA_NS0ID(HASPROPERTY), dataSetWriter->head.identifier);
+ 
+-    UA_NodeId statusIdNode = 
++    UA_NodeId statusIdNode =
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "Status"),
+                             UA_NS0ID(HASCOMPONENT), dataSetWriter->head.identifier);
+-    
++
+     if(UA_NodeId_isNull(&statusIdNode))
+         return UA_STATUSCODE_BADNOTFOUND;
+ 
+-    UA_NodeId stateIdNode = 
++    UA_NodeId stateIdNode =
+         findSingleChildNode(server, UA_QUALIFIEDNAME(0, "State"),
+                             UA_NS0ID(HASCOMPONENT), statusIdNode);
+ 
+@@ -129547,9 +129547,9 @@ addDataSetWriterRepresentation(UA_Server
+                       &UA_TYPES[UA_TYPES_OBJECTATTRIBUTES],
+                       NULL, NULL);
+     if(server->config.pubSubConfig.enableInformationModelMethods) {
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_ENABLE), true);
+-        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT), 
++        retVal |= addRef(server, statusIdNode, UA_NS0ID(HASCOMPONENT),
+                         UA_NS0ID(PUBSUBSTATUSTYPE_DISABLE), true);
+     }
+ 
+@@ -129808,7 +129808,7 @@ initPubSubNS0(UA_Server *server) {
+     UA_CallbackValueSource statusCallback;
+     statusCallback.read = pubSubStateVariableDataSourceRead;
+     statusCallback.write = NULL;
+-    retVal |= setVariableValueSource(server, statusCallback, 
++    retVal |= setVariableValueSource(server, statusCallback,
+                                     UA_NS0ID(PUBLISHSUBSCRIBE_STATUS_STATE), NULL);
+ 
+     if(server->config.pubSubConfig.enableInformationModelMethods) {
+@@ -130331,7 +130331,7 @@ initPubSubNS0_SKS(UA_Server *server) {
+     UA_LOCK_ASSERT(&server->serviceMutex);
+ 
+     UA_StatusCode retVal = UA_STATUSCODE_GOOD;
+-    
++
+     if(server->config.pubSubConfig.enableInformationModelMethods) {
+         /* Set SKS method callbacks */
+         retVal |= setMethodNode_callback(server, UA_NS0ID(PUBLISHSUBSCRIBE_SETSECURITYKEYS), setSecurityKeysAction);
+@@ -131541,24 +131541,24 @@ updatePubSubConfig(UA_PubSubManager *psm
+             break;
+         }
+     }
+-    
++
+     if(res != UA_STATUSCODE_GOOD) {
+         UA_free(publishedDataSetIdent);
+         return res;
+     }
+-    
++
+     /* Phase 2: Enable components based on original configuration */
+     UA_LOG_INFO(psm->logging, UA_LOGCATEGORY_PUBSUB,
+                 "[UA_PubSubManager_updatePubSubConfig] START COMPONENTS (Phase 2: Enabling)");
+-    
++
+     /* Enable connections and their child components */
+     for(size_t i = 0; i < configurationParameters->connectionsSize; i++) {
+         const UA_PubSubConnectionDataType *connParams = &configurationParameters->connections[i];
+-        
++
+         if(connParams->enabled) {
+             UA_PubSubConnection *conn = UA_PubSubConnection_find(psm, connectionIdents[i]);
+             if(conn) {
+-                conn->config.enabled = true;                
++                conn->config.enabled = true;
+                 UA_WriterGroup *wg;
+                 size_t wgIndex = 0;
+                 LIST_FOREACH(wg, &conn->writerGroups, listEntry) {
+@@ -131567,7 +131567,7 @@ updatePubSubConfig(UA_PubSubManager *psm
+                         UA_DataSetWriter *dsw;
+                         size_t dswIndex = 0;
+                         LIST_FOREACH(dsw, &wg->writers, listEntry) {
+-                            if(dswIndex < connParams->writerGroups[wgIndex].dataSetWritersSize && 
++                            if(dswIndex < connParams->writerGroups[wgIndex].dataSetWritersSize &&
+                                connParams->writerGroups[wgIndex].dataSetWriters[dswIndex].enabled) {
+                                 dsw->config.enabled = true;
+                             }
+@@ -131576,17 +131576,17 @@ updatePubSubConfig(UA_PubSubManager *psm
+                     }
+                     wgIndex++;
+                 }
+-                
++
+                 /* Enable reader groups */
+                 UA_ReaderGroup *rg;
+                 size_t rgIndex = 0;
+                 LIST_FOREACH(rg, &conn->readerGroups, listEntry) {
+                     if(rgIndex < connParams->readerGroupsSize && connParams->readerGroups[rgIndex].enabled) {
+-                        rg->config.enabled = true;                        
++                        rg->config.enabled = true;
+                         UA_DataSetReader *dsr;
+                         size_t dsrIndex = 0;
+                         LIST_FOREACH(dsr, &rg->readers, listEntry) {
+-                            if(dsrIndex < connParams->readerGroups[rgIndex].dataSetReadersSize && 
++                            if(dsrIndex < connParams->readerGroups[rgIndex].dataSetReadersSize &&
+                                connParams->readerGroups[rgIndex].dataSetReaders[dsrIndex].enabled) {
+                                 dsr->config.enabled = true;
+                             }
+@@ -131608,7 +131608,7 @@ updatePubSubConfig(UA_PubSubManager *psm
+         UA_PubSubManager_setState(psm, UA_LIFECYCLESTATE_STARTED);
+         psm->pubSubInitialSetupMode = false;
+     }
+-    
++
+     UA_free(connectionIdents);
+     UA_free(publishedDataSetIdent);
+     return res;
+@@ -135208,7 +135208,7 @@ UA_DiscoveryManager_setState(UA_Discover
+     if(state == UA_LIFECYCLESTATE_STOPPING ||
+        state == UA_LIFECYCLESTATE_STOPPED) {
+         state = UA_LIFECYCLESTATE_STOPPED;
+-#ifdef UA_ENABLE_DISCOVERY_MULTICAST_MDNSD 
++#ifdef UA_ENABLE_DISCOVERY_MULTICAST_MDNSD
+         if(UA_DiscoveryManager_getMdnsConnectionCount() > 0)
+             state = UA_LIFECYCLESTATE_STOPPING;
+ #endif
+@@ -136097,7 +136097,7 @@ _UA_END_DECLS
+ #define UA_MAXSUBJECTLENGTH 512
+ #define MBEDTLS_SAN_MAX_LEN    64
+ 
+-/* 
++/*
+  * Define fallback for MBEDTLS_ASN1_CHK_CLEANUP_ADD if not already defined.
+  * Some versions of mbedTLS (≥3.x) provide this macro via <mbedtls/asn1write.h>,
+  * but it may be missing in others, or unavailable in amalgamation builds.
+@@ -136625,7 +136625,7 @@ allowTransferSubscription_default(UA_Ser
+                                   const UA_NodeId *newSessionId, void *newSessionContext) {
+     if(!oldSessionId)
+         return false;
+-    
++
+     /* Get clientUserId for both sessions */
+     UA_Variant session1UserId;
+     UA_Variant_init(&session1UserId);
+@@ -136644,7 +136644,7 @@ allowTransferSubscription_default(UA_Ser
+        session2UserId.type == &UA_TYPES[UA_TYPES_STRING]) {
+         UA_String *userId1 = (UA_String*)session1UserId.data;
+         UA_String *userId2 = (UA_String*)session2UserId.data;
+-        
++
+         if(userId1->length == 0 && userId2->length == 0) {
+             /* Both users are anonymous.
+              * For anonymous users, the OPC UA specification requires
+@@ -136724,10 +136724,10 @@ allowTransferSubscription_default(UA_Ser
+             result = true;
+         }
+     }
+-    
++
+     UA_Variant_clear(&session1UserId);
+     UA_Variant_clear(&session2UserId);
+-    
++
+     return result;
+ }
+ #endif
+@@ -140595,14 +140595,14 @@ UA_Timer_process(UA_Timer *t, UA_DateTim
+     /* Consistency check. The smallest not-processed entry isn't ready. */
+     UA_assert(!ZIP_MIN(UA_TimerTree, &t->tree) ||
+               ZIP_MIN(UA_TimerTree, &t->tree)->nextTime > now);
+-        
++
+     /* Iterate over the entries that need processing in-order. This also
+      * moves them back to the regular time-ordered tree. */
+     struct TimerProcessContext ctx;
+     ctx.t = t;
+     ctx.now = now;
+     ZIP_ITER(UA_TimerTree, &processTree, processEntryCallback, &ctx);
+-        
++
+     /* Compute the timestamp of the earliest next callback */
+     UA_TimerEntry *first = ZIP_MIN(UA_TimerTree, &t->tree);
+     UA_DateTime next = (first) ? first->nextTime : UA_INT64_MAX;
+@@ -142340,7 +142340,7 @@ int UA_EventLoopPOSIX_pipe(SOCKET fds[2]
+ }
+ #elif defined(__QNX__)
+ int UA_EventLoopPOSIX_pipe(int fds[2]) {
+-    int err = pipe(fds); 
++    int err = pipe(fds);
+     if(err == -1) {
+       return err;
+     }
+@@ -147592,9 +147592,9 @@ const parseJsonSignature parseJsonJumpTa
+     (parseJsonSignature)RuleHandlingField_parseJson,
+ };
+ 
+-/* Skips unknown item (simple, object or array) in config file. 
+-* Unknown items may happen if we don't support some features. 
+-* E.g. if  UA_ENABLE_ENCRYPTION is not defined and config file 
++/* Skips unknown item (simple, object or array) in config file.
++* Unknown items may happen if we don't support some features.
++* E.g. if  UA_ENABLE_ENCRYPTION is not defined and config file
+ * contains "securityPolicies" entry.
+ */
+ static void
+@@ -151284,7 +151284,7 @@ UA_SecurityPolicy_Filestore(UA_SecurityP
+     /* Asymmetric Encryption */
+     UA_SecurityPolicyEncryptionAlgorithm *asymEnc = &sp->asymEncryptionAlgorithm;
+     asymEnc->uri = isp->asymEncryptionAlgorithm.uri;
+-    asymEnc->encrypt = asym_encrypt_filestore; 
++    asymEnc->encrypt = asym_encrypt_filestore;
+     asymEnc->decrypt = asym_decrypt_filestore;
+     asymEnc->getLocalKeyLength = asym_getLocalKeyLength_filestore;
+     asymEnc->getRemoteKeyLength = asym_getRemoteKeyLength_filestore;
+@@ -152489,7 +152489,7 @@ UA_mbedTLS_ECDSA_Sign(const UA_ByteStrin
+     if(p >= end || *p != 0x02)
+         return UA_STATUSCODE_BADINTERNALERROR;
+     p++;
+-    size_t rLen = *p++; 
++    size_t rLen = *p++;
+     /* Skip leading zero padding */
+     while(rLen > sizeEncCoordinate && *p == 0x00) { p++; rLen--; }
+     if(rLen > sizeEncCoordinate)
+@@ -157303,7 +157303,7 @@ sign_pubsub_aes128ctr(const UA_PubSubSec
+ 
+     UA_ByteString signingKey =
+         {UA_AES128CTR_SIGNING_KEY_LENGTH, gc->signingKey};
+-    if(mbedtls_hmac(&pc->sha256MdContext, &signingKey, 
++    if(mbedtls_hmac(&pc->sha256MdContext, &signingKey,
+                     message, signature->data) != UA_STATUSCODE_GOOD)
+         return UA_STATUSCODE_BADSECURITYCHECKSFAILED;
+ 
+@@ -157351,7 +157351,7 @@ encrypt_pubsub_aes128ctr(const UA_PubSub
+         return UA_STATUSCODE_BADINTERNALERROR;
+     }
+ 
+-    /* Prepare the counterBlock required for encryption/decryption 
++    /* Prepare the counterBlock required for encryption/decryption
+      * Block counter starts at 1 according to part 14 (7.2.2.4.3.2)*/
+     UA_Byte counterBlockCopy[UA_AES128CTR_ENCRYPTION_BLOCK_SIZE];
+     UA_Byte counterInitialValue[4] = {0,0,0,1};
+@@ -174484,7 +174484,7 @@ UA_CreateCertificate(const UA_Logger *lo
+     if((pkey == NULL) || (x509 == NULL)) {
+         errRet = UA_STATUSCODE_BADOUTOFMEMORY;
+         goto cleanup;
+-    }    
++    }
+ #else
+     if(keyTypeEC) {
+         UA_LOG_ERROR(logger, UA_LOGCATEGORY_SECURECHANNEL,
+@@ -174767,7 +174767,7 @@ cleanup:
+     UA_String_clear(&fullAltSubj);
+ #if (OPENSSL_VERSION_NUMBER < 0x30000000L)
+     RSA_free(rsa);
+-    BN_free(exponent);    
++    BN_free(exponent);
+ #endif
+     X509_free(x509);
+     EVP_PKEY_free(pkey);
+@@ -175558,14 +175558,14 @@ UA_CertificateUtils_verifyApplicationUri
+     for(int i = 0; i < sk_GENERAL_NAME_num(pNames); i++) {
+         GENERAL_NAME *value = sk_GENERAL_NAME_value(pNames, i);
+         if(value->type == GEN_URI) {
+-            subjectURI.length = (size_t) (value->d.ia5->length);
++            subjectURI.length = (size_t) ASN1_STRING_length(value->d.ia5);
+             subjectURI.data = (UA_Byte*)UA_malloc(subjectURI.length);
+             if(!subjectURI.data) {
+                 X509_free(certificateX509);
+                 sk_GENERAL_NAME_pop_free(pNames, GENERAL_NAME_free);
+                 return UA_STATUSCODE_BADSECURITYCHECKSFAILED;
+             }
+-            (void)memcpy(subjectURI.data, value->d.ia5->data, subjectURI.length);
++            (void)memcpy(subjectURI.data, ASN1_STRING_get0_data(value->d.ia5), subjectURI.length);
+             break;
+         }
+     }

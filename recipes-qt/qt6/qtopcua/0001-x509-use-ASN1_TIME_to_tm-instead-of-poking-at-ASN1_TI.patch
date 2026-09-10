@@ -1,0 +1,179 @@
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 10 Sep 2026 07:20:00 +0000
+Subject: [PATCH] x509: use ASN1_TIME_to_tm() instead of poking at ASN1_TIME
+
+ASN1_TIME (struct asn1_string_st) is an opaque type as of OpenSSL 4.0 -
+it is no longer defined in any public header - so reaching into its
+members stops compiling:
+
+  openssl_symbols.cpp:640:31: error: invalid use of incomplete type 'const ASN1_TIME' {aka 'const struct asn1_string_st'}
+    640 |     size_t lTimeLength = aTime->length;
+  openssl_symbols.cpp:641:35: error: invalid use of incomplete type 'const ASN1_TIME' {aka 'const struct asn1_string_st'}
+  openssl_symbols.cpp:643:14: error: invalid use of incomplete type 'const ASN1_TIME' {aka 'const struct asn1_string_st'}
+  openssl_symbols.cpp:703:21: error: invalid use of incomplete type 'const ASN1_TIME' {aka 'const struct asn1_string_st'}
+
+q_getTimeFromASN1() hand-parsed the DER time string out of those
+members. Replace that with ASN1_TIME_to_tm(), the public accessor
+OpenSSL has offered since 1.1.1, which parses both UTCTime and
+GeneralizedTime and normalizes the result - including any timezone
+offset - into a UTC struct tm. This is exactly what qtbase does in
+dateTimeFromASN1() in src/plugins/tls/openssl/qx509_openssl.cpp, and
+the symbol is wired up here the same way qtbase wires it up in
+src/plugins/tls/openssl/qsslsocket_openssl_symbols.cpp.
+
+Besides restoring the build this drops ~80 lines of duplicated DER
+parsing, fixes the "control reaches end of non-void function" warning
+the old function emitted, and corrects the GeneralizedTime path, which
+built its QDate from a tm_mon that had never been converted from the
+1-based DER month to the 0-based tm convention the UTCTime path used.
+
+The comment crediting the contributed X509_cmp_time()-derived buffer
+parsing is dropped along with the code it described.
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+diff --git a/src/opcua/x509/openssl_symbols_p.h b/src/opcua/x509/openssl_symbols_p.h
+index 1111111..2222222 100644
+--- a/src/opcua/x509/openssl_symbols_p.h
++++ b/src/opcua/x509/openssl_symbols_p.h
+@@ -274,6 +274,7 @@
+ int q_PEM_write_bio_PUBKEY(BIO *a, EVP_PKEY *b);
+ 
+ void q_X509_free(X509 *a);
++int q_ASN1_TIME_to_tm(const ASN1_TIME *s, struct tm *tm);
+ ASN1_TIME *q_X509_gmtime_adj(ASN1_TIME *s, long adj);
+ void *q_X509_get_ext_d2i(X509 *a, int b, int *c, int *d);
+ void q_AUTHORITY_KEYID_free(AUTHORITY_KEYID *a);
+diff --git a/src/opcua/x509/openssl_symbols.cpp b/src/opcua/x509/openssl_symbols.cpp
+index 1111111..2222222 100644
+--- a/src/opcua/x509/openssl_symbols.cpp
++++ b/src/opcua/x509/openssl_symbols.cpp
+@@ -131,6 +131,7 @@
+ DEFINEFUNC4(EVP_PKEY *, PEM_read_bio_PUBKEY, BIO *a, a, EVP_PKEY **b, b, pem_password_cb *c, c, void *d, d, return nullptr, return)
+ DEFINEFUNC2(int, PEM_write_bio_PUBKEY, BIO *a, a, EVP_PKEY *b, b, return 0, return)
+ DEFINEFUNC(void, X509_free, X509 *a, a, return, DUMMYARG)
++DEFINEFUNC2(int, ASN1_TIME_to_tm, const ASN1_TIME *s, s, struct tm *tm, tm, return 0, return)
+ DEFINEFUNC2(ASN1_TIME *, X509_gmtime_adj, ASN1_TIME *s, s, long adj, adj, return nullptr, return)
+ DEFINEFUNC4(void *, X509_get_ext_d2i, X509 *a, a, int b, b, int *c, c, int *d, d, return nullptr, return)
+ DEFINEFUNC(void, AUTHORITY_KEYID_free, AUTHORITY_KEYID *a, a, return, DUMMYARG)
+@@ -587,6 +588,7 @@
+     RESOLVEFUNC(PEM_read_bio_PUBKEY)
+     RESOLVEFUNC(PEM_write_bio_PUBKEY)
+     RESOLVEFUNC(X509_free)
++    RESOLVEFUNC(ASN1_TIME_to_tm)
+     RESOLVEFUNC(X509_gmtime_adj)
+     RESOLVEFUNC(X509_get_ext_d2i)
+     RESOLVEFUNC(AUTHORITY_KEYID_free)
+@@ -631,101 +633,23 @@
+ }
+ #endif // !defined QT_LINKED_OPENSSL
+ 
+-//==============================================================================
+-// contributed by Jay Case of Sarvega, Inc.; http://sarvega.com/
+-// Based on X509_cmp_time() for initial buffer hacking.
+-//==============================================================================
+ QDateTime q_getTimeFromASN1(const ASN1_TIME *aTime)
+ {
+-    size_t lTimeLength = aTime->length;
+-    char *pString = (char *) aTime->data;
++    // ASN1_TIME is an opaque type as of OpenSSL 4.0, so its members cannot be
++    // read directly. ASN1_TIME_to_tm() parses both UTCTime and
++    // GeneralizedTime and normalizes the result - including any timezone
++    // offset - into a UTC struct tm.
++    struct tm lTime;
+ 
+-    if (aTime->type == V_ASN1_UTCTIME) {
+-
+-        char lBuffer[24];
+-        char *pBuffer = lBuffer;
+-
+-        if ((lTimeLength < 11) || (lTimeLength > 17))
+-            return QDateTime();
+-
+-        memcpy(pBuffer, pString, 10);
+-        pBuffer += 10;
+-        pString += 10;
+-
+-        if ((*pString == 'Z') || (*pString == '-') || (*pString == '+')) {
+-            *pBuffer++ = '0';
+-            *pBuffer++ = '0';
+-        } else {
+-            *pBuffer++ = *pString++;
+-            *pBuffer++ = *pString++;
+-            // Skip any fractional seconds...
+-            if (*pString == '.') {
+-                pString++;
+-                while ((*pString >= '0') && (*pString <= '9'))
+-                    pString++;
+-            }
+-        }
+-
+-        *pBuffer++ = 'Z';
+-        *pBuffer++ = '\0';
+-
+-        time_t lSecondsFromUCT;
+-        if (*pString == 'Z') {
+-            lSecondsFromUCT = 0;
+-        } else {
+-            if ((*pString != '+') && (*pString != '-'))
+-                return QDateTime();
+-
+-            lSecondsFromUCT = ((pString[1] - '0') * 10 + (pString[2] - '0')) * 60;
+-            lSecondsFromUCT += (pString[3] - '0') * 10 + (pString[4] - '0');
+-            lSecondsFromUCT *= 60;
+-            if (*pString == '-')
+-                lSecondsFromUCT = -lSecondsFromUCT;
+-        }
+-
+-        tm lTime;
+-        lTime.tm_sec = ((lBuffer[10] - '0') * 10) + (lBuffer[11] - '0');
+-        lTime.tm_min = ((lBuffer[8] - '0') * 10) + (lBuffer[9] - '0');
+-        lTime.tm_hour = ((lBuffer[6] - '0') * 10) + (lBuffer[7] - '0');
+-        lTime.tm_mday = ((lBuffer[4] - '0') * 10) + (lBuffer[5] - '0');
+-        lTime.tm_mon = (((lBuffer[2] - '0') * 10) + (lBuffer[3] - '0')) - 1;
+-        lTime.tm_year = ((lBuffer[0] - '0') * 10) + (lBuffer[1] - '0');
+-        if (lTime.tm_year < 50)
+-            lTime.tm_year += 100; // RFC 2459
+-
+-        QDate resDate(lTime.tm_year + 1900, lTime.tm_mon + 1, lTime.tm_mday);
+-        QTime resTime(lTime.tm_hour, lTime.tm_min, lTime.tm_sec);
+-
+-        QDateTime result(resDate, resTime, QTimeZone::UTC);
+-        result = result.addSecs(lSecondsFromUCT);
+-        return result;
+-
+-    } else if (aTime->type == V_ASN1_GENERALIZEDTIME) {
+-
+-        if (lTimeLength < 15)
+-            return QDateTime(); // hopefully never triggered
+-
+-        // generalized time is always YYYYMMDDHHMMSSZ (RFC 2459, section 4.1.2.5.2)
+-        tm lTime;
+-        lTime.tm_sec = ((pString[12] - '0') * 10) + (pString[13] - '0');
+-        lTime.tm_min = ((pString[10] - '0') * 10) + (pString[11] - '0');
+-        lTime.tm_hour = ((pString[8] - '0') * 10) + (pString[9] - '0');
+-        lTime.tm_mday = ((pString[6] - '0') * 10) + (pString[7] - '0');
+-        lTime.tm_mon = (((pString[4] - '0') * 10) + (pString[5] - '0'));
+-        lTime.tm_year = ((pString[0] - '0') * 1000) + ((pString[1] - '0') * 100) +
+-                        ((pString[2] - '0') * 10) + (pString[3] - '0');
+-
+-        QDate resDate(lTime.tm_year, lTime.tm_mon, lTime.tm_mday);
+-        QTime resTime(lTime.tm_hour, lTime.tm_min, lTime.tm_sec);
+-
+-        QDateTime result(resDate, resTime, QTimeZone::UTC);
+-        return result;
+-
+-    } else {
++    if (!q_ASN1_TIME_to_tm(aTime, &lTime)) {
+         qCWarning(lcOpcUaSsl, "unsupported date format detected");
+         return QDateTime();
+     }
+ 
++    const QDate resDate(lTime.tm_year + 1900, lTime.tm_mon + 1, lTime.tm_mday);
++    const QTime resTime(lTime.tm_hour, lTime.tm_min, lTime.tm_sec);
++
++    return QDateTime(resDate, resTime, QTimeZone::UTC);
+ }
+ 
+ } // namespace QtOpcUaSsl
