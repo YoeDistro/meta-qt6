@@ -22,23 +22,24 @@ The following table shows the Yocto releases that are used to test each
 Qt version (x) and any additional Yocto releases that are stated in
 the LAYERSERIES_COMPAT (c).
 
-| Yocto \ Qt | dev | 6.11 | 6.10 | 6.9 | 6.8 | 6.7 | 6.6 | 6.5 | 6.4 | 6.3 | 6.2 |
-|:---------- |:---:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| wrynose    |  x  |  x   |      |     |  x  |     |     |     |     |     |     |
-| whinlatter |  x  |  x   |  c   |  c  |  x  |     |     |     |     |     |     |
-| walnascar  |  c  |  c   |  c   |  c  |  c  |     |     |     |     |     |     |
-| styhead    |  c  |  c   |  c   |  c  |  c  |  c  |     |     |     |     |     |
-| scarthgap  |  x  |  x   |  c   |  c  |  x  |  c  |  c  |  x  |     |     |     |
-| nanbield   |     |      |  c   |  c  |  c  |  c  |  c  |  c  |     |     |     |
-| mickledore |     |      |  c   |  c  |  c  |  c  |  c  |  c  |  c  |     |     |
-| langdale   |     |      |  c   |  c  |  c  |  c  |  c  |  c  |  c  |     |     |
-| kirkstone  |     |      |  c   |  c  |  x  |  c  |  c  |  c  |  c  |  c  |  c  |
-| honister   |     |      |      |     |     |     |  c  |  c  |  c  |  c  |  c  |
-| hardknott  |     |      |      |     |     |     |  c  |  c  |  c  |  c  |  c  |
-| gatesgarth |     |      |      |     |     |     |  c  |  c  |  c  |  c  |  c  |
-| dunfell    |     |      |      |     |     |     |  c  |  c  |  c  |  c  |  c  |
-|            |     |      |      |     |     |     |     |     |     |     |     |
-|            | dev |stable|closed| EOS | LTS | EOS | EOS | ESM | EOS | EOS | EOS |
+| Yocto \ Qt | dev | 6.12 | 6.11 | 6.10 | 6.9 | 6.8 | 6.7 | 6.6 | 6.5 |
+|:---------- |:---:|:----:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|
+| blacksail  |  x  |      |      |      |     |     |     |     |     |
+| wrynose    |     |  x   |  x   |      |     |  x  |     |     |     |
+| whinlatter |     |  x   |  x   |  c   |  c  |  x  |     |     |     |
+| walnascar  |     |  c   |  c   |  c   |  c  |  c  |     |     |     |
+| styhead    |     |  c   |  c   |  c   |  c  |  c  |  c  |     |     |
+| scarthgap  |     |  x   |  x   |  c   |  c  |  x  |  c  |  c  |  x  |
+| nanbield   |     |      |      |  c   |  c  |  c  |  c  |  c  |  c  |
+| mickledore |     |      |      |  c   |  c  |  c  |  c  |  c  |  c  |
+| langdale   |     |      |      |  c   |  c  |  c  |  c  |  c  |  c  |
+| kirkstone  |     |      |      |  c   |  c  |  c  |  c  |  c  |  c  |
+| honister   |     |      |      |      |     |     |     |  c  |  c  |
+| hardknott  |     |      |      |      |     |     |     |  c  |  c  |
+| gatesgarth |     |      |      |      |     |     |     |  c  |  c  |
+| dunfell    |     |      |      |      |     |     |     |  c  |  c  |
+|            |     |      |      |      |     |     |     |     |     |
+|            | dev |stable|closed|closed| EOS | LTS | EOS | EOS | ESM |
 
 For more details about Qt versions, go to https://doc.qt.io/qt-6/qt-releases.html
 
