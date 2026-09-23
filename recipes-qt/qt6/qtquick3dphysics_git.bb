@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSES/GPL-3.0-only.txt;md5=d32239bcb673463ab874e80d47fae504 \
     file://LICENSES/LicenseRef-Qt-Commercial.txt;md5=40a1036f91cefc0e3fabad241fb5f187 \
     file://LICENSES/Qt-GPL-exception-1.0.txt;md5=9a13522cd91a88fba784baf16ea66af8 \
-    file://src/3rdparty/PhysX/LICENSE.md;md5=bf77e804d5e92c7e2764e9faf9ec1933 \
+    file://src/3rdparty/PhysX/LICENSE.md;md5=9eb9d752d9ac8c81c1f220e72afaca15 \
 "
 
 inherit qt6-cmake
