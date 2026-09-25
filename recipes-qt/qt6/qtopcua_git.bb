@@ -24,6 +24,12 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
+# temporarily disabled due missing openssl4.0 support
+EXTRA_OECMAKE += "\
+    -DFEATURE_open62541_security=OFF \
+    -DFEATURE_gds=OFF \
+"
+
 PACKAGECONFIG ?= "qml open62541"
 PACKAGECONFIG:class-native ?= ""
 PACKAGECONFIG:class-nativesdk ?= ""
