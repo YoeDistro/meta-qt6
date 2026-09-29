@@ -1,0 +1,25 @@
+From: Khem Raj <khem.raj@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 01:58:23 +0000
+Subject: [PATCH] systemd: Fix narrowing conversion of msg_iovlen on musl
+
+glibc declares struct msghdr::msg_iovlen as size_t, but musl declares
+it as int. Initializing it directly from the size_t iovLen counter
+therefore triggers a -Wc++11-narrowing error with clang on musl.
+Cast to the type of the field itself so the initializer is correct on
+both C libraries. iovLen is bounded by the fixed-size 14-element iovec
+array, so the cast does not truncate any real value.
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <khem.raj@oss.qualcomm.com>
+---
+--- a/src/common-lib/systemd.cpp
++++ b/src/common-lib/systemd.cpp
+@@ -361,7 +361,7 @@ bool Systemd::logToJournal(QtMsgType msg
+         .msg_name    = (struct ::sockaddr *) &sa,
+         .msg_namelen = saLen,
+         .msg_iov     = iov.data(),
+-        .msg_iovlen  = iovLen,
++        .msg_iovlen  = static_cast<decltype(::msghdr::msg_iovlen)>(iovLen),
+         .msg_control = nullptr,
+         .msg_controllen = 0,
+         .msg_flags   = 0,
