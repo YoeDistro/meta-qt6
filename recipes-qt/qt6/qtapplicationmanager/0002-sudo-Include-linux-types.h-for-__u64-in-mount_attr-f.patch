@@ -1,0 +1,28 @@
+From: Khem Raj <khem.raj@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 12:00:00 -0700
+Subject: [PATCH] sudo: Include linux/types.h for __u64 in mount_attr fallback
+
+The fallback definition of struct mount_attr, used when the C library
+headers do not provide MOUNT_ATTR_SIZE_VER0, uses the kernel __u64 type.
+With glibc >= 2.36 <sys/mount.h> includes <linux/mount.h>, so the
+fallback is never compiled. musl's <sys/mount.h> does not, and none of
+the other included headers pull in <linux/types.h>, so the build fails
+with:
+
+  sudo.cpp:111:5: error: unknown type name '__u64'
+
+Include <linux/types.h> in the fallback block.
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <khem.raj@oss.qualcomm.com>
+---
+--- a/src/systemui-lib/sudo/sudo.cpp
++++ b/src/systemui-lib/sudo/sudo.cpp
+@@ -106,6 +106,7 @@ extern "C" {
+ #endif
+ 
+ #ifndef MOUNT_ATTR_SIZE_VER0
++#  include <linux/types.h>
+ #  define MOUNT_ATTR_SIZE_VER0 32
+ struct mount_attr {
+     __u64 attr_set;
