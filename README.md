@@ -26,7 +26,7 @@ the LAYERSERIES_COMPAT (c).
 |:---------- |:---:|:----:|:----:|:----:|:---:|:---:|:---:|:---:|:---:|
 | blacksail  |  x  |      |      |      |     |     |     |     |     |
 | wrynose    |     |  x   |  x   |      |     |  x  |     |     |     |
-| whinlatter |     |  x   |  x   |  c   |  c  |  x  |     |     |     |
+| whinlatter |     |  c   |  x   |  c   |  c  |  x  |     |     |     |
 | walnascar  |     |  c   |  c   |  c   |  c  |  c  |     |     |     |
 | styhead    |     |  c   |  c   |  c   |  c  |  c  |  c  |     |     |
 | scarthgap  |     |  x   |  x   |  c   |  c  |  x  |  c  |  c  |  x  |
