@@ -30,6 +30,7 @@ PACKAGECONFIG ?= "\
 PACKAGECONFIG[alsa] = "-DFEATURE_alsa=ON,-DFEATURE_alsa=OFF,alsa-lib"
 PACKAGECONFIG[ffmpeg] = "-DFEATURE_ffmpeg=ON,-DFEATURE_ffmpeg=OFF,ffmpeg"
 PACKAGECONFIG[gstreamer] = "-DFEATURE_gstreamer=ON,-DFEATURE_gstreamer=OFF,gstreamer1.0 gstreamer1.0-plugins-base gstreamer1.0-plugins-bad"
+PACKAGECONFIG[gstreamer_qt_api] = "-DFEATURE_gstreamer_qt_api=ON,-DFEATURE_gstreamer_qt_api=OFF"
 PACKAGECONFIG[pulseaudio] = "-DFEATURE_pulseaudio=ON,-DFEATURE_pulseaudio=OFF,pulseaudio"
 PACKAGECONFIG[qml] = ",,qtdeclarative qtdeclarative-native"
 PACKAGECONFIG[spatialaudio] = "-DFEATURE_spatialaudio=ON,-DFEATURE_spatialaudio=OFF"
