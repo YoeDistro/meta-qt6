@@ -1,0 +1,83 @@
+From 508de5f2690b7ab5eb96710aa14fa8d059c80178 Mon Sep 17 00:00:00 2001
+From: Jonas Karlsson <jonas.karlsson@qt.io>
+Date: Fri, 9 Oct 2026 11:42:21 +0200
+Subject: [PATCH] PhysX: Skip the packing check on 32-bit x86 with GCC
+
+PhysX checks that the application has not set the pack value below 8 by
+asserting that a long long follows a char at offset 8 in a struct. On
+32-bit x86 the System V ABI aligns 8 byte types in structs to 4 bytes,
+so the offset is 4 without any packing having been changed, and since
+the assertion is in PxPreprocessor.h, it fails in every translation
+unit of a GCC build for i686, as the Yocto builds for core2-32 do.
+PhysX already skips the check for clang there; GCC lays the struct out
+the same way, and -malign-double, which would make it pass, changes the
+ABI.
+
+The PhysX 4.1 copy had the check removed altogether, which the update
+to PhysX 5 did not carry over. Skip it for both compilers on 32-bit x86
+only, as patch 0020, so that every other target keeps it.
+
+Amends 7533abcc02b7f9bd7953203c489ee86d55e8c909
+
+Task-number: QTBUG-151314
+Assisted-by: Claude Code
+Change-Id: Ie22e3982e7281621e1ec4846778be8a4d7801af0
+
+Upstream-Status: Pending
+---
+ .../PhysX/include/foundation/PxPreprocessor.h |  3 +-
+ ...packing-check-on-32-bit-x86-with-GCC.patch | 31 +++++++++++++++++++
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+ create mode 100644 src/3rdparty/PhysX/patches/0020-PhysX-Skip-the-packing-check-on-32-bit-x86-with-GCC.patch
+
+diff --git a/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h b/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h
+index 6ebca30..ae37c15 100644
+--- a/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h
++++ b/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h
+@@ -479,7 +479,8 @@ PX_CUDA_CALLABLE PX_INLINE void PX_UNUSED(T const&)
+ 	};
+ #endif
+ // clang (as of version 3.9) cannot align doubles on 8 byte boundary  when compiling for Intel 32 bit target
+-#if !PX_APPLE_FAMILY && !PX_EMSCRIPTEN && !(PX_CLANG && PX_X86)
++// and neither can GCC without -malign-double, which breaks the i386 ABI
++#if !PX_APPLE_FAMILY && !PX_EMSCRIPTEN && !(PX_GCC_FAMILY && PX_X86)
+ 	PX_COMPILE_TIME_ASSERT(PX_OFFSET_OF(PxPackValidation, a) == 8);
+ #endif
+ 
+diff --git a/src/3rdparty/PhysX/patches/0020-PhysX-Skip-the-packing-check-on-32-bit-x86-with-GCC.patch b/src/3rdparty/PhysX/patches/0020-PhysX-Skip-the-packing-check-on-32-bit-x86-with-GCC.patch
+new file mode 100644
+index 0000000..6df8405
+--- /dev/null
++++ b/src/3rdparty/PhysX/patches/0020-PhysX-Skip-the-packing-check-on-32-bit-x86-with-GCC.patch
+@@ -0,0 +1,31 @@
++From: Jonas Karlsson <jonas.karlsson@qt.io>
++Subject: [PATCH] PhysX: Skip the packing check on 32-bit x86 with GCC
++
++PhysX checks that the application has not set the pack value below 8 by
++asserting that a long long follows a char at offset 8 in a struct. On
++32-bit x86 the System V ABI aligns 8 byte types in structs to 4 bytes,
++so the offset is 4 without any packing having been changed, and the
++assertion fails in every translation unit, as PxPreprocessor.h is
++included everywhere. PhysX already skips the check for clang there;
++GCC lays the struct out the same way, and -malign-double, which would
++make it pass, changes the ABI.
++
++Skip it for both, which PX_GCC_FAMILY covers. Every other target keeps
++the check.
++---
++ src/3rdparty/PhysX/include/foundation/PxPreprocessor.h | 3 ++-
++ 1 file changed, 2 insertions(+), 1 deletion(-)
++
++diff --git a/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h b/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h
++--- a/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h
+++++ b/src/3rdparty/PhysX/include/foundation/PxPreprocessor.h
++@@ -479,7 +479,8 @@ PX_CUDA_CALLABLE PX_INLINE void PX_UNUSED(T const&)
++ 	};
++ #endif
++ // clang (as of version 3.9) cannot align doubles on 8 byte boundary  when compiling for Intel 32 bit target
++-#if !PX_APPLE_FAMILY && !PX_EMSCRIPTEN && !(PX_CLANG && PX_X86)
+++// and neither can GCC without -malign-double, which breaks the i386 ABI
+++#if !PX_APPLE_FAMILY && !PX_EMSCRIPTEN && !(PX_GCC_FAMILY && PX_X86)
++ 	PX_COMPILE_TIME_ASSERT(PX_OFFSET_OF(PxPackValidation, a) == 8);
++ #endif
++ 
