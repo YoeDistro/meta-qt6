@@ -1,4 +1,4 @@
-From 8e4941e7bbf399fcbda9dbc17ad1c018dd82b65f Mon Sep 17 00:00:00 2001
+From 48b39920c65daf23d34af6097938a2b7f18d754e Mon Sep 17 00:00:00 2001
 From: Khem Raj <raj.khem@gmail.com>
 Date: Mon, 29 Apr 2019 12:00:19 +0300
 Subject: [PATCH] Remove the GN settings done for clang that conflict with OE
@@ -20,13 +20,13 @@ Rebased-by: Randy MacLeod <randy.macleod@windriver.com>
  1 file changed, 39 deletions(-)
 
 diff --git a/chromium/build/config/compiler/BUILD.gn b/chromium/build/config/compiler/BUILD.gn
-index 55430d8b3d7..1d0edfd9bd9 100644
+index b621ebc71f9..e8239f7629f 100644
 --- a/chromium/build/config/compiler/BUILD.gn
 +++ b/chromium/build/config/compiler/BUILD.gn
 @@ -1378,8 +1378,6 @@ config("compiler_cpu_abi") {
      # simplicity we always explicitly set the architecture.
      if (current_cpu == "x64") {
-       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device) {
+       if (is_clang && !is_android && !is_fuchsia && !is_chromeos_device && !is_ohos) {
 -        cflags += [ "--target=x86_64-unknown-linux-gnu" ]
 -        ldflags += [ "--target=x86_64-unknown-linux-gnu" ]
        } else {
@@ -142,6 +142,3 @@ index 55430d8b3d7..1d0edfd9bd9 100644
        cflags += [ "-m64" ]
        ldflags += [ "-m64" ]
      }
--- 
-2.34.1
-
