@@ -13,11 +13,6 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
-SRC_URI += " \
-   file://0001-PhysX-Skip-the-packing-check-on-32-bit-x86-with-GCC.patch \
-   file://0002-PhysX-Pin-the-glibc-math-symbols-on-x86-64-only.patch \
-"
-
 COMPATIBLE_MACHINE = "(-)"
 COMPATIBLE_MACHINE:aarch64 = "(.*)"
 COMPATIBLE_MACHINE:arm = "(.*)"
