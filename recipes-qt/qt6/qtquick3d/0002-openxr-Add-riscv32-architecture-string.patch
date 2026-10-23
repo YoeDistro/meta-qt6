@@ -1,0 +1,30 @@
+From 924082ae1f85afb831f854566d0a83bbad2648c1 Mon Sep 17 00:00:00 2001
+From: Khem Raj <khem.raj@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 08:55:57 -0700
+Subject: [PATCH] openxr: Add riscv32 architecture string
+
+The bundled OpenXR loader only knows riscv64, so building for 32-bit
+RISC-V fails with:
+
+  platform_utils.hpp:77:2: error: "No architecture string known!"
+
+Add a riscv32 entry matching the existing riscv64 one.
+
+Upstream-Status: Submitted [https://github.com/KhronosGroup/OpenXR-SDK-Source/pull/621]
+Signed-off-by: Khem Raj <khem.raj@oss.qualcomm.com>
+---
+ src/3rdparty/openxr/src/common/platform_utils.hpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/3rdparty/openxr/src/common/platform_utils.hpp b/src/3rdparty/openxr/src/common/platform_utils.hpp
+--- a/src/3rdparty/openxr/src/common/platform_utils.hpp
++++ b/src/3rdparty/openxr/src/common/platform_utils.hpp
+@@ -69,6 +69,8 @@
+ #define XR_ARCH_ABI "m68k"
+ #elif defined(__riscv_xlen) && (__riscv_xlen == 64)
+ #define XR_ARCH_ABI "riscv64"
++#elif defined(__riscv_xlen) && (__riscv_xlen == 32)
++#define XR_ARCH_ABI "riscv32"
+ #elif defined(__sparc__) && defined(__arch64__)
+ #define XR_ARCH_ABI "sparc64"
+ #elif defined(__loongarch64)
