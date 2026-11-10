@@ -1,0 +1,38 @@
+From 2eb43707a0c171eabfd39fa328b6d42b2be7a7b6 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 10 Nov 2026 06:11:40 +0000
+Subject: [PATCH] shiboken6_generator: Do not embed the cross compiler path
+
+When cross-compiling, CMAKE_CXX_COMPILER is a path inside the build
+machine's sysroot which does not exist on the target and leaks the build
+directory into the shiboken6 binary. Record only the compiler file name in
+that case; compilerFromCMake() already resolves a relative name via PATH,
+which is also what it falls back to when the absolute path does not exist.
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ sources/shiboken6_generator/ApiExtractor/CMakeLists.txt | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/sources/shiboken6_generator/ApiExtractor/CMakeLists.txt b/sources/shiboken6_generator/ApiExtractor/CMakeLists.txt
+index 3f955aa..9cd2004 100644
+--- a/sources/shiboken6_generator/ApiExtractor/CMakeLists.txt
++++ b/sources/shiboken6_generator/ApiExtractor/CMakeLists.txt
+@@ -131,8 +131,15 @@ if (NOT DISABLE_DOCSTRINGS)
+                    qtdocparser.cpp qtdocparser.h)
+ endif()
+ 
++# The build machine's compiler path is meaningless when cross-compiling and
++# leaks the build directory into the binary, only record its file name.
++set(shiboken_cxx_compiler "${CMAKE_CXX_COMPILER}")
++if(CMAKE_CROSSCOMPILING)
++    get_filename_component(shiboken_cxx_compiler "${CMAKE_CXX_COMPILER}" NAME)
++endif()
++
+ target_compile_definitions(apiextractor
+-                           PRIVATE CMAKE_CXX_COMPILER="${CMAKE_CXX_COMPILER}"
++                           PRIVATE CMAKE_CXX_COMPILER="${shiboken_cxx_compiler}"
+                            PRIVATE QT_LEAN_HEADERS=1)
+ 
+ if (BUILD_TESTS)
