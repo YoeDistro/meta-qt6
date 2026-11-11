@@ -10,4 +10,5 @@ EXTRA_OECONF:remove:mingw32 = "--without-cng"
 # libtool refuses to create a DLL and installs only libarchive.a. Consumers such
 # as nativesdk-cmake then fail to link (undefined lzma_*, ZSTD_*, BCrypt*,
 # CreateXmlReader). Disable XmlLite to get libarchive.dll.a back.
-EXTRA_OECONF:append:mingw32 = " --without-xmllite"
+# Applied from 3.8.10 onwards; 3.8.9 unaffected.
+EXTRA_OECONF:append:mingw32 = "${@' --without-xmllite' if bb.utils.vercmp_string_op(d.getVar('PV'), '3.8.10', '>=') else ''}"
