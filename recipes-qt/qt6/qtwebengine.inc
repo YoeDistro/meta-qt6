@@ -29,7 +29,7 @@ def gettext_oeconf(d):
     return ""
 
 QT_MODULE = "qtwebengine"
-QT_MODULE_BRANCH = "6.140"
+QT_MODULE_BRANCH = "6.140.0"
 QT_MODULE_BRANCH_CHROMIUM = "140-based"
 PV = "${QT_MODULE_BRANCH}"
 
