@@ -91,4 +91,9 @@ INSANE_SKIP:${PN} += "textrel"
 FULL_OPTIMIZATION:remove:armv7a = "${@bb.utils.contains('TUNE_FEATURES', 'neon', '-O2', '', d)}"
 FULL_OPTIMIZATION:append:armv7a = "${@bb.utils.contains('TUNE_FEATURES', 'neon', ' -O1', '', d)}"
 
+# skcms enables [[clang::musttail]] stage dispatch for GCC >= 15 also on 32-bit ARM
+# (clang excludes __arm__), which fails with "inlining failed in call to 'always_inline'
+# exec_stages: target specific option mismatch". Force the non-musttail path.
+TARGET_CXXFLAGS:append:arm = " -DSKCMS_HAS_MUSTTAIL=0"
+
 INSANE_SKIP:${PN}-ptest += "buildpaths"
