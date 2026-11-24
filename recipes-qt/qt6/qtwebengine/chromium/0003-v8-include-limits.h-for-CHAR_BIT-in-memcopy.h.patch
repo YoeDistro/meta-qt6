@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Mikko Gronoff <mikko.gronoff@qt.io>
+Date: Mon, 23 Nov 2026 12:00:00 +0200
+Subject: [PATCH] v8: include limits.h for CHAR_BIT in memcopy.h
+
+SimdMemCopy() in the NEON path uses CHAR_BIT, but memcopy.h does not
+include <limits.h>/<climits> and relied on it arriving transitively.
+With GCC 16's libstdc++ it no longer does, breaking arm64 builds:
+
+  v8/src/base/memcopy.h:57:23: error: 'CHAR_BIT' was not declared
+      in this scope
+
+Include the header directly.
+
+Upstream-Status: Pending
+---
+ chromium/v8/src/base/memcopy.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/chromium/v8/src/base/memcopy.h b/chromium/v8/src/base/memcopy.h
+index 266bbe3..0693feb 100644
+--- a/chromium/v8/src/base/memcopy.h
++++ b/chromium/v8/src/base/memcopy.h
+@@ -5,6 +5,7 @@
+ #ifndef V8_BASE_MEMCOPY_H_
+ #define V8_BASE_MEMCOPY_H_
+ 
++#include <limits.h>
+ #include <stdlib.h>
+ 
+ #include <atomic>
