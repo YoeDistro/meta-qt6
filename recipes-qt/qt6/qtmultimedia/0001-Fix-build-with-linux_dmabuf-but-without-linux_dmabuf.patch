@@ -1,0 +1,107 @@
+From 7ce217af2c3a5fc9761ab776b90eea2ed2d88b21 Mon Sep 17 00:00:00 2001
+From: Mikko Gronoff <mikko.gronoff@qt.io>
+Date: Wed, 25 Nov 2026 08:53:41 +0200
+Subject: [PATCH] Fix build with linux_dmabuf but without linux_dmabuf_egl
+
+qdmabufvideobuffer.cpp uses q23::expected since commit
+062c55560983, but only got qexpected_p.h transitively through
+qdmabuftextureimporter_p.h, which is included only when EGL texture
+import is enabled. Since c62c0e94cf90, linux_dmabuf no longer depends
+on EGL/OpenGL, so builds with linux_dmabuf but without
+linux_dmabuf_egl (e.g. -no-opengl Yocto targets) failed with
+"'expected' in namespace 'q23' does not name a template type".
+Include the header directly.
+
+tst_qdmabufvideobuffer is built for linux_dmabuf, but unconditionally
+included qdmabuftextureimporter_p.h, which is only available with
+linux_dmabuf_egl. Guard that include and the GL mapTextures tests
+with linux_dmabuf_egl, so the CPU map tests still build and run.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+Upstream-Status: Pending
+---
+ src/multimedia/video/qdmabufvideobuffer.cpp        |  1 +
+ .../qdmabufvideobuffer/tst_qdmabufvideobuffer.cpp  | 14 +++++++++++---
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/src/multimedia/video/qdmabufvideobuffer.cpp b/src/multimedia/video/qdmabufvideobuffer.cpp
+index cb65087e4..d14aeb7f9 100644
+--- a/src/multimedia/video/qdmabufvideobuffer.cpp
++++ b/src/multimedia/video/qdmabufvideobuffer.cpp
+@@ -9,6 +9,7 @@
+ #include <QtGui/rhi/qrhi.h>
+ #include <QtCore/qloggingcategory.h>
+ #include <QtCore/private/qcore_unix_p.h>
++#include <QtCore/private/qexpected_p.h>
+ 
+ #if QT_CONFIG(linux_dmabuf_egl)
+ #  include <QtMultimedia/private/qdmabuftextureimporter_p.h>
+diff --git a/tests/auto/unit/multimedia/qdmabufvideobuffer/tst_qdmabufvideobuffer.cpp b/tests/auto/unit/multimedia/qdmabufvideobuffer/tst_qdmabufvideobuffer.cpp
+index c6cd028a1..cadd5487f 100644
+--- a/tests/auto/unit/multimedia/qdmabufvideobuffer/tst_qdmabufvideobuffer.cpp
++++ b/tests/auto/unit/multimedia/qdmabufvideobuffer/tst_qdmabufvideobuffer.cpp
+@@ -3,13 +3,15 @@
+ 
+ #include <QtMultimediaTestLib/private/udmabuftestutils_p.h>
+ #include <QtTest/qtest.h>
+-#include <QtMultimedia/private/qdmabuftextureimporter_p.h>
+ #include <QtMultimedia/private/qdmabufvideobuffer_p.h>
+ #include <QtMultimedia/private/qmultimedia_drm_support_p.h>
+ #include <QtMultimedia/private/qvideotexturehelper_p.h>
++#if QT_CONFIG(linux_dmabuf_egl)
++#  include <QtMultimedia/private/qdmabuftextureimporter_p.h>
++#  include <QtGui/qopenglfunctions.h>
++#endif
+ #include <QtGui/qguiapplication.h>
+ #include <QtGui/qoffscreensurface.h>
+-#include <QtGui/qopenglfunctions.h>
+ #include <QtGui/qsurfaceformat.h>
+ #include <QtGui/rhi/qrhi.h>
+ #include <QtCore/qscopedpointer.h>
+@@ -82,10 +84,12 @@ class tst_QDmaBufVideoBuffer : public QObject
+ 
+ private slots:
+     void map_roundTripsPixelData_whenGivenUdmabufBackedPlane();
+-    void mapTextures_roundTripsPixelData_whenGivenUdmabufBackedPlane();
+     void map_roundTripsPixelData_whenGivenUdmabufBackedNV12Planes();
++#if QT_CONFIG(linux_dmabuf_egl)
++    void mapTextures_roundTripsPixelData_whenGivenUdmabufBackedPlane();
+     void mapTextures_exposesBothHandles_whenGivenUdmabufBackedNV12Planes();
+     void mapTextures_exposesSingleHandle_whenGivenUdmabufBackedNV12PlanesSingleImage();
++#endif
+ };
+ 
+ void tst_QDmaBufVideoBuffer::map_roundTripsPixelData_whenGivenUdmabufBackedPlane()
+@@ -125,6 +129,7 @@ void tst_QDmaBufVideoBuffer::map_roundTripsPixelData_whenGivenUdmabufBackedPlane
+     buffer.unmap();
+ }
+ 
++#if QT_CONFIG(linux_dmabuf_egl)
+ void tst_QDmaBufVideoBuffer::mapTextures_roundTripsPixelData_whenGivenUdmabufBackedPlane()
+ {
+     if (!canUseUdmabuf())
+@@ -193,6 +198,7 @@ void tst_QDmaBufVideoBuffer::mapTextures_roundTripsPixelData_whenGivenUdmabufBac
+ 
+     QCOMPARE(readback, pixels);
+ }
++#endif // QT_CONFIG(linux_dmabuf_egl)
+ 
+ void tst_QDmaBufVideoBuffer::map_roundTripsPixelData_whenGivenUdmabufBackedNV12Planes()
+ {
+@@ -226,6 +232,7 @@ void tst_QDmaBufVideoBuffer::map_roundTripsPixelData_whenGivenUdmabufBackedNV12P
+     buffer.unmap();
+ }
+ 
++#if QT_CONFIG(linux_dmabuf_egl)
+ void tst_QDmaBufVideoBuffer::mapTextures_exposesBothHandles_whenGivenUdmabufBackedNV12Planes()
+ {
+     if (!canUseUdmabuf())
+@@ -320,6 +327,7 @@ void tst_QDmaBufVideoBuffer::
+     QVERIFY(textures->texture(0));
+     QVERIFY(!textures->texture(1));
+ }
++#endif // QT_CONFIG(linux_dmabuf_egl)
+ 
+ int main(int argc, char *argv[])
+ {

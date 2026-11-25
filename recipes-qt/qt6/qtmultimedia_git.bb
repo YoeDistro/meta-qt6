@@ -20,6 +20,8 @@ inherit qt6-cmake
 include recipes-qt/qt6/qt6-git.inc
 include recipes-qt/qt6/qt6.inc
 
+SRC_URI += "file://0001-Fix-build-with-linux_dmabuf-but-without-linux_dmabuf.patch"
+
 DEPENDS += "qtbase qtshadertools qtshadertools-native"
 
 PACKAGECONFIG ?= "\
